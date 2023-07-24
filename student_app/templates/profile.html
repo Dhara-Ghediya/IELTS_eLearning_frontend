@@ -23,6 +23,14 @@
     <!-- Header End -->
 
 <div><br><br>
+
+    <table class="tab brown hd" style="margin-left: 61%;">
+		<tr>
+			<td style="display: flex; justify-content: flex-end;"> <a href="{% url 'login' %}">Skip</a> </td>
+		</tr>
+	</table><br>
+    
+
 	<table class="tab brown hd" style="margin-left: auto; margin-right: auto;">
 		<tr>
 			<td> <h2> Create Your Profile: </h2> </td>
@@ -38,7 +46,7 @@
                     {% if 'tcher_user' not in request.session.keys %}
 					Which best describes you? <br>
                     <select name="profile_option" >
-                        <option value="student">Student</option>
+                        <option value="current_student">Current Student</option>
                         <option value="parent_or_guardian">Parent or Guardian of Student</option>
                         <option value="working_professional">Working Professional</option>
                         <option value="institution_staff">Institution Staff</option>
@@ -56,8 +64,8 @@
                     </select> <br><br>
 
 					I confirm that I accept the site’s <a href="">Terms</a> and <a href=""> Privacy </a> agreements and <br> allow my data to be held for as long as I am registered with this Website. <br>
-					<label> Yes <input type="checkbox"></label>
-					<label> No <input type="checkbox" ></label>
+					<label> Yes <input type="radio" name="terms"></label>
+					<label> No <input type="radio" name="terms"></label>
 					<input type="submit" value="Submit">
 				</form>
 			</td>
