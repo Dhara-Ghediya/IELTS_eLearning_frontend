@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white animated slideInDown">Registration Page</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">Login Page</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+<div><br><br>
+	<table class="tab brown hd" style="margin-left: auto; margin-right: auto;">
+		<tr>
+			<td> <h2> Create Your Account: </h2> </td>
+		</tr>
+	</table><br>
+
+	<table class="tab" border="0px" style="margin-left: auto; margin-right: auto;">
+		
+		<tr>
+			<td>
+				<form action="" method="post">
+					{% csrf_token %}
+					Select your Identity:	
+					<select name="identity"> 
+						
+						<option value="student">Student</option>
+						<option value="teacher">Teacher</option>
+					</select><br><br>
+					Username: <input type="text" name="username"  placeholder="Please enter your Username" required><br/><br/>
+					Email Id : <input type="email" name="email"  placeholder="Please enter your email" required><br/><br/>
+					Password : <input type="password" name="password"  placeholder="Please enter Password" required><br/><br/>
+                    Confirm Password : <input type="password" name="conf-password"  placeholder="Please enter Confirm Password" required><br/><br/>
+					{% comment %} FirstName: <input type="text" name="firstname" required><br/><br/>
+					Last Name: <input type="text" name="lastname" required><br/><br/>
+					Address : <input type="text" name="address" required><br/><br/>
+					Phone No : <input type="text" name="phone" required><br/><br/>
+					Email Id : <input type="email" name="mailid" pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]$" required><br/><br/> {% endcomment %}
+					<input type="submit" value="SignUp">
+					Already signed up? <a href="{% url 'login' %}">go to login page</a>! 
+				</form>
+			</td>
+			
+		</tr>  
+	</table>
+</div>	
+{% endblock content %}

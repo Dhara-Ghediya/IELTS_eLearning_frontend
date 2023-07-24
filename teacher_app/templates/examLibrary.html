@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white animated slideInDown">IELTS Exam Library</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">Exam Library</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+<div><br><br>
+	<table class="tab brown hd" style="margin-left: auto; margin-right: auto;">
+		<tr>
+			<td> <h2> Test Opations </h2> </td>
+		</tr>
+	</table><br>
+
+	<table class="tab" border="0px" style="margin-left: auto; margin-right: auto;">
+		
+		<tr>
+			<td>
+				<form action="" method="post">
+					{% csrf_token %}
+                    {% if 'tcher_user' in request.session %}
+                    <h6>Select type of Test which type of question you want Add for...</h6>
+                    <select name="profile_option" >
+                        <option value="writing"> Writing Tests</option>
+                        <option value="listening"> Listening Tests</option>
+                        <option value="speaking"> Speaking Tests</option>
+                        <option value="reading"> Reading Tests</option>
+                        
+                    </select><br><br>
+                    {% else %}
+					<h6>Select type of Tests from below options which you want give!</h6>
+                    <select name="profile_option" >
+                        <option value="writing">IELTS Writing Tests</option>
+                        <option value="listening">IELTS Listening Tests</option>
+                        <option value="speaking">IELTS Speaking Tests</option>
+                        <option value="reading">IELTS Reading Tests</option>
+                        
+                    </select><br><br>
+                    {% endif %}
+					
+					<input type="submit" value="Next">
+				</form>
+			</td>
+			
+		</tr>  
+	</table>
+</div>	
+
+{% endblock content %}

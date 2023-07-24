@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white animated slideInDown">Create Your Profile</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">Profile</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+<div><br><br>
+	<table class="tab brown hd" style="margin-left: auto; margin-right: auto;">
+		<tr>
+			<td> <h2> Create Your Profile: </h2> </td>
+		</tr>
+	</table><br>
+
+	<table class="tab" border="0px" style="margin-left: auto; margin-right: auto;">
+		
+		<tr>
+			<td>
+				<form action="" method="post">
+					{% csrf_token %}
+                    {% if 'tcher_user' not in request.session.keys %}
+					Which best describes you? <br>
+                    <select name="profile_option" >
+                        <option value="student">Student</option>
+                        <option value="parent_or_guardian">Parent or Guardian of Student</option>
+                        <option value="working_professional">Working Professional</option>
+                        <option value="institution_staff">Institution Staff</option>
+                        <option value="partner">Partner</option>
+                    </select><br><br>
+                    {% endif %}
+					First Name: <input type="text" name="fname" placeholder="Enter Your First Name" required> <br><br>
+					Last Name: <input type="text" name="lname" placeholder="Enter Your Last Name" required> <br><br>
+					Country: <input type="text" name="country" placeholder="Enter Your Country/Region of Residence" required> <br><br>
+                    Age: <input type="number" name="age" placeholder="Enter Your Age" required> <br><br>
+                    Mobile No.: <input type="number" name="mobile" placeholder="Enter Your Mobile No." required> <br><br>
+                    Gender: <select name="gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select> <br><br>
+
+					I confirm that I accept the site’s <a href="">Terms</a> and <a href=""> Privacy </a> agreements and <br> allow my data to be held for as long as I am registered with this Website. <br>
+					<label> Yes <input type="checkbox"></label>
+					<label> No <input type="checkbox" ></label>
+					<input type="submit" value="Submit">
+				</form>
+			</td>
+			
+		</tr>  
+	</table>
+</div>	
+{% endblock content %}

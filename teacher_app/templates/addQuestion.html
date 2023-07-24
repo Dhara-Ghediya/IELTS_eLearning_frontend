@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white animated slideInDown">Post Questions</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">Add Ques.</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+    <div><br><br>
+        <table class="tab brown hd" style="margin-left: auto; margin-right: auto;">
+            <tr>
+                <td> <h2> Post Question for {{option}} Tests: </h2> </td>
+            </tr>
+        </table><br>
+    
+        <table class="tab" border="0px" style="margin-left: auto; margin-right: auto;">
+            
+            <tr>
+                <td>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {% if 'profile_option' in request.session.keys %}
+                        <input type="hidden" name="option" value="{{request.session.profile_option}}">
+                        Text Content: <input type="text" name="text_content"  placeholder="Enter Text Content of Question" required><br/><br/>
+                        Add Image: <input type="file" name="add_image" placeholder="Add Image if require for your Question"> (optional) <br/><br/>
+                        Total Marks of Question: <input type="number" name="total_marks" placeholder="Enter Total Marks of Question" required><br/><br/>
+                        {% endif %}
+                        <input type="submit" value="Post Question">
+                    </form>
+                </td>
+                
+            </tr>  
+        </table>
+    </div>
+
+{% endblock content %}
