@@ -17,20 +17,39 @@ import requests
 # def profile(request):
 #     return render(request, 'profile.html')
 
-def courses(request):
-    return render(request, 'courses.html')
+def writingTest(request):
+    if request.method == 'POST':
+        tcher = request.session.get('tcher_user')
+        content = request.POST.get('content')
+        images = request.POST.get('images')
+        marks = request.POST.get('marks')
+        urls = f'{url}teacher/writing-tests'
+        # urls="http://127.0.0.1:8000/teacher/listning-tests"
+        print("url:",urls)
+        data = {
+            "teacher": tcher,
+            "content": content,
+            "images": images,
+            "questionMarks": marks,
+        }
+        response = requests.post(url=urls, json=data)
+        print(response.status_code, "yyiyi")
+        if response.status_code == 201:
+            messages.success(request, 'Question added successfully!')
+            return redirect('writingTest')
+    return render(request, 'writingTest.html')
 
-def about(request):
-    return render(request, 'about.html')
+# def about(request):
+#     return render(request, 'about.html')
 
-def contact(request):
-    return render(request, 'contact.html')
+# def contact(request):
+#     return render(request, 'contact.html')
 
-def team (request):
-    return render(request, 'team.html')
+# def team (request):
+#     return render(request, 'team.html')
 
-def testimonial(request):
-    return render(request, 'testimonial.html')
+# def testimonial(request):
+#     return render(request, 'testimonial.html')
 
-def four04(request):
-    return render(request, '404.html')
+# def four04(request):
+#     return render(request, '404.html')

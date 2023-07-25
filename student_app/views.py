@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from IELTS_eLearning_frontend.localsettings import url
 from django.contrib import messages
 import requests
@@ -85,7 +85,6 @@ def logout(request):
         if response.status_code == 200:
             request.session.pop('username')
             if 'username' in request.session.keys() == 'std_user' in request.session.keys():
-
                 request.session.pop('std_user')
             if 'username' in request.session.keys() == 'tcher_user' in request.session.keys():
                 request.session.pop('tcher_user')
@@ -123,6 +122,25 @@ def profile(request):
                 messages.info(request, response.json())
                 return redirect('profile')
     return render(request, 'profile.html')
+
+def examLibrary(request):
+    if request.method == 'POST':
+        option = request.POST.get('profile_option')
+        request.session['profile_option'] = option
+
+        if option == 'writing':
+            # return render(request, "../../teacher_app/templates/writingTest.html", {'option': option})
+            return HttpResponseRedirect('teacher/writingTest')
+        if option == 'listening':
+            pass
+        if option =='speaking':
+            pass
+        if option == 'reading':
+            pass
+        
+        # return render(request, 'addQuestion.html', {'option': option})
+        return redirect('post_questions')
+    return render(request, 'examLibrary.html')
 
 def courses(request):
     return render(request, 'courses.html')
