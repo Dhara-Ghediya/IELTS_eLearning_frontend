@@ -19,7 +19,7 @@ import requests
 
 def writingTest(request):
     if request.method == 'POST':
-        tcher = request.session.get('tcher_user')
+        tcher = request.session['tcher_user']
         content = request.POST.get('content')
         images = request.POST.get('images')
         marks = request.POST.get('marks')
@@ -36,6 +36,9 @@ def writingTest(request):
         print(response.status_code, "yyiyi")
         if response.status_code == 201:
             messages.success(request, 'Question added successfully!')
+            return redirect('writingTest')
+        else:
+            messages.error(request, 'Something went wrong!')
             return redirect('writingTest')
     return render(request, 'writingTest.html')
 

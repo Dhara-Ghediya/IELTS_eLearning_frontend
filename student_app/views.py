@@ -56,19 +56,11 @@ def login(request):
         response = requests.post(url=login_url, data=data)
         if response.status_code == 201:
             request.session['username'] = response.json()["username"]
-            # request.session['email'] = response.json()['email']
             if identity == "student":
                 request.session['std_user']= response.json()["username"]
             else:
                 request.session['tcher_user']= response.json()["username"]
             messages.info(request, "Loged in successfully!")
-            ########################################################################
-            print("user..", request.session['username'])
-            if identity == "student":
-                print("std", request.session['std_user'])
-            else:
-                print("tcher", request.session['tcher_user'])
-            ########################################################################
             return redirect('home')
         else:
             messages.info(request, response.json()['msg'])
@@ -83,11 +75,13 @@ def logout(request):
         }
         response = requests.post(url=urls, json=data)
         if response.status_code == 200:
+            if 'std_user' in request.session:
+                if request.session['username'] == request.session['std_user']:
+                    request.session.pop('std_user')
+            if 'tcher_user' in request.session:
+                if request.session['username'] == request.session['tcher_user']:
+                    request.session.pop('tcher_user')
             request.session.pop('username')
-            if 'username' in request.session.keys() == 'std_user' in request.session.keys():
-                request.session.pop('std_user')
-            if 'username' in request.session.keys() == 'tcher_user' in request.session.keys():
-                request.session.pop('tcher_user')
             messages.info(request, "Logout successfully!")
         else:
             return HttpResponse("could not Logout", status=405)
@@ -127,19 +121,21 @@ def examLibrary(request):
     if request.method == 'POST':
         option = request.POST.get('profile_option')
         request.session['profile_option'] = option
-
-        if option == 'writing':
-            # return render(request, "../../teacher_app/templates/writingTest.html", {'option': option})
-            return HttpResponseRedirect('teacher/writingTest')
-        if option == 'listening':
-            pass
-        if option =='speaking':
-            pass
-        if option == 'reading':
+        if 'tcher_user' in request.session.keys():
+            if option == 'writing':
+                # return render(request, "../../teacher_app/templates/writingTest.html", {'option': option})
+                return HttpResponseRedirect('teacher/writingTest')
+            if option == 'listening':
+                pass
+            if option =='speaking':
+                pass
+            if option == 'reading':
+                pass
+            # return redirect('post_questions')
+        else:
             pass
         
         # return render(request, 'addQuestion.html', {'option': option})
-        return redirect('post_questions')
     return render(request, 'examLibrary.html')
 
 def courses(request):
