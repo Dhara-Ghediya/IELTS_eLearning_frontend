@@ -128,7 +128,7 @@ def examLibrary(request):
             if option == 'listening':
                 return HttpResponseRedirect('teacher/listeningTest')
             if option =='speaking':
-                pass
+                return HttpResponseRedirect('teacher/speakingTest')
             if option == 'reading':
                 pass
             # return redirect('post_questions')
