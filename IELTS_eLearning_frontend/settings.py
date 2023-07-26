@@ -124,3 +124,11 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Set a unique session cookie name for admin users
+SESSION_COOKIE_NAME_ADMIN = 'sessionid_admin'
+# Set a unique session cookie name for custom users
+SESSION_COOKIE_NAME_CUSTOM_USER = 'sessionid_custom_user'
+# Set the default session cookie name to the one used for custom users
+SESSION_COOKIE_NAME = SESSION_COOKIE_NAME_CUSTOM_USER

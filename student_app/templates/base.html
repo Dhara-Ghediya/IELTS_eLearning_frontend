@@ -74,7 +74,7 @@
                 <a href="{% url 'home' %}" class="nav-item nav-link active">Home</a>
                 <a href="{% url 'about' %}" class="nav-item nav-link">About</a>
                 {% if 'tcher_user' in request.session %}
-                <a href="{% url 'courses' %}" class="nav-item nav-link">Add Questions</a>
+                <a href="{% url 'courses' %}" class="nav-item nav-link">Teacher Toolbox</a>
                 {% else %}
                 <a href="{% url 'courses' %}" class="nav-item nav-link">Courses</a>
                 {% endif %}
