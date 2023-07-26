@@ -15,7 +15,9 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+        rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -30,25 +32,29 @@
 
     <!-- Template Stylesheet -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-        input, select {
+        input,
+        select {
             width: 100%;
             padding: 12px;
             border: 1px solid #ccc;
             border-radius: 4px;
             resize: vertical;
-            }
+        }
 
-            label {
+        label {
             padding: 12px 12px 12px 0;
             display: inline-block;
-            }
+        }
     </style>
 </head>
 
 <body>
     <!-- Spinner Start -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
             <span class="sr-only">Loading...</span>
         </div>
@@ -83,37 +89,86 @@
                 <a href="{% url 'contact' %}" class="nav-item nav-link">Contact</a>
             </div>
             {% if 'username' not in request.session.keys %}
-            <a href="{% url 'login' %}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="{% url 'login' %}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i
+                    class="fa fa-arrow-right ms-3"></i></a>
             {% else %}
+            
             {% comment %} <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s"> {% endcomment %}
-                    <div class="service-item text-center">
-                        <div>
-                            <a href="{% url 'profile' %}">
-                            <i class="fa fa-3x fa-user-alt text-primary"></i><br>
-                            {{ request.session.username }}
-                            </a>
-                        </div>
+                
+                <div class="nav-item dropdown ">
+                    <a href="#" class="nav-link " data-bs-toggle="dropdown"><i
+                            class="fas fa-user-circle fa-3x"></i></a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <p class="dropdown-item">{{ request.session.username }}</p>
+                        <a href="{% url 'testimonial' %}" class="dropdown-item">Testimonial</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
                     </div>
-                    <a href="{% url 'logout' %}" class="nav-item nav-link">Logout</a>
                 </div>
-            {% endif %}
+
+<style>
+/* CSS for enabling hover effect */
+.dropdown:hover .dropdown-menu {
+    display: block;
+    pointer-events: auto;
+    right: 0;
+    top: 100%;
+    margin-top: 4px;
+    transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out;
+}
+.dropdown .dropdown-menu {
+    pointer-events: auto;
+    right: 0;
+    top: 100%;
+    margin-top: 1px;
+    transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out;
+}
+.dropdown-menu.show {
+    right: 0;
+    pointer-events: none; /* Disable pointer events by default */
+}
+</style>
+
+                {% endif %}
+            </div>
         </div>
     </nav>
     <!-- Navbar End -->
 
     {% if messages %}
-		<div class="messages">
-		{% for message in messages %}
-			<div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>
-				{{ message }}
-			</div>
-		{% endfor %}
-		</div>
-	{% endif %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}" {% endif %}>
+            <script type="text/javascript">
+                var message="{{ message | safe }}";
+                msg=message.replace(/'/g, '"')
+                msg=JSON.parse(msg)
+                console.log(typeof msg.msg)
+                if (typeof msg.msg == 'object'){
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Oops... error',
+                    text: message,
+                    })
+                    
+                }
+                else{
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Oops... error',
+                    text: msg.msg,
+                    })
+                }
+                console.log(msg.msg[0]['password']);
+            </script>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
 
-{% block content%}
+    {% block content%}
 
-{% endblock content %}
+    {% endblock content %}
 
 
     <!-- Testimonial Start -->
@@ -125,35 +180,43 @@
             </div>
             <div class="owl-carousel testimonial-carousel position-relative">
                 <div class="testimonial-item text-center">
-                    <img class="border rounded-circle p-2 mx-auto mb-3" src="{{MEDIA_URL}}/static/img/testimonial-1.jpg" style="width: 80px; height: 80px;">
+                    <img class="border rounded-circle p-2 mx-auto mb-3" src="{{MEDIA_URL}}/static/img/testimonial-1.jpg"
+                        style="width: 80px; height: 80px;">
                     <h5 class="mb-0">Client Name</h5>
                     <p>Profession</p>
                     <div class="testimonial-text bg-light text-center p-4">
-                    <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                        <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et
+                            eos. Clita erat ipsum et lorem et sit.</p>
                     </div>
                 </div>
                 <div class="testimonial-item text-center">
-                    <img class="border rounded-circle p-2 mx-auto mb-3" src="{{MEDIA_URL}}/static/img/testimonial-2.jpg" style="width: 80px; height: 80px;">
+                    <img class="border rounded-circle p-2 mx-auto mb-3" src="{{MEDIA_URL}}/static/img/testimonial-2.jpg"
+                        style="width: 80px; height: 80px;">
                     <h5 class="mb-0">Client Name</h5>
                     <p>Profession</p>
                     <div class="testimonial-text bg-light text-center p-4">
-                    <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                        <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et
+                            eos. Clita erat ipsum et lorem et sit.</p>
                     </div>
                 </div>
                 <div class="testimonial-item text-center">
-                    <img class="border rounded-circle p-2 mx-auto mb-3" src="{{MEDIA_URL}}/static/img/testimonial-3.jpg" style="width: 80px; height: 80px;">
+                    <img class="border rounded-circle p-2 mx-auto mb-3" src="{{MEDIA_URL}}/static/img/testimonial-3.jpg"
+                        style="width: 80px; height: 80px;">
                     <h5 class="mb-0">Client Name</h5>
                     <p>Profession</p>
                     <div class="testimonial-text bg-light text-center p-4">
-                    <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                        <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et
+                            eos. Clita erat ipsum et lorem et sit.</p>
                     </div>
                 </div>
                 <div class="testimonial-item text-center">
-                    <img class="border rounded-circle p-2 mx-auto mb-3" src="{{MEDIA_URL}}/static/img/testimonial-4.jpg" style="width: 80px; height: 80px;">
+                    <img class="border rounded-circle p-2 mx-auto mb-3" src="{{MEDIA_URL}}/static/img/testimonial-4.jpg"
+                        style="width: 80px; height: 80px;">
                     <h5 class="mb-0">Client Name</h5>
                     <p>Profession</p>
                     <div class="testimonial-text bg-light text-center p-4">
-                    <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                        <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et
+                            eos. Clita erat ipsum et lorem et sit.</p>
                     </div>
                 </div>
             </div>
@@ -213,7 +276,8 @@
                     <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
                     <div class="position-relative mx-auto" style="max-width: 400px;">
                         <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
-                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                        <button type="button"
+                            class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
                     </div>
                 </div>
             </div>
