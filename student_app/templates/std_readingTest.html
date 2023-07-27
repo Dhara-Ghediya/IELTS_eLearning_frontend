@@ -35,6 +35,7 @@
 				<form action="" method="post" enctype="multipart/form-data">
 					
 					{% csrf_token %}
+                    <input type="hidden" name="que_id" value="{{data.0.id}}">
                     <h4>Read below Passage carefully:</h4> <br>
                     {{data.0.question}} <br><br>
                     <h4> Answer below 5 quesions based on above Passage:</h4> <br>
