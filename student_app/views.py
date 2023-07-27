@@ -155,9 +155,21 @@ def examLibrary(request):
 
 def writingTest(request):
     if 'std_user' in request.session.keys():
-        if request.method == 'POST':
-            pass
         urls = f'{url}writing-test'
+        if request.method == 'POST':
+            que = request.POST.get('que_id')
+            ans = request.POST.get('answer')
+            ans_data = {
+                "que_id": que,
+                "answer": ans
+            }
+            response = requests.post(url=urls, json=ans_data)
+            if response.status_code == 201:
+                messages.success(request, {'msg': "Answer was submitted successfully!"})
+                return redirect('examLibrary')
+            else:
+                messages.error(request, {'msg': "Answer submission failed!"})
+                return redirect('writing_test')
         response = requests.get(url=urls)
         if response.status_code == 200:
             data = response.json()
