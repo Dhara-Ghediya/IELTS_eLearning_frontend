@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="table-responsive container mt-4 ">
+    <table class="table 
+    table-hover	
+    table-responsive
+    align-middle">
+        <thead class="table-secondary">
+            <caption>Good luck for next test</caption>
+            <tr>
+                <th>No</th>
+                <th>time</th>
+                <th>test type</th>
+                <th>professor</th>
+                <th>professor Email</th>
+                <th>status</th>
+                <th>marks</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            <tr class="">
+                <td>1</td>
+                <td>1-JANUARY-2022 12:20 PM</td>
+                <td>Writing Test</td>
+                <td>B.B. patel</td>
+                <td>bbpatel@gmail.com</td>
+                <td><span class="badge rounded-pill bg-secondary">Not Checked</span></td>
+                <td>-</td>
+            </tr>
+            <tr class="">
+                <td>1</td>
+                <td>1-JANUARY-2022 12:20 PM</td>
+                <td>Writing Test</td>
+                <td>B.B. patel</td>
+                <td>bbpatel@gmail.com</td>
+                <td><span class="badge rounded-pill bg-success">Checked</span></td>
+                <td>20</td>
+            </tr>
+            <tr class="">
+                <td>1</td>
+                <td>1-JANUARY-2022 12:20 PM</td>
+                <td>Writing Test</td>
+                <td>B.B. patel</td>
+                <td>bbpatel@gmail.com</td>
+                <td><span class="badge rounded-pill bg-secondary">Not Checked</span></td>
+                <td>20</td>
+            </tr>
+
+        </tbody>
+        <tfoot>
+
+        </tfoot>
+    </table>
+</div>
+
+{% endblock content %}

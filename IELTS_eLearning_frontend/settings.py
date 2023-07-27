@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'student_app',
     'teacher_app',
-    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -132,3 +131,4 @@ SESSION_COOKIE_NAME_ADMIN = 'sessionid_admin'
 SESSION_COOKIE_NAME_CUSTOM_USER = 'sessionid_custom_user'
 # Set the default session cookie name to the one used for custom users
 SESSION_COOKIE_NAME = SESSION_COOKIE_NAME_CUSTOM_USER
+

@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from IELTS_eLearning_frontend.localsettings import url, media_url
@@ -6,7 +7,10 @@ import requests
 
 # Create your views here.
 def home(request):
-    return render(request, 'index.html')
+    urls = f'{url}writing test'
+    response=requests.get(url=urls)
+    print(response.json())
+    return render(request, 'index.html',context={'title': 'Home'})
 
 def register(request):
     if request.method == 'POST':
@@ -37,7 +41,7 @@ def register(request):
         else:
             messages.info(request,response.json())
             return redirect('register')
-    return render(request, 'register.html')
+    return render(request, 'register.html',context={'title': 'register'})
 
 def login(request):
     if request.method == "POST":
@@ -58,14 +62,16 @@ def login(request):
             request.session['username'] = response.json()["username"]
             if identity == "student":
                 request.session['std_user']= response.json()["username"]
+                request.session['std_token'] = response.json()["token"]
             else:
                 request.session['tcher_user']= response.json()["username"]
+                request.session['tcher_token'] = response.json()["token"]
             messages.info(request, "Loged in successfully!")
             return redirect('home')
         else:
             messages.info(request, response.json()['msg'])
             return redirect("login")
-    return render(request, 'login.html')
+    return render(request, 'login.html',context={'title': 'login'})
 
 def logout(request):
     if 'username' in request.session.keys():
@@ -115,7 +121,7 @@ def profile(request):
             else:
                 messages.info(request, response.json())
                 return redirect('profile')
-    return render(request, 'profile.html')
+    return render(request, 'profile.html',context={'title': 'profile'})
 
 def examLibrary(request):
     if request.method == 'POST':
@@ -145,7 +151,7 @@ def examLibrary(request):
         else:
             pass
         # return render(request, 'addQuestion.html', {'option': option})
-    return render(request, 'examLibrary.html')
+    return render(request, 'examLibrary.html',context={'title': 'examLibrary'})
 
 def writingTest(request):
     if 'std_user' in request.session.keys():
@@ -211,19 +217,25 @@ def readingTest(request):
 
 
 def courses(request):
-    return render(request, 'courses.html')
+    return render(request, 'courses.html',context={'title': 'course'})
 
 def about(request):
-    return render(request, 'about.html')
+    return render(request, 'about.html',context={'title': 'about'})
 
 def contact(request):
-    return render(request, 'contact.html')
+    return render(request, 'contact.html',context={'title': 'contact'})
 
 def team (request):
-    return render(request, 'team.html')
+    return render(request, 'team.html',context={'title': 'team'})
 
 def testimonial(request):
-    return render(request, 'testimonial.html')
+    return render(request, 'testimonial.html',context={'title': 'testimonial'})
 
 def four04(request):
-    return render(request, '404.html')
+    return render(request, '404.html',context={'title': '404'})
+
+def myTests(request):
+    urls = f'{url}student-myTests-writingTest'
+    response=requests.get(url=urls)
+    print(response.json())
+    return render(request,'myTests.html',context={'title':'myTests'})
