@@ -132,11 +132,11 @@ def examLibrary(request):
                 # return render(request, "../../teacher_app/templates/writingTest.html", {'option': option})
                 return HttpResponseRedirect('teacher/writingTest')
             if option == 'listening':
-                pass
+                return HttpResponseRedirect('teacher/listeningTest')
             if option =='speaking':
-                pass
+                return HttpResponseRedirect('teacher/speakingTest')
             if option == 'reading':
-                pass
+                return HttpResponseRedirect('teacher/readingTest')
             # return redirect('post_questions')
         else:
             pass
