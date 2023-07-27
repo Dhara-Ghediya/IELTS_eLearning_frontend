@@ -35,7 +35,7 @@
 					{% csrf_token %}
                     <h4>You have to discuss on below topic, At least 10 min you have to talk about it.</h4> <br>
 
-					<b>Topic name: </b> {{data.0.question}}
+					<b>Topic name: </b> {{data.0.question}} <br><br>
                     <input type="audio" name="audio_file" placeholder="Enter Audio File" required><br/><br/>
 					<input type="submit" value="Submit">
 				</form>
@@ -44,7 +44,7 @@
 	</table>
 </div>	
 
-
+<!-- 
 
 <div class="mic-box__btn-group -static">
     <button id="js-reset-exam" class="iot-bt mic-box__btn-reset -test-again">
@@ -65,4 +65,4 @@
     </button>
 </div>
 
-{% endblock content %}
+{% endblock content %} -->

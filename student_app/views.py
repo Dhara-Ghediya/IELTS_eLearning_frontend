@@ -9,7 +9,7 @@ import requests
 def home(request):
     urls = f'{url}writing test'
     response=requests.get(url=urls)
-    print(response.json())
+    # print(response.json())
     return render(request, 'index.html',context={'title': 'Home'})
 
 def register(request):
@@ -156,21 +156,25 @@ def examLibrary(request):
 def writingTest(request):
     if 'std_user' in request.session.keys():
         urls = f'{url}writing-test'
+        headers = {
+            'token': request.session['std_token'],
+        }
         if request.method == 'POST':
             que = request.POST.get('que_id')
             ans = request.POST.get('answer')
-            ans_data = {
-                "que_id": que,
-                "answer": ans
-            }
-            response = requests.post(url=urls, json=ans_data)
+            payload = {'question': que,
+                        'answer': ans
+                    }
+            response = requests.request("POST", urls, headers=headers, data=payload)
             if response.status_code == 201:
                 messages.success(request, {'msg': "Answer was submitted successfully!"})
                 return redirect('examLibrary')
             else:
                 messages.error(request, {'msg': "Answer submission failed!"})
                 return redirect('writing_test')
-        response = requests.get(url=urls)
+       
+        # to handle GET request
+        response = requests.request("GET", urls, headers=headers)
         if response.status_code == 200:
             data = response.json()
             return render(request, 'std_writingTest.html', {"data": data, "media_url": media_url})
@@ -182,14 +186,28 @@ def writingTest(request):
 
 def listeningTest(request):
     if 'std_user' in request.session.keys():
-        if request.method == 'POST':
-            pass
         urls = f'{url}listing-test'
-        response = requests.get(url=urls)
+        headers = {
+            'token': request.session['std_token'],
+        }
+        if request.method == 'POST':
+            que = request.POST.get('que_id')
+            ans = request.POST.get('answer')
+            payload = {'question': que,
+                        'answer': ans
+                    }
+            response = requests.request("POST", urls, headers=headers, data=payload)
+            if response.status_code == 201:
+                messages.success(request, {'msg': "Answer was submitted successfully!"})
+                return redirect('examLibrary')
+            else:
+                messages.error(request, {'msg': "Answer submission failed!"})
+                return redirect('listening_test')
+        
+        response = requests.request("GET", urls, headers=headers)
         if response.status_code == 200:
             data = response.json()
             audio = data[0]['question']
-            print("audio:... ", audio)
             return render(request, 'std_listeningTest.html', {"data": data, "media_url": audio})
         else:
             return render(request, 'std_listeningTest.html')
@@ -199,10 +217,14 @@ def listeningTest(request):
 
 def speakingTest(request): 
     if 'std_user' in request.session.keys():
+        urls = f'{url}speaking-test'
+        headers = {
+            'token': request.session['std_token'],
+        }
         if request.method == 'POST':
             pass
-        urls = f'{url}speaking-test'
-        response = requests.get(url=urls)
+        
+        response = requests.request("GET", urls, headers=headers)
         if response.status_code == 200:
             data = response.json()
             return render(request, 'std_speakingTest.html', {"data": data})
@@ -214,10 +236,33 @@ def speakingTest(request):
 
 def readingTest(request):
     if 'std_user' in request.session.keys():
-        if request.method == 'POST':
-            pass
         urls = f'{url}reading-test'
-        response = requests.get(url=urls)
+        headers = {
+            'token': request.session['std_token'],
+        }
+        if request.method == 'POST':
+            que = request.POST.get('que_id')
+            ans1 = request.POST.get('answer1')
+            ans2 = request.POST.get('answer2')
+            ans3 = request.POST.get('answer3')
+            ans4 = request.POST.get('answer4')
+            ans5 = request.POST.get('answer5')
+            payload = {'question': que,
+                        'firstQuestionAnswer': ans1,
+                        'secondQuestionAnswer': ans2,
+                        'thirdQuestionAnswer': ans3,
+                        'fourthQuestionAnswer': ans4,
+                        'fifthQuestionAnswer': ans5
+                    }
+            response = requests.request("POST", urls, headers=headers, data=payload)
+            if response.status_code == 201:
+                messages.success(request, {'msg': "Answer was submitted successfully!"})
+                return redirect('examLibrary')
+            else:
+                messages.error(request, {'msg': "Answer submission failed!"})
+                return redirect('reading_test')
+        
+        response = requests.request("GET", urls, headers=headers)
         if response.status_code == 200:
             data = response.json()
             return render(request, 'std_readingTest.html', {"data": data})
@@ -249,5 +294,5 @@ def four04(request):
 def myTests(request):
     urls = f'{url}student-myTests-writingTest'
     response=requests.get(url=urls)
-    print(response.json())
+    # print(response.json())
     return render(request,'myTests.html',context={'title':'myTests'})
