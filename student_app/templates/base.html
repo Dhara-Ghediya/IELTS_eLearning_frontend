@@ -4,7 +4,7 @@
 <head>
     {% load static %}
     <meta charset="utf-8">
-    <title>eLEARNING - eLearning HTML Template</title>
+    <title>eLEARNING-{{title}}</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -71,12 +71,12 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="{% url 'home' %}" class="nav-item nav-link active">Home</a>
-                <a href="{% url 'about' %}" class="nav-item nav-link">About</a>
+                <a href="{% url 'home' %}" class="nav-item nav-link {% if title == 'Home' %}active{% endif %}">Home</a>
+                <a href="{% url 'about' %}" class="nav-item nav-link {% if title == 'about' %}active{% endif %}">About</a>
                 {% if 'tcher_user' in request.session %}
-                <a href="{% url 'courses' %}" class="nav-item nav-link">Teacher Toolbox</a>
+                <a href="{% url 'courses' %}" class="nav-item nav-link {% if title == 'course' %}active{% endif %}">Teacher Toolbox</a>
                 {% else %}
-                <a href="{% url 'courses' %}" class="nav-item nav-link">Courses</a>
+                <a href="{% url 'courses' %}" class="nav-item nav-link {% if title == 'course' %}active{% endif %}">Courses</a>
                 {% endif %}
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
@@ -86,7 +86,7 @@
                         <a href="{% url '404' %}" class="dropdown-item">404 Page</a>
                     </div>
                 </div>
-                <a href="{% url 'contact' %}" class="nav-item nav-link">Contact</a>
+                <a href="{% url 'contact' %}" class="nav-item nav-link {% if title == 'contact' %}active{% endif %}">Contact</a>
             </div>
             {% if 'username' not in request.session.keys %}
             <a href="{% url 'login' %}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i
@@ -96,16 +96,15 @@
             {% comment %} <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s"> {% endcomment %}
                 
                 <div class="nav-item dropdown ">
-                    <a href="#" class="nav-link " data-bs-toggle="dropdown"><i
-                            class="fas fa-user-circle fa-3x"></i></a>
-                    <div class="dropdown-menu dropdown-menu-end">
-                        <p class="dropdown-item">{{ request.session.username }}</p>
-                        <a href="{% url 'testimonial' %}" class="dropdown-item">Testimonial</a>
-                        <div class="dropdown-divider"></div>
+                    <a href="{% url 'profile' %}" class="nav-link " data-bs-toggle="dropdown"><i class="fas fa-user-circle fa-3x"></i></a>
+                    <div class="dropdown-menu dropdown-menu-end ">
+                        <a href="{% url 'profile' %}" class="dropdown-item">{{ request.session.username }}</a>
+                        <a href="{% url 'myTests' %}" class="dropdown-item">My tests</a>
+                        <div class="  dropdown-divider"></div>
                         <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
                     </div>
                 </div>
-
+                
 <style>
 /* CSS for enabling hover effect */
 .dropdown:hover .dropdown-menu {
@@ -138,7 +137,6 @@
     {% if messages %}
     <div class="messages">
         {% for message in messages %}
-        <div class="alert {% if message.tags %}alert-{{ message.tags }}" {% endif %}>
             <script type="text/javascript">
                 var message="{{ message | safe }}";
                 msg=message.replace(/'/g, '"')
@@ -161,68 +159,17 @@
                 }
                 console.log(msg.msg[0]['password']);
             </script>
-        </div>
         {% endfor %}
     </div>
     {% endif %}
 
     {% block content%}
 
+
+    
+    
+    
     {% endblock content %}
-
-
-    <!-- Testimonial Start -->
-    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="container">
-            <div class="text-center">
-                <h6 class="section-title bg-white text-center text-primary px-3">Testimonial</h6>
-                <h1 class="mb-5">Our Students Say!</h1>
-            </div>
-            <div class="owl-carousel testimonial-carousel position-relative">
-                <div class="testimonial-item text-center">
-                    <img class="border rounded-circle p-2 mx-auto mb-3" src="{{MEDIA_URL}}/static/img/testimonial-1.jpg"
-                        style="width: 80px; height: 80px;">
-                    <h5 class="mb-0">Client Name</h5>
-                    <p>Profession</p>
-                    <div class="testimonial-text bg-light text-center p-4">
-                        <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et
-                            eos. Clita erat ipsum et lorem et sit.</p>
-                    </div>
-                </div>
-                <div class="testimonial-item text-center">
-                    <img class="border rounded-circle p-2 mx-auto mb-3" src="{{MEDIA_URL}}/static/img/testimonial-2.jpg"
-                        style="width: 80px; height: 80px;">
-                    <h5 class="mb-0">Client Name</h5>
-                    <p>Profession</p>
-                    <div class="testimonial-text bg-light text-center p-4">
-                        <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et
-                            eos. Clita erat ipsum et lorem et sit.</p>
-                    </div>
-                </div>
-                <div class="testimonial-item text-center">
-                    <img class="border rounded-circle p-2 mx-auto mb-3" src="{{MEDIA_URL}}/static/img/testimonial-3.jpg"
-                        style="width: 80px; height: 80px;">
-                    <h5 class="mb-0">Client Name</h5>
-                    <p>Profession</p>
-                    <div class="testimonial-text bg-light text-center p-4">
-                        <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et
-                            eos. Clita erat ipsum et lorem et sit.</p>
-                    </div>
-                </div>
-                <div class="testimonial-item text-center">
-                    <img class="border rounded-circle p-2 mx-auto mb-3" src="{{MEDIA_URL}}/static/img/testimonial-4.jpg"
-                        style="width: 80px; height: 80px;">
-                    <h5 class="mb-0">Client Name</h5>
-                    <p>Profession</p>
-                    <div class="testimonial-text bg-light text-center p-4">
-                        <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et
-                            eos. Clita erat ipsum et lorem et sit.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Testimonial End -->
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
