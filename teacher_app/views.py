@@ -3,7 +3,7 @@ from IELTS_eLearning_frontend.localsettings import url
 from django.contrib import messages
 import requests
 
-def writingTest(request):
+def teacherWritingTest(request):
     if request.method == 'POST':
         tcher = request.session['tcher_user']
         content = request.POST.get('content')
@@ -26,7 +26,7 @@ def writingTest(request):
             return redirect('writingTest')
     return render(request, 'writingTest.html')
 
-def listeningTest(request):
+def teacherListeningTest(request):
     if request.method == 'POST':
         tcher = request.session['tcher_user']
         audio = request.FILES.get('audio_file')
@@ -47,7 +47,7 @@ def listeningTest(request):
             return redirect('listeningTest')
     return render(request, 'listeningTest.html')
 
-def speakingTest(request):
+def teacherSpeakingTest(request):
     if request.method == 'POST':
         tcher = request.session['tcher_user']
         topic = request.POST.get('content')
@@ -65,7 +65,7 @@ def speakingTest(request):
             return redirect('speakingTest')
     return render(request,'speakingTest.html')
 
-def readingTest(request):
+def teacherReadingTest(request):
     if request.method == 'POST':
         tcher = request.session['tcher_user']
         question = request.POST.get('content')

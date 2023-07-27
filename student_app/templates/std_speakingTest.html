@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white animated slideInDown">Speaking Test</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">Speaking Test</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+<div><br><br>
+	<table class="tab brown hd" style="margin-left: auto; margin-right: auto;">
+		<tr>
+			<td> <h2> Answer below Questions... </h2> </td>
+		</tr>
+	</table><br>
+
+	<table class="tab" border="0px" style="margin-left: auto; margin-right: auto;">
+		
+		<tr>
+			<td>
+				<form action="" method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+                    <h4>You have to discuss on below topic, At least 10 min you have to talk about it.</h4> <br>
+
+					<b>Topic name: </b> {{data.0.question}}
+                    <input type="audio" name="audio_file" placeholder="Enter Audio File" required><br/><br/>
+					<input type="submit" value="Submit">
+				</form>
+			</td>
+		</tr> 
+	</table>
+</div>	
+
+
+
+<div class="mic-box__btn-group -static">
+    <button id="js-reset-exam" class="iot-bt mic-box__btn-reset -test-again">
+        Test Mic Again
+        <span class="ioticon-arrow-rotate-left"></span>
+    </button>
+    <button id="js-record" class="iot-bt mic-box__btn-main -pink test-btn" data-time-record="20">
+        Test Microphone
+        <span class="ioticon-play-circle"></span>
+    </button>
+    <a id="js-next-part" class="iot-bt mic-box__btn-next-part -pink iot-bt -next-part" href="/ielts-mock-test-2023-january-speaking-practice-test-1/test/start">
+        Start Exam
+        <span class="ioticon-forward-fast"></span>
+    </a>
+    <button id="js-skip-test-mic" class="iot-bt mic-box__btn-skip" data-target="#modal-reset-record">
+        Skip
+        <span class="ioticon-arrow-right-to-line"></span>
+    </button>
+</div>
+
+{% endblock content %}

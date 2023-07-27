@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white animated slideInDown">Writing Test</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">Writing Test</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+<div><br><br>
+	<table class="tab brown hd" style="margin-left: auto; margin-right: auto;">
+		<tr>
+			<td> <h2> Answer below Questions... </h2> </td>
+		</tr>
+	</table><br>
+
+	<table class="tab" border="0px" style="margin-left: auto; margin-right: auto; margin: 0% 20%;">
+		
+		<tr>
+			<td>
+				<form action="" method="post" enctype="multipart/form-data">
+					
+					{% csrf_token %}
+                    <h4>You should spend about 30 minutes on this task.</h4><br>
+                    <h6>
+                        {{data.0.question.content}} 
+                    </h6><br>
+                    {% if data.0.question.images is not empty %}
+                    <img src="{{media_url}}{{data.0.question.images}}" alt="question image">
+                    {% endif %} <br><br>
+                    <h4>You should write at least 200 words.</h4>
+					Write Your Answer Here: <br>
+                    <textarea name="answer" cols="150" rows="10" placeholder="Start Writing..." required></textarea> <br><br>
+					<input type="submit" value="Submit">
+				</form>
+			</td>
+		</tr> 
+	</table>
+</div>	
+
+{% endblock content %}
