@@ -222,7 +222,22 @@ def speakingTest(request):
             'token': request.session['std_token'],
         }
         if request.method == 'POST':
-            pass
+            que = request.POST.get('que_id')
+            ans = request.FILES.get('audio_file')
+            print('Audio', ans)
+            payload = {
+                'question': que
+            }
+            files = {
+                'answer': ans
+            }
+            response = requests.request("POST", urls, headers=headers, data=payload, files=files)
+            if response.status_code == 201:
+                messages.success(request, {'msg': "Answer was submitted successfully!"})
+                return redirect('examLibrary')
+            else:
+                messages.error(request, {'msg': "Answer submission failed!"})
+                return redirect('speaking_test')
         
         response = requests.request("GET", urls, headers=headers)
         if response.status_code == 200:
