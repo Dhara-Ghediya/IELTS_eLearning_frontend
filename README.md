@@ -58,3 +58,16 @@ This project is created for Frontend
 ```
     python manage.py runserver 5000
 ```
+
+## Note
+if you are changing backend server port or it address than in 
+
+IELTS_eLearning_frontend
+
+
+    └── IELTS_eLearning_frontend
+        └── localsetting.py
+
+- thare we defind valiables for call backend APIs
+`url=` give your backend server url
+`media_url=` give backend server url
