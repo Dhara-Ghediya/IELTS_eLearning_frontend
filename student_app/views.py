@@ -162,6 +162,8 @@ def writingTest(request):
         if request.method == 'POST':
             que = request.POST.get('que_id')
             ans = request.POST.get('answer')
+            if str(ans).strip() == "":
+                ans = "None"
             payload = {'question': que,
                         'answer': ans
                     }
