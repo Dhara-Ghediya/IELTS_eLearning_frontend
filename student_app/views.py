@@ -9,7 +9,6 @@ import requests
 def home(request):
     urls = f'{url}writing test'
     response=requests.get(url=urls)
-    # print(response.json())
     return render(request, 'index.html',context={'title': 'Home'})
 
 def register(request):
@@ -66,7 +65,7 @@ def login(request):
             else:
                 request.session['tcher_user']= response.json()["username"]
                 request.session['tcher_token'] = response.json()["token"]
-            messages.info(request, "Loged in successfully!")
+            messages.info(request, "Logged in successfully!")
             return redirect('home')
         else:
             messages.info(request, response.json()['msg'])
@@ -144,7 +143,6 @@ def examLibrary(request):
             if option == 'listening':
                 return redirect('listening_test')
             if option =='speaking':
-                print("speaking")
                 return redirect('speaking_test')
             if option =='reading':
                 return redirect('reading_test')
@@ -195,6 +193,8 @@ def listeningTest(request):
         if request.method == 'POST':
             que = request.POST.get('que_id')
             ans = request.POST.get('answer')
+            if str(ans).strip() == "":
+                ans = "None"
             payload = {'question': que,
                         'answer': ans
                     }
@@ -226,7 +226,8 @@ def speakingTest(request):
         if request.method == 'POST':
             que = request.POST.get('que_id')
             ans = request.FILES.get('audio_file')
-            print('Audio', ans)
+            if str(ans).strip() == "":
+                ans = "None"
             payload = {
                 'question': que
             }
@@ -264,6 +265,16 @@ def readingTest(request):
             ans3 = request.POST.get('answer3')
             ans4 = request.POST.get('answer4')
             ans5 = request.POST.get('answer5')
+            if str(ans1).strip() == "":
+                ans1 = "None"
+            if str(ans2).strip() == "":
+                ans2 = "None"
+            if str(ans3).strip() == "":
+                ans3 = "None"
+            if str(ans4).strip() == "":
+                ans4 = "None"
+            if str(ans5).strip() == "":
+                ans5 = "None"
             payload = {'question': que,
                         'firstQuestionAnswer': ans1,
                         'secondQuestionAnswer': ans2,
@@ -311,5 +322,4 @@ def four04(request):
 def myTests(request):
     urls = f'{url}student-myTests-writingTest'
     response=requests.get(url=urls)
-    # print(response.json())
     return render(request,'myTests.html',context={'title':'myTests'})
