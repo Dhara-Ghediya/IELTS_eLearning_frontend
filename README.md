@@ -1,7 +1,7 @@
 
 # IELTS project 
 
-This project about mock test for IELTS students. project is devided in two parts.
+This project is about mock tests for IELTS students. project is divided into two parts.
 
 - Frontend
 - Backend
@@ -10,38 +10,38 @@ This project is created for Frontend
 
 ## Teachnology 
 
-**Client:** HTML,javascript,bootstrap,jquery,fontawsome etc.
+**Client:** HTML, javascript, bootstrap, jquery,  font awesome, etc.
 
 **Server:** Django, sqlite3 
 
 
 
 ###  student Features
-- student can login,raggister and view profile
-- withing test submit
+- Students can login,register and view profile
+- writing test submit
 - lisning test submit
 - reading test submit
 - speaking test submit
-- studnet can view thare score in sorting order
+- students can view their scores in sorting order
 
 ###  Teacher Features
-- teacher can login,raggister and view profile
-- teacher can post withing test questions
-- teacher can post lisning test questions
-- teacher can post reading test questions
-- teacher can post speaking test questions
-- teacher can view and give mark to student who submited test
-- teacher can view edit and delete the posted questions
+- the teacher can login, register and view profile
+- the teacher can post writing test questions
+- the teacher can post listening test questions
+- a teacher can post reading test questions
+- a teacher can post speaking test questions
+- teacher can view and give marks to students who submit test
+- a teacher can view edit and delete the posted questions
 
 ## minimum requrement
 - ```Python 3.8```
 - We highly recommend and only officially support the latest release of each series
 ## Installation
 
-- we are runing backend server on port number 8000 so we can not run frontend server on same port. we have to use othre port for run server. we are useing port 5000 for runing frontend server
-- you can use othre port
+- we are running the backend server on port number 8000 so we can not run the frontend server on the same port. we have to use other ports to run the server. we are useing port 5000 for runing frontend 
+- you can use other port
 ###
-- First clone git repositry
+- First clone git repository
 
 ```
     git clone https://github.com/Dhara-Ghediya/IELTS_eLearning_frontend.git
@@ -54,13 +54,13 @@ This project is created for Frontend
 ```
     pip install -r requirement.txt
 ```
-- now run project on port 5000
+- now run a project on port 5000
 ```
     python manage.py runserver 5000
 ```
 
 ## Note
-if you are changing backend server port or it address than in 
+if you are changing a backend server port or its address than in 
 
 IELTS_eLearning_frontend
 
@@ -68,6 +68,7 @@ IELTS_eLearning_frontend
     └── IELTS_eLearning_frontend
         └── localsetting.py
 
-- thare we defind valiables for call backend APIs
-`url=` give your backend server url
-`media_url=` give backend server url
+- there we define variables for call backend APIs
+  
+- `url=` give your backend server URL
+- `media_url=` give a backend server URL
