@@ -20,7 +20,10 @@
         </div>
     </div>
     <!-- Header End -->
-<div><br><br>
+<div>
+    <div style="margin-left: 75%;">Your exam will be submit automatically after... </div>
+    <div id="timer-display" style="font-size: 40px; font-weight: bolder; color: black; padding-left: 80%;"></div>
+
 	<table class="tab brown hd" style="margin-left: auto; margin-right: auto;">
 		<tr>
 			<td> <h2> Answer below Questions... </h2> </td>
@@ -40,15 +43,15 @@
                     {{data.0.question}} <br><br>
                     <h4> Answer below 5 quesions based on above Passage:</h4> <br>
 
-                    <h6>{{data.0.question1}}</h6> 
+                    <h6>1. {{data.0.question1}}</h6> 
                     <input type="text" name="answer1" placeholder="write answer here..." required><br><br>
-                    <h6>{{data.0.question2}}</h6> 
+                    <h6>2. {{data.0.question2}}</h6> 
                     <input type="text" name="answer2" placeholder="write answer here..." required><br><br>
-                    <h6>{{data.0.question3}}</h6> 
+                    <h6>3. {{data.0.question3}}</h6> 
                     <input type="text" name="answer3" placeholder="write answer here..." required><br><br>
-                    <h6>{{data.0.question4}}</h6> 
+                    <h6>4. {{data.0.question4}}</h6> 
                     <input type="text" name="answer4" placeholder="write answer here..." required><br><br>
-                    <h6>{{data.0.question5}}</h6> 
+                    <h6>5. {{data.0.question5}}</h6> 
                     <input type="text" name="answer5" placeholder="write answer here..." required><br><br>
 
 					<input type="submit" value="Submit">
