@@ -7,9 +7,10 @@ import requests
 
 # Create your views here.
 def home(request):
-    urls = f'{url}writing test'
-    response=requests.get(url=urls)
-    print(response.json())
+    # urls = f'{url}writing test'
+    # response=requests.get(url=urls)
+    # print(response.json())
+    print(request.session.get('std_token'))
     return render(request, 'index.html',context={'title': 'Home'})
 
 def register(request):
@@ -59,6 +60,8 @@ def login(request):
         }
         response = requests.post(url=login_url, data=data)
         if response.status_code == 201:
+            obj=response.json()
+            print(obj)
             request.session['username'] = response.json()["username"]
             if identity == "student":
                 request.session['std_user']= response.json()["username"]
@@ -163,7 +166,18 @@ def four04(request):
     return render(request, '404.html',context={'title': '404'})
 
 def myTests(request):
+    print(request.session.get('token'))
     urls = f'{url}student-myTests-writingTest'
-    response=requests.get(url=urls)
-    print(response.json())
-    return render(request,'myTests.html',context={'title':'myTests'})
+    # header={'token': request.session.get('token')}
+    # response = requests.request("GET",url=urls, headers=header)
+    # print(response.json())
+    
+    # url = "http://127.0.0.1:8000/student-myTests-writingTest"
+
+    payload = {}
+    headers = {'token': str(request.session.get('std_token'))}
+
+    response = requests.request("GET", urls, headers=headers, data=payload)
+    data=json.loads(response.text)
+    print(data)
+    return render(request,'myTests.html',context={'title':'myTests','records':json.dumps(data)})

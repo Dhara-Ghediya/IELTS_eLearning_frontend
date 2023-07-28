@@ -10,48 +10,160 @@
             <caption>Good luck for next test</caption>
             <tr>
                 <th>No</th>
-                <th>time</th>
-                <th>test type</th>
-                <th>professor</th>
-                <th>professor Email</th>
-                <th>status</th>
-                <th>marks</th>
+                <th id="time">time <i class='fas fa-angle-down'></i></th>
+                <th id="testType">test type </th>
+                <th id="professor">professor </th>
+                <th id="professorEmail">professor Email </i></th>
+                <th id="status">status <i class='fas fa-angle-down'></i></th>
+                <th id="marks">marks <i class='fas fa-angle-down'></i></th>
             </tr>
         </thead>
-        <tbody class="table-group-divider">
-            <tr class="">
-                <td>1</td>
-                <td>1-JANUARY-2022 12:20 PM</td>
-                <td>Writing Test</td>
-                <td>B.B. patel</td>
-                <td>bbpatel@gmail.com</td>
-                <td><span class="badge rounded-pill bg-secondary">Not Checked</span></td>
-                <td>-</td>
-            </tr>
-            <tr class="">
-                <td>1</td>
-                <td>1-JANUARY-2022 12:20 PM</td>
-                <td>Writing Test</td>
-                <td>B.B. patel</td>
-                <td>bbpatel@gmail.com</td>
-                <td><span class="badge rounded-pill bg-success">Checked</span></td>
-                <td>20</td>
-            </tr>
-            <tr class="">
-                <td>1</td>
-                <td>1-JANUARY-2022 12:20 PM</td>
-                <td>Writing Test</td>
-                <td>B.B. patel</td>
-                <td>bbpatel@gmail.com</td>
-                <td><span class="badge rounded-pill bg-secondary">Not Checked</span></td>
-                <td>20</td>
-            </tr>
-
+        <tbody class="table-group-divider" id="recordShow">
         </tbody>
         <tfoot>
 
         </tfoot>
     </table>
+    <script>
+        var records = '{{records|safe}}';
+        records = JSON.parse(records);
+        let sortingOrder = "ASC"
+        let sortedBy = "time"
+        records = get_sorting_order('DESC', 'status')
+        add_records(records)
+        
+        //click listners
+        $("#time").click(function () {
+            var $icon = $('#time').find('i');
+            if ($icon.attr('class') == 'fas fa-angle-down' || $icon.attr('class') == 'fa-angle-down fas' ){
+                records = get_sorting_order('ASC', 'time')
+                add_records(records)
+                $icon.removeClass('fas fa-angle-down').addClass('fas fa-angle-up');
+                $("#status i, #marks i").removeClass('fas fa-angle-up').addClass('fas fa-angle-down');
+            }
+            else{
+                records = get_sorting_order('DESC', 'time')
+                add_records(records)
+                $icon.removeClass('fas fa-angle-up').addClass('fas fa-angle-down');
+                $("#status i, #marks i").removeClass('fas fa-angle-up').addClass('fas fa-angle-down');
+            }
+        });
+        $("#status").click(function () {
+            var $icon = $('#status').find('i');
+            if ($icon.attr('class') == 'fas fa-angle-down' || $icon.attr('class') == 'fa-angle-down fas'){
+                records = get_sorting_order('ASC','status')
+                add_records(records)
+                $icon.removeClass('fas fa-angle-down').addClass('fas fa-angle-up');
+                $("#time i, #marks i").removeClass('fas fa-angle-up').addClass('fas fa-angle-down');
+            }
+            else
+            {
+                records = get_sorting_order('DESC','status')
+                add_records(records)
+                $icon.removeClass('fas fa-angle-up').addClass('fas fa-angle-down');
+                $("#time i, #marks i").removeClass('fas fa-angle-up').addClass('fas fa-angle-down');
+            }
+        });
+        $('#marks').click(function () {
+            var $icon = $('#marks').find('i');
+            if ($icon.attr('class') == 'fas fa-angle-down' || $icon.attr('class') == 'fa-angle-down fas'){
+                records = get_sorting_order('ASC','marks')
+                add_records(records)
+                $icon.removeClass('fas fa-angle-down').addClass('fas fa-angle-up');
+                $("#time i, #status i").removeClass('fas fa-angle-up').addClass('fas fa-angle-down');
+            }
+            else
+            {
+                records = get_sorting_order('DESC','marks')
+                add_records(records)
+                $icon.removeClass('fas fa-angle-up').addClass('fas fa-angle-down');
+                $("#time i, #status i").removeClass('fas fa-angle-up').addClass('fas fa-angle-down');
+            }
+        });
+
+        //sorting function
+        
+        function get_sorting_order(sortingOrder = 'ASC', sortedBy = 'time') {
+            if (sortingOrder == 'ASC') {
+                if (sortedBy == 'time') {
+                    records.sort(function (a, b) {
+                        return new Date(a.timestamp) - new Date(b.timestamp);
+                    });
+                }
+                if (sortedBy == 'marks') {
+                    records.sort(function (a, b) {
+                        return a.studentObtainMarks - b.studentObtainMarks;
+                    });
+                }
+                if (sortedBy == 'status') {
+                    records.sort(function (a, b) {
+                        return a.status - b.status;
+                    });
+                }
+
+            }
+            else {
+                if (sortedBy == 'time') {
+                    records.sort(function (a, b) {
+                        return new Date(b.timestamp) - new Date(a.timestamp);
+                    });
+                }
+                else if (sortedBy == 'marks') {
+                    records.sort(function (a, b) {
+                        return b.studentObtainMarks - a.studentObtainMarks;
+                    });
+                }
+                else if (sortedBy == 'status') {
+                    records.sort(function (a, b) {
+                        return b.status - a.status;
+                    });
+                }
+            }
+            return records;
+        }
+
+        function getCurrentFormattedDate(dateTime) {
+            const months = [
+                "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
+                "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
+            ];
+
+            const dateObj = new Date(dateTime);
+
+            const day = dateObj.getDate();
+            const month = months[dateObj.getMonth()];
+            const year = dateObj.getFullYear();
+
+            let hour = dateObj.getHours();
+            const minute = dateObj.getMinutes();
+            const ampm = hour >= 12 ? "PM" : "AM";
+
+            // Convert to 12-hour clock format
+            if (hour > 12) {
+                hour -= 12;
+            } else if (hour === 0) {
+                hour = 12;
+            }
+
+            return `${day}-${month}-${year} ${hour}:${minute.toString().padStart(2, '0')} ${ampm}`;
+        }
+
+        function add_records(records) {
+            $("#recordShow").empty();
+            for (var i in records) {
+                var inputTr = "<tr class=''><td>" + (Number(i) + 1) + "</td><td>" + getCurrentFormattedDate(records[i].timestamp) + "</td><td>Writing Test</td><td>" + records[i].teacher.username + "</td><td>" + records[i].teacher.email + "</td>";
+                if (records[i].checkedQuestion) {
+                    inputTr += "<td><span class='badge rounded-pill bg-success'>Checked</span></td><td>" + records[i].studentObtainMarks + "</td></tr>"
+                }
+                else {
+                    inputTr += "<td><span class='badge rounded-pill bg-secondary'>Not Checked</span></td><td>" + records[i].studentObtainMarks + "</td></tr>"
+                }
+
+                $("#recordShow").append(inputTr);
+                console.log(inputTr);
+            }
+        }
+    </script>
 </div>
 
 {% endblock content %}

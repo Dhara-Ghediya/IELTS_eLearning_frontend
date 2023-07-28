@@ -95,3 +95,17 @@ def readingTest(request):
             messages.error(request, {'msg': 'Something went wrong!'})
             return redirect('readingTest')
     return render(request, 'readingTest.html')
+
+def checkWritingTest(request):
+    if request.method == 'GET':
+        tcher = request.session['tcher_user']
+        urls = f'{url}teacher/checkWritingTest'
+        data = {
+            "teacher": tcher,
+        }
+        headers={'token': request.session.get('tcher_token'),}
+        response = requests.get(url=urls, data=data,headers=headers)
+        if response.status_code == 200:
+            return render(request, 'checkWritingTest.html', {'response': response.json()})
+        else:
+            return render(request, 'checkWritingTest.html', {'response': response.json()})
