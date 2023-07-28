@@ -33,10 +33,12 @@
 			<td>
 				<form action="" method="post" enctype="multipart/form-data">
 					{% csrf_token %}
+                    <input type="hidden" name="que_id" value="{{data.0.id}}">
                     <h4>You have to discuss on below topic, At least 10 min you have to talk about it.</h4> <br>
 
 					<b>Topic name: </b> {{data.0.question}} <br><br>
-                    <input type="audio" name="audio_file" placeholder="Enter Audio File" required><br/><br/>
+                    <h4> Record audio on your local device and upload over here...</h4>
+                    <input type="file" name="audio_file" placeholder="Enter Audio File" required><br/><br/>
 					<input type="submit" value="Submit">
 				</form>
 			</td>
