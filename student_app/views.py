@@ -1,7 +1,7 @@
 import json
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from IELTS_eLearning_frontend.localsettings import url
+from IELTS_eLearning_frontend.localsettings import url, media_url
 from django.contrib import messages
 import requests
 
@@ -69,7 +69,7 @@ def login(request):
             else:
                 request.session['tcher_user']= response.json()["username"]
                 request.session['tcher_token'] = response.json()["token"]
-            messages.info(request, "Loged in successfully!")
+            messages.info(request, "Logged in successfully!")
             return redirect('home')
         else:
             messages.info(request, response.json()['msg'])
@@ -141,11 +141,169 @@ def examLibrary(request):
             if option == 'reading':
                 return HttpResponseRedirect('teacher/readingTest')
             # return redirect('post_questions')
+        elif 'std_user' in request.session.keys():
+            if option == 'writing':
+                return redirect('writing_test')
+            if option == 'listening':
+                return redirect('listening_test')
+            if option =='speaking':
+                return redirect('speaking_test')
+            if option =='reading':
+                return redirect('reading_test')
         else:
             pass
-        
         # return render(request, 'addQuestion.html', {'option': option})
     return render(request, 'examLibrary.html',context={'title': 'examLibrary'})
+
+def writingTest(request):
+    if 'std_user' in request.session.keys():
+        urls = f'{url}writing-test'
+        headers = {
+            'token': request.session['std_token'],
+        }
+        if request.method == 'POST':
+            que = request.POST.get('que_id')
+            ans = request.POST.get('answer')
+            if str(ans).strip() == "":
+                ans = "None"
+            payload = {'question': que,
+                        'answer': ans
+                    }
+            response = requests.request("POST", urls, headers=headers, data=payload)
+            if response.status_code == 201:
+                messages.success(request, {'msg': "Answer was submitted successfully!"})
+                return redirect('examLibrary')
+            else:
+                messages.error(request, {'msg': "Answer submission failed!"})
+                return redirect('writing_test')
+       
+        # to handle GET request
+        response = requests.request("GET", urls, headers=headers)
+        if response.status_code == 200:
+            data = response.json()
+            return render(request, 'std_writingTest.html', {"data": data, "media_url": media_url})
+        else:
+            return render(request, 'std_writingTest.html') 
+    else:
+        messages.info(request, {"msg": "You cannot open this page!"})
+        return redirect('examLibrary')
+
+def listeningTest(request):
+    if 'std_user' in request.session.keys():
+        urls = f'{url}listing-test'
+        headers = {
+            'token': request.session['std_token'],
+        }
+        if request.method == 'POST':
+            que = request.POST.get('que_id')
+            ans = request.POST.get('answer')
+            if str(ans).strip() == "":
+                ans = "None"
+            payload = {'question': que,
+                        'answer': ans
+                    }
+            response = requests.request("POST", urls, headers=headers, data=payload)
+            if response.status_code == 201:
+                messages.success(request, {'msg': "Answer was submitted successfully!"})
+                return redirect('examLibrary')
+            else:
+                messages.error(request, {'msg': "Answer submission failed!"})
+                return redirect('listening_test')
+        
+        response = requests.request("GET", urls, headers=headers)
+        if response.status_code == 200:
+            data = response.json()
+            audio = data[0]['question']
+            return render(request, 'std_listeningTest.html', {"data": data, "media_url": audio})
+        else:
+            return render(request, 'std_listeningTest.html')
+    else:
+        messages.info(request, {"msg": "You cannot open this page!"})
+        return redirect('examLibrary')
+
+def speakingTest(request): 
+    if 'std_user' in request.session.keys():
+        urls = f'{url}speaking-test'
+        headers = {
+            'token': request.session['std_token'],
+        }
+        if request.method == 'POST':
+            que = request.POST.get('que_id')
+            ans = request.FILES.get('audio_file')
+            if str(ans).strip() == "":
+                ans = "None"
+            payload = {
+                'question': que
+            }
+            files = {
+                'answer': ans
+            }
+            response = requests.request("POST", urls, headers=headers, data=payload, files=files)
+            if response.status_code == 201:
+                messages.success(request, {'msg': "Answer was submitted successfully!"})
+                return redirect('examLibrary')
+            else:
+                messages.error(request, {'msg': "Answer submission failed!"})
+                return redirect('speaking_test')
+        
+        response = requests.request("GET", urls, headers=headers)
+        if response.status_code == 200:
+            data = response.json()
+            return render(request, 'std_speakingTest.html', {"data": data})
+        else:
+            return render(request, 'std_speakingTest.html')
+    else:
+        messages.info(request, {"msg": "You cannot open this page!"})
+        return redirect('examLibrary')
+
+def readingTest(request):
+    if 'std_user' in request.session.keys():
+        urls = f'{url}reading-test'
+        headers = {
+            'token': request.session['std_token'],
+        }
+        if request.method == 'POST':
+            que = request.POST.get('que_id')
+            ans1 = request.POST.get('answer1')
+            ans2 = request.POST.get('answer2')
+            ans3 = request.POST.get('answer3')
+            ans4 = request.POST.get('answer4')
+            ans5 = request.POST.get('answer5')
+            if str(ans1).strip() == "":
+                ans1 = "None"
+            if str(ans2).strip() == "":
+                ans2 = "None"
+            if str(ans3).strip() == "":
+                ans3 = "None"
+            if str(ans4).strip() == "":
+                ans4 = "None"
+            if str(ans5).strip() == "":
+                ans5 = "None"
+            payload = {'question': que,
+                        'firstQuestionAnswer': ans1,
+                        'secondQuestionAnswer': ans2,
+                        'thirdQuestionAnswer': ans3,
+                        'fourthQuestionAnswer': ans4,
+                        'fifthQuestionAnswer': ans5
+                    }
+            response = requests.request("POST", urls, headers=headers, data=payload)
+            if response.status_code == 201:
+                messages.success(request, {'msg': "Answer was submitted successfully!"})
+                return redirect('examLibrary')
+            else:
+                messages.error(request, {'msg': "Answer submission failed!"})
+                return redirect('reading_test')
+        
+        response = requests.request("GET", urls, headers=headers)
+        if response.status_code == 200:
+            data = response.json()
+            return render(request, 'std_readingTest.html', {"data": data})
+        else:
+            return render(request, 'std_readingTest.html')
+    else:
+        messages.info(request, {"msg": "You cannot open this page!"})
+        return redirect('examLibrary')
+
 
 def courses(request):
     return render(request, 'courses.html',context={'title': 'course'})

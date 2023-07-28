@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white animated slideInDown">Listening Test</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">Listening Test</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+<div>
+    <div style="margin-left: 75%;">Your exam will be submit automatically after... </div>
+    <div id="timer-display" style="font-size: 40px; font-weight: bolder; color: black; padding-left: 80%;"></div>
+    
+	<table class="tab brown hd" style="margin-left: auto; margin-right: auto;">
+		<tr>
+			<td> <h2> Answer below Questions... </h2> </td>
+		</tr>
+	</table><br>
+
+	<table class="tab" border="0px" style="margin-left: auto; margin-right: auto;">
+		
+		<tr>
+			<td>
+                
+				<form action="" method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+                    <input type="hidden" name="que_id" value="{{data.0.id}}">
+                    <h4>Below given an audio, You have to listen carefully and this audio you only can play two times.</h4>
+                    <audio controls autoplay name="media" style="width: 90%;">
+                        <source src="{{media_url}}" type="audio/mpeg">
+                    </audio>
+
+					<h4>You should write content whatever you listen in above audio.</h4>
+					Write Your Answer Here: <br>
+                    <textarea name="answer" cols="150" rows="10" placeholder="Start Writing..." required></textarea> <br><br>
+					<input type="submit" value="Submit">
+				</form>
+			</td>
+		</tr> 
+	</table>
+</div>	
+
+{% endblock content %}

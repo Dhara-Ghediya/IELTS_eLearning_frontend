@@ -49,7 +49,59 @@
             padding: 12px 12px 12px 0;
             display: inline-block;
         }
+        
     </style>
+    <script>
+        // Function to submit the form automatically
+        function submitForm() {
+            document.querySelector("form").submit();
+        }
+        // Function to start the timer
+        function startTimer(duration, display) {
+            var timer = duration, minutes, seconds;
+            // Update the timer every second
+            var countdown = setInterval(function () {
+            minutes = parseInt(timer / 60, 10);
+            seconds = parseInt(timer % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = minutes + ":" + seconds;
+
+            if (--timer < 0) {
+                // Timer has ended, submit the form
+                clearInterval(countdown);
+                submitForm();
+            }
+            }, 1000);
+        }
+        
+        // Function to validate the answer length before form submission
+        function validateAnswer() {
+            var answer = document.querySelector("textarea[name='answer']").value;
+            var wordCount = answer.split(/\s+/).length;
+            if (wordCount < 200) {
+            alert("Your answer must be at least 200 words.");
+            return false;
+            }
+            return true;
+        }
+
+        // Start the timer when the page is loaded
+        window.onload = function () {
+            var thirtyMinutes = 30 * 60, // 30 minutes in seconds
+            display = document.querySelector("#timer-display");
+            startTimer(thirtyMinutes, display);
+
+            var submitButton = document.querySelector("input[type='submit']");
+            submitButton.addEventListener("click", function (event) {
+            if (!validateAnswer()) {
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+            });
+        };
+    </script>
 </head>
 
 <body>
