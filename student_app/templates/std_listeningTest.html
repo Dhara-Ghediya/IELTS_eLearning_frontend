@@ -20,14 +20,10 @@
         </div>
     </div>
     <!-- Header End -->
-<<<<<<< HEAD
 <div>
     <div style="margin-left: 75%;">Your exam will be submit automatically after... </div>
     <div id="timer-display" style="font-size: 40px; font-weight: bolder; color: black; padding-left: 80%;"></div>
     
-=======
-<div><br><br>
->>>>>>> 0caabe8 (integrate with all 4 functionality for only get method)
 	<table class="tab brown hd" style="margin-left: auto; margin-right: auto;">
 		<tr>
 			<td> <h2> Answer below Questions... </h2> </td>
@@ -40,13 +36,8 @@
 			<td>
                 
 				<form action="" method="post" enctype="multipart/form-data">
-<<<<<<< HEAD
 					{% csrf_token %}
                     <input type="hidden" name="que_id" value="{{data.0.id}}">
-=======
-					
-					{% csrf_token %}
->>>>>>> 0caabe8 (integrate with all 4 functionality for only get method)
                     <h4>Below given an audio, You have to listen carefully and this audio you only can play two times.</h4>
                     <audio controls autoplay name="media" style="width: 90%;">
                         <source src="{{media_url}}" type="audio/mpeg">

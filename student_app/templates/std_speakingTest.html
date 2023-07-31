@@ -20,14 +20,10 @@
         </div>
     </div>
     <!-- Header End -->
-<<<<<<< HEAD
 <div>
     <div style="margin-left: 75%;">Your exam will be submit automatically after... </div>
     <div id="timer-display" style="font-size: 40px; font-weight: bolder; color: black; padding-left: 80%;"></div>
     
-=======
-<div><br><br>
->>>>>>> 0caabe8 (integrate with all 4 functionality for only get method)
 	<table class="tab brown hd" style="margin-left: auto; margin-right: auto;">
 		<tr>
 			<td> <h2> Answer below Questions... </h2> </td>
@@ -40,19 +36,12 @@
 			<td>
 				<form action="" method="post" enctype="multipart/form-data">
 					{% csrf_token %}
-<<<<<<< HEAD
                     <input type="hidden" name="que_id" value="{{data.0.id}}">
                     <h4>You have to discuss on below topic, At least 10 min you have to talk about it.</h4> <br>
 
 					<b>Topic name: </b> {{data.0.question}} <br><br>
                     <h4> Record audio on your local device and upload over here...</h4>
                     <input type="file" name="audio_file" placeholder="Enter Audio File" required><br/><br/>
-=======
-                    <h4>You have to discuss on below topic, At least 10 min you have to talk about it.</h4> <br>
-
-					<b>Topic name: </b> {{data.0.question}}
-                    <input type="audio" name="audio_file" placeholder="Enter Audio File" required><br/><br/>
->>>>>>> 0caabe8 (integrate with all 4 functionality for only get method)
 					<input type="submit" value="Submit">
 				</form>
 			</td>
@@ -60,11 +49,7 @@
 	</table>
 </div>	
 
-<<<<<<< HEAD
 <!-- 
-=======
-
->>>>>>> 0caabe8 (integrate with all 4 functionality for only get method)
 
 <div class="mic-box__btn-group -static">
     <button id="js-reset-exam" class="iot-bt mic-box__btn-reset -test-again">
@@ -85,8 +70,4 @@
     </button>
 </div>
 
-<<<<<<< HEAD
 {% endblock content %} -->
-=======
-{% endblock content %}
->>>>>>> 0caabe8 (integrate with all 4 functionality for only get method)
