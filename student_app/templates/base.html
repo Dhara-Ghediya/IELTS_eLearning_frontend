@@ -144,19 +144,26 @@
             {% if 'username' not in request.session.keys %}
             <a href="{% url 'login' %}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i
                     class="fa fa-arrow-right ms-3"></i></a>
+            
             {% else %}
             
-            {% comment %} <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s"> {% endcomment %}
-                
+            <div class="wow fadeInUp" data-wow-delay="0.3s">
                 <div class="nav-item dropdown ">
                     <a href="{% url 'profile' %}" class="nav-link " data-bs-toggle="dropdown"><i class="fas fa-user-circle fa-3x"></i></a>
                     <div class="dropdown-menu dropdown-menu-end ">
                         <a href="{% url 'profile' %}" class="dropdown-item">{{ request.session.username }}</a>
-                        <a href="{% url 'myTests' %}" class="dropdown-item">My tests</a>
-                        <div class="  dropdown-divider"></div>
-                        <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
+                        {% if 'tcher_user' not in request.session %}
+                            <a href="{% url 'myTests' %}" class="dropdown-item">My tests</a>
+                            <div class="  dropdown-divider"></div>
+                            <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
+                        {% else %}
+                            <a href="{% url 'myQuestion' %}" class="dropdown-item">My Questions</a>
+                            <div class="  dropdown-divider"></div>
+                            <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
+                        {% endif %}
                     </div>
                 </div>
+            </div>
                 
 <style>
 /* CSS for enabling hover effect */

@@ -119,3 +119,13 @@ def checkWritingTest(request):
             return render(request, 'checkWritingTest.html', {'response': response.json()})
         else:
             return render(request, 'checkWritingTest.html', {'response': response.json()})
+        
+def myQuestions(request):
+    if request.method == 'GET':
+        urls = f'{url}teacher/myQuestions'
+        headers={'token': request.session.get('tcher_token'),}
+        response = requests.get(url=urls,headers=headers)
+        if response.status_code == 200:
+            return render(request,'myQuestions.html', {'response': response.json()})
+        else:
+            return render(request,'myQuestions.html', {'response': response.json()})
