@@ -20,6 +20,7 @@
         </div>
     </div>
     <!-- Header End -->
+<<<<<<< HEAD
 <div> 
     <div style="margin-left: 75%;">Your exam will be submit automatically after... </div>
     <div id="timer-display" style="font-size: 40px; font-weight: bolder; color: black; padding-left: 80%;"></div>
@@ -30,6 +31,14 @@
 		</tr>
         
 	</table><hr><br>
+=======
+<div><br><br>
+	<table class="tab brown hd" style="margin-left: auto; margin-right: auto;">
+		<tr>
+			<td> <h2> Answer below Questions... </h2> </td>
+		</tr>
+	</table><br>
+>>>>>>> 0caabe8 (integrate with all 4 functionality for only get method)
 
 	<table class="tab" border="0px" style="margin-left: auto; margin-right: auto; margin: 0% 20%;">
 		
@@ -38,7 +47,10 @@
 				<form action="" method="post" enctype="multipart/form-data">
 					
 					{% csrf_token %}
+<<<<<<< HEAD
                     <input type="hidden" name="que_id" value="{{data.0.id}}">
+=======
+>>>>>>> 0caabe8 (integrate with all 4 functionality for only get method)
                     <h4>You should spend about 30 minutes on this task.</h4><br>
                     <h6>
                         {{data.0.question.content}} 
