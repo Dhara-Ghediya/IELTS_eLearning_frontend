@@ -20,10 +20,14 @@
         </div>
     </div>
     <!-- Header End -->
+<<<<<<< HEAD
 <div>
     <div style="margin-left: 75%;">Your exam will be submit automatically after... </div>
     <div id="timer-display" style="font-size: 40px; font-weight: bolder; color: black; padding-left: 80%;"></div>
 
+=======
+<div><br><br>
+>>>>>>> 0caabe8 (integrate with all 4 functionality for only get method)
 	<table class="tab brown hd" style="margin-left: auto; margin-right: auto;">
 		<tr>
 			<td> <h2> Answer below Questions... </h2> </td>
@@ -38,11 +42,15 @@
 				<form action="" method="post" enctype="multipart/form-data">
 					
 					{% csrf_token %}
+<<<<<<< HEAD
                     <input type="hidden" name="que_id" value="{{data.0.id}}">
+=======
+>>>>>>> 0caabe8 (integrate with all 4 functionality for only get method)
                     <h4>Read below Passage carefully:</h4> <br>
                     {{data.0.question}} <br><br>
                     <h4> Answer below 5 quesions based on above Passage:</h4> <br>
 
+<<<<<<< HEAD
                     <h6>1. {{data.0.question1}}</h6> 
                     <input type="text" name="answer1" placeholder="write answer here..." required><br><br>
                     <h6>2. {{data.0.question2}}</h6> 
@@ -52,6 +60,17 @@
                     <h6>4. {{data.0.question4}}</h6> 
                     <input type="text" name="answer4" placeholder="write answer here..." required><br><br>
                     <h6>5. {{data.0.question5}}</h6> 
+=======
+                    <h6>{{data.0.question1}}</h6> 
+                    <input type="text" name="answer1" placeholder="write answer here..." required><br><br>
+                    <h6>{{data.0.question2}}</h6> 
+                    <input type="text" name="answer2" placeholder="write answer here..." required><br><br>
+                    <h6>{{data.0.question3}}</h6> 
+                    <input type="text" name="answer3" placeholder="write answer here..." required><br><br>
+                    <h6>{{data.0.question4}}</h6> 
+                    <input type="text" name="answer4" placeholder="write answer here..." required><br><br>
+                    <h6>{{data.0.question5}}</h6> 
+>>>>>>> 0caabe8 (integrate with all 4 functionality for only get method)
                     <input type="text" name="answer5" placeholder="write answer here..." required><br><br>
 
 					<input type="submit" value="Submit">

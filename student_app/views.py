@@ -290,6 +290,69 @@ def readingTest(request):
         return redirect('examLibrary')
 
 
+def writingTest(request):
+    if 'std_user' in request.session.keys():
+        if request.method == 'POST':
+            pass
+        urls = f'{url}writing-test'
+        response = requests.get(url=urls)
+        if response.status_code == 200:
+            data = response.json()
+            return render(request, 'std_writingTest.html', {"data": data, "media_url": media_url})
+        else:
+            return render(request, 'std_writingTest.html') 
+    else:
+        messages.info(request, {"msg": "You cannot open this page!"})
+        return redirect('examLibrary')
+
+def listeningTest(request):
+    if 'std_user' in request.session.keys():
+        if request.method == 'POST':
+            pass
+        urls = f'{url}listing-test'
+        response = requests.get(url=urls)
+        if response.status_code == 200:
+            data = response.json()
+            audio = data[0]['question']
+            print("audio:... ", audio)
+            return render(request, 'std_listeningTest.html', {"data": data, "media_url": audio})
+        else:
+            return render(request, 'std_listeningTest.html')
+    else:
+        messages.info(request, {"msg": "You cannot open this page!"})
+        return redirect('examLibrary')
+
+def speakingTest(request): 
+    if 'std_user' in request.session.keys():
+        if request.method == 'POST':
+            pass
+        urls = f'{url}speaking-test'
+        response = requests.get(url=urls)
+        if response.status_code == 200:
+            data = response.json()
+            return render(request, 'std_speakingTest.html', {"data": data})
+        else:
+            return render(request, 'std_speakingTest.html')
+    else:
+        messages.info(request, {"msg": "You cannot open this page!"})
+        return redirect('examLibrary')
+
+def readingTest(request):
+    if 'std_user' in request.session.keys():
+        if request.method == 'POST':
+            pass
+        urls = f'{url}reading-test'
+        response = requests.get(url=urls)
+        if response.status_code == 200:
+            data = response.json()
+            return render(request, 'std_readingTest.html', {"data": data})
+        else:
+            return render(request, 'std_readingTest.html')
+    else:
+        messages.info(request, {"msg": "You cannot open this page!"})
+        return redirect('examLibrary')
+
+
 def courses(request):
     return render(request, 'courses.html',context={'title': 'course'})
 
