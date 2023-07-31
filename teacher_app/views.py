@@ -122,10 +122,11 @@ def checkWritingTest(request):
         
 def myQuestions(request):
     if request.method == 'GET':
-        urls = f'{url}teacher/myQuestions'
+        urls = f'{url}teacher/WritingQuestionsListView'
         headers={'token': request.session.get('tcher_token'),}
         response = requests.get(url=urls,headers=headers)
+        writingQuestions = response
         if response.status_code == 200:
-            return render(request,'myQuestions.html', {'response': response.json()})
+            return render(request,'myQuestions.html', {'writingQuestions': response})
         else:
             return render(request,'myQuestions.html', {'response': response.json()})
