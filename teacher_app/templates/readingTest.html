@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <!-- Header Start -->
     <div class="container-fluid bg-primary py-5 mb-5 page-header">
@@ -34,12 +35,19 @@
 				<form action="" method="post" enctype="multipart/form-data">
 					
 					{% csrf_token %}
-					paragraph: <input type="text" name="content" placeholder="Enter paragraph for Reading" required><br/><br/>
-                    1st Question: <input type="text" name="first_que" placeholder="Enter First Question" required><br/><br/>
-                    2nd Question: <input type="text" name="second_que" placeholder="Enter Second Question" required><br/><br/>
-                    3rd Question: <input type="text" name="third_que" placeholder="Enter Third Question" required><br/><br/>
-                    4th Question: <input type="text" name="fourth_que" placeholder="Enter Fourth Question" required><br/><br/>
-                    5th Question: <input type="text" name="fifth_que" placeholder="Enter Fifth Question" required><br/><br/>
+                    <div id="questionList">
+                        paragraph: <input type="text" name="content" placeholder="Enter paragraph for Reading" required><br/><br>
+                        1st Question: <input type="text" name="ques1" placeholder="Enter First Question" required><br/><br/>
+                        2nd Question: <input type="text" name="ques2" placeholder="Enter Second Question" required><br/><br/>
+                        3rd Question: <input type="text" name="ques3" placeholder="Enter Third Question" required>
+                    </div>
+                    <div class="d-flex flex-row-reverse">
+                        <div class="btn text-primary mt-2 mb-2" id="add-ques" style="font-size: 35px;" data-toggle="tooltip" data-placement="right" title="Add one more sub-question">
+                            <i class="fa fa-plus "></i>
+                        </div>
+                    </div>
+                    <!-- 4th Question: <input type="text" name="fourth_que" placeholder="Enter Fourth Question" required><br/><br/>
+                    5th Question: <input type="text" name="fifth_que" placeholder="Enter Fifth Question" required><br/><br/> -->
 
 					<input type="submit" value="Add Question">
 				</form>
@@ -47,5 +55,17 @@
 		</tr> 
 	</table>
 </div>	
+
+<script>
+    // document.addEventListener("DOMContentLoaded", function(){
+        var count = 4
+     document.getElementById("add-ques").addEventListener("click", function(){
+     
+        var div = document.getElementById("questionList");
+        $('questionList').append(String(count) + "Question: <input type='text' name='ques"+String(count)+"' placeholder='Enter Third Question' required>")
+        count = count + 1
+    });
+    // });
+</script>
 
 {% endblock content %}

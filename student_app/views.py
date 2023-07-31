@@ -10,7 +10,6 @@ def home(request):
     # urls = f'{url}writing test'
     # response=requests.get(url=urls)
     # print(response.json())
-    print(request.session.get('std_token'))
     return render(request, 'index.html',context={'title': 'Home'})
 
 def register(request):
@@ -61,20 +60,19 @@ def login(request):
         response = requests.post(url=login_url, data=data)
         if response.status_code == 201:
             obj=response.json()
-            print(obj)
             request.session['username'] = response.json()["username"]
             if identity == "student":
-                request.session['std_user']= response.json()["username"]
+                request.session['std_user'] = response.json()["username"]
                 request.session['std_token'] = response.json()["token"]
             else:
-                request.session['tcher_user']= response.json()["username"]
+                request.session['tcher_user'] = response.json()["username"]
                 request.session['tcher_token'] = response.json()["token"]
             messages.info(request, "Logged in successfully!")
             return redirect('home')
         else:
             messages.info(request, response.json()['msg'])
             return redirect("login")
-    return render(request, 'login.html',context={'title': 'login'})
+    return render(request, 'login.html', context={'title': 'login'})
 
 def logout(request):
     if 'username' in request.session.keys():
@@ -303,70 +301,6 @@ def readingTest(request):
     else:
         messages.info(request, {"msg": "You cannot open this page!"})
         return redirect('examLibrary')
-
-
-def writingTest(request):
-    if 'std_user' in request.session.keys():
-        if request.method == 'POST':
-            pass
-        urls = f'{url}writing-test'
-        response = requests.get(url=urls)
-        if response.status_code == 200:
-            data = response.json()
-            return render(request, 'std_writingTest.html', {"data": data, "media_url": media_url})
-        else:
-            return render(request, 'std_writingTest.html') 
-    else:
-        messages.info(request, {"msg": "You cannot open this page!"})
-        return redirect('examLibrary')
-
-def listeningTest(request):
-    if 'std_user' in request.session.keys():
-        if request.method == 'POST':
-            pass
-        urls = f'{url}listing-test'
-        response = requests.get(url=urls)
-        if response.status_code == 200:
-            data = response.json()
-            audio = data[0]['question']
-            print("audio:... ", audio)
-            return render(request, 'std_listeningTest.html', {"data": data, "media_url": audio})
-        else:
-            return render(request, 'std_listeningTest.html')
-    else:
-        messages.info(request, {"msg": "You cannot open this page!"})
-        return redirect('examLibrary')
-
-def speakingTest(request): 
-    if 'std_user' in request.session.keys():
-        if request.method == 'POST':
-            pass
-        urls = f'{url}speaking-test'
-        response = requests.get(url=urls)
-        if response.status_code == 200:
-            data = response.json()
-            return render(request, 'std_speakingTest.html', {"data": data})
-        else:
-            return render(request, 'std_speakingTest.html')
-    else:
-        messages.info(request, {"msg": "You cannot open this page!"})
-        return redirect('examLibrary')
-
-def readingTest(request):
-    if 'std_user' in request.session.keys():
-        if request.method == 'POST':
-            pass
-        urls = f'{url}reading-test'
-        response = requests.get(url=urls)
-        if response.status_code == 200:
-            data = response.json()
-            return render(request, 'std_readingTest.html', {"data": data})
-        else:
-            return render(request, 'std_readingTest.html')
-    else:
-        messages.info(request, {"msg": "You cannot open this page!"})
-        return redirect('examLibrary')
-
 
 def courses(request):
     return render(request, 'courses.html',context={'title': 'course'})
