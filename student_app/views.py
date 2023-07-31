@@ -7,9 +7,8 @@ import requests
 
 # Create your views here.
 def home(request):
-    # urls = f'{url}writing test'
-    # response=requests.get(url=urls)
-    # print(response.json())
+    urls = f'{url}writing test'
+    response=requests.get(url=urls)
     return render(request, 'index.html',context={'title': 'Home'})
 
 def register(request):
@@ -323,16 +322,5 @@ def four04(request):
 def myTests(request):
     print(request.session.get('token'))
     urls = f'{url}student-myTests-writingTest'
-    # header={'token': request.session.get('token')}
-    # response = requests.request("GET",url=urls, headers=header)
-    # print(response.json())
-    
-    # url = "http://127.0.0.1:8000/student-myTests-writingTest"
-
-    payload = {}
-    headers = {'token': str(request.session.get('std_token'))}
-
-    response = requests.request("GET", urls, headers=headers, data=payload)
-    data=json.loads(response.text)
-    print(data)
-    return render(request,'myTests.html',context={'title':'myTests','records':json.dumps(data)})
+    response=requests.get(url=urls)
+    return render(request,'myTests.html',context={'title':'myTests'})

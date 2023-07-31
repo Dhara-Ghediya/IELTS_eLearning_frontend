@@ -43,16 +43,30 @@
                     {{data.0.question}} <br><br>
                     <h4> Answer below 5 quesions based on above Passage:</h4> <br>
 
-                    <h6>1. {{data.0.question1}}</h6> 
-                    <input type="text" name="answer1" placeholder="write answer here..." required><br><br>
-                    <h6>2. {{data.0.question2}}</h6> 
-                    <input type="text" name="answer2" placeholder="write answer here..." required><br><br>
-                    <h6>3. {{data.0.question3}}</h6> 
-                    <input type="text" name="answer3" placeholder="write answer here..." required><br><br>
-                    <h6>4. {{data.0.question4}}</h6> 
-                    <input type="text" name="answer4" placeholder="write answer here..." required><br><br>
-                    <h6>5. {{data.0.question5}}</h6> 
-                    <input type="text" name="answer5" placeholder="write answer here..." required><br><br>
+                    <div id="questionContainer">
+                        <div class="question">
+                            <h6>1. {{data.0.question1}}</h6> 
+                            <input type="text" name="answer1" placeholder="write answer here..." required><br><br>
+                        </div>
+                        <div class="question">
+                            <h6>2. {{data.0.question2}}</h6> 
+                            <input type="text" name="answer2" placeholder="write answer here..." required><br><br>
+                        </div>
+                        <div class="question">
+                            <h6>3. {{data.0.question3}}</h6> 
+                            <input type="text" name="answer3" placeholder="write answer here..." required><br><br>
+                        </div>
+                        <div class="question">
+                            <h6>4. {{data.0.question4}}</h6> 
+                            <input type="text" name="answer4" placeholder="write answer here..." required><br><br>
+                        </div>
+                        <div class="question">
+                            <h6>5. {{data.0.question5}}</h6> 
+                            <input type="text" name="answer5" placeholder="write answer here..." required><br><br>
+                        </div>
+                    </div> 
+
+                    <button id="nextButton">Next</button>
 
 					<input type="submit" value="Submit">
 				</form>
@@ -60,5 +74,44 @@
 		</tr> 
 	</table>
 </div>	
+
+<script>
+
+const questionContainer = document.getElementById('questionContainer');
+const questions = questionContainer.getElementsByClassName('question');
+const nextButton = document.getElementById('nextButton');
+
+let currentQuestionIndex = 0;
+
+// Hide all questions except the first one
+function hideAllQuestions() {
+    for (let i = 0; i < questions.length; i++) {
+        questions[i].style.display = 'none';
+    }
+}
+
+// Show the current question
+function showCurrentQuestion() {
+    hideAllQuestions();
+    questions[currentQuestionIndex].style.display = 'block';
+}
+
+// Event listener for the Next button
+nextButton.addEventListener('click', function() {
+    // If there are more questions, show the next one
+    if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        showCurrentQuestion();
+    } else {
+        // If all questions have been shown, you can handle the completion of the test here
+        alert('Test completed!');
+    }
+});
+
+// Show the first question initially
+showCurrentQuestion();
+
+
+</script>
 
 {% endblock content %}
