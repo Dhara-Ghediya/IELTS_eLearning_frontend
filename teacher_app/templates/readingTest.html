@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <!-- Header Start -->
     <div class="container-fluid bg-primary py-5 mb-5 page-header">
@@ -36,10 +35,10 @@
 					
 					{% csrf_token %}
                     <div id="questionList">
-                        paragraph: <input type="text" name="content" placeholder="Enter paragraph for Reading" required><br/><br>
-                        1st Question: <input type="text" name="ques1" placeholder="Enter First Question" required><br/><br/>
-                        2nd Question: <input type="text" name="ques2" placeholder="Enter Second Question" required><br/><br/>
-                        3rd Question: <input type="text" name="ques3" placeholder="Enter Third Question" required>
+                        <div><div>paragraph:</div><textarea name="content" placeholder="Enter paragraph for Reading" rows="3" cols="35" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; resize: vertical;" required></textarea><br/><br></div>
+                        <div>1st Question: <input type="text" name="ques" placeholder="Enter First Question" required> <br/><br/></div>
+                        <div>2nd Question: <input type="text" name="ques" placeholder="Enter Second Question" required><br/><br/></div>
+                        <div>3rd Question: <input type="text" name="ques" placeholder="Enter Third Question" required><br/><br/></div>
                     </div>
                     <div class="d-flex flex-row-reverse">
                         <div class="btn text-primary mt-2 mb-2" id="add-ques" style="font-size: 35px;" data-toggle="tooltip" data-placement="right" title="Add one more sub-question">
@@ -55,16 +54,24 @@
 		</tr> 
 	</table>
 </div>	
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
     // document.addEventListener("DOMContentLoaded", function(){
         var count = 4
      document.getElementById("add-ques").addEventListener("click", function(){
      
         var div = document.getElementById("questionList");
-        $('questionList').append(String(count) + "Question: <input type='text' name='ques"+String(count)+"' placeholder='Enter Third Question' required>")
+        var str="<div>Extra Question: <div class=' d-flex align-items-center'><input type='text' name='ques' placeholder='Enter Third Question' required><i class='fa fa-times-circle ms-2 remove-button' style='font-size:20px'></i></div><br></div>"
+        $('#questionList').append(str)
+        console.log(str)
         count = count + 1
     });
+
+    $(document).on('click', '.remove-button', function() {
+    var parentDiv = $(this).parent().parent()
+    console.log(parentDiv[0]);
+    parentDiv.remove()
+  });
     // });
 </script>
 

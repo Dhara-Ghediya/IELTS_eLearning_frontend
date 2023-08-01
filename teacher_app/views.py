@@ -79,11 +79,7 @@ def teacherReadingTest(request):
     if request.method == 'POST':
         tcher = request.session['tcher_user']
         question = request.POST.get('content')
-        que1 = request.POST.get('first_que')
-        que2 = request.POST.get('second_que')
-        que3 = request.POST.get('third_que')
-        que4 = request.POST.get('fourth_que')
-        que5 = request.POST.get('fifth_que')
+        subQuestions = request.POST.getlist('ques')
         urls = f'{url}teacher/readingTests'
         headers = {
             "token": request.session['tcher_token']
@@ -91,11 +87,7 @@ def teacherReadingTest(request):
         data = {
             "teacher": tcher,
             "question": question,
-            "question1": que1,
-            "question2": que2,
-            "question3": que3,
-            "question4": que4,
-            "question5": que5,
+            "subQuestion": subQuestions,
         }
         response = requests.post(url=urls, data=data, headers=headers)
         if response.status_code == 201:
