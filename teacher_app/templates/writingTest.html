@@ -27,15 +27,22 @@
 		</tr>
 	</table><br>
 
-	<table class="tab" border="0px" style="margin-left: auto; margin-right: auto;">
+	<table class="tab" border="0px" style="margin-left: auto; margin-right: auto; width: 40%;">
 		
 		<tr>
 			<td>
 				<form action="" method="post" enctype="multipart/form-data">
 					
 					{% csrf_token %}
-					Text Content: <input type="text" name="content" placeholder="Enter Text content of Question" required><br/><br/>
-					Add Image: (if required)<input type="file" name="images" placeholder="Add Image of Question"><br/><br/>
+                    <h4>1.  Enter Question with Image:- </h4>
+					<div style="padding: 0% 0% 0% 5%;">
+                        Text Content: <input type="text" name="content1" placeholder="Enter Text content of Question" required><br/><br/>
+					    Add Image: <input type="file" name="image" placeholder="Add Image of Question" required><br/><br/>
+                    </div>
+                    <h4>2.  Enter Question without Image:- </h4>
+                    <div style="padding: 0% 0% 0% 5%;">
+                        Text Content: <input type="text" name="content2" placeholder="Enter Text content of Question" required><br/><br/>
+                    </div>
 					<input type="submit" value="Add Question">
 				</form>
 			</td>

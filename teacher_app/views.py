@@ -6,19 +6,21 @@ import requests
 def teacherWritingTest(request):
     if request.method == 'POST':
         tcher = request.session['tcher_user']
-        content = request.POST.get('content')
-        images = request.FILES.get('images')
+        content1 = request.POST.get('content1')
+        image = request.FILES.get('image')
+        content2 = request.POST.get('content2')
+
         urls = f'{url}teacher/writingTests'
         headers = {
             "token": request.session['tcher_token']
         }
         data = {
             "teacher": tcher,
-            "content": content,
-            # "images": images,
+            "content1": content1,
+            "content2": content2,
         }
         file = {
-            'images': images
+            'image': image
         }
         response = requests.post(url=urls, data=data, files=file, headers=headers)
         if response.status_code == 201:

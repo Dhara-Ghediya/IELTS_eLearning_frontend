@@ -160,12 +160,17 @@ def writingTest(request):
         }
         if request.method == 'POST':
             que = request.POST.get('que_id')
-            ans = request.POST.get('answer')
-            if str(ans).strip() == "":
-                ans = "None"
-            payload = {'question': que,
-                        'answer': ans
-                    }
+            ans1= request.POST.get('answer1')
+            ans2= request.POST.get('answer2')
+            if str(ans1).strip() == "":
+                ans1 = "None"
+            if str(ans2).strip() == "":
+                ans2 = "None"
+            payload = { 
+                    'question': que,
+                    'answer1': ans1,
+                    'answer2': ans2,
+                }
             response = requests.request("POST", urls, headers=headers, data=payload)
             if response.status_code == 201:
                 messages.success(request, {'msg': "Answer was submitted successfully!"})

@@ -36,19 +36,35 @@
 		<tr>
 			<td>
 				<form action="" method="post" enctype="multipart/form-data">
-					
 					{% csrf_token %}
                     <input type="hidden" name="que_id" value="{{data.0.id}}">
-                    <h4>You should spend about 30 minutes on this task.</h4><br>
-                    <h6>
-                        {{data.0.question.content}} 
-                    </h6><br>
-                    {% if data.0.question.images is not empty %}
-                    <img src="{{media_url}}{{data.0.question.images}}" alt="question image">
-                    {% endif %} <br><br>
-                    <h4>You should write at least 200 words.</h4>
-					Write Your Answer Here: <br>
-                    <textarea name="answer" cols="150" rows="10" placeholder="Start Writing..." required></textarea> <br><br>
+
+                    <!-- for first question  -->
+                    <h3><u>Question1:- </u></h3>
+                    <div style="padding: 0% 5% 0% 5%;">
+                        <h4>You should spend about 20 minutes on this task.</h4><br>
+                            {{data.0.question.question1.content1}} 
+                        <br>
+                        {% if data.0.question.question1.image is not empty %}
+                        <img src="{{media_url}}{{data.0.question.question1.image}}" alt="question image" style="width: 50%; height: 50%;">
+                        {% endif %} <br><br>
+                        <h4>You should write at least 150 words.</h4>
+                        Write Your Answer Here: <br>
+                        <textarea name="answer1" cols="150" rows="10" placeholder="Start Writing..." required></textarea> <br><br>
+                    </div>
+
+                    <!-- for second Question  -->
+                    <h3><u>Question2:- </u></h3>
+					<div style="padding: 0% 5% 0% 5%;">
+                        <h4>You should spend about 40 minutes on this task.</h4><br>
+                        <h6>
+                            {{data.0.question.question2.content2}} 
+                        </h6><br>
+                        <h4>You should write at least 250 words.</h4>
+                        Write Your Answer Here: <br>
+                        <textarea name="answer2" cols="150" rows="10" placeholder="Start Writing..." required></textarea> <br><br>
+                    </div>
+
 					<input type="submit" value="Submit">
 				</form>
 			</td>

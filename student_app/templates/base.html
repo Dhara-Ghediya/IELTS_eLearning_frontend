@@ -79,9 +79,18 @@
         
         // Function to validate the answer length before form submission
         function validateAnswer() {
-            var answer = document.querySelector("textarea[name='answer']").value;
+            var answer = document.querySelector("textarea[name='answer1']").value;
             var wordCount = answer.split(/\s+/).length;
-            if (wordCount < 200) {
+            if (wordCount < 150) {
+            alert("Your answer must be at least 200 words.");
+            return false;
+            }
+            return true;
+        }
+        function validateAnswer() {
+            var answer = document.querySelector("textarea[name='answer2']").value;
+            var wordCount = answer.split(/\s+/).length;
+            if (wordCount < 250) {
             alert("Your answer must be at least 200 words.");
             return false;
             }
@@ -90,7 +99,7 @@
 
         // Start the timer when the page is loaded
         window.onload = function () {
-            var thirtyMinutes = 30 * 60, // 30 minutes in seconds
+            var thirtyMinutes = 60 * 60, // 30 minutes in seconds
             display = document.querySelector("#timer-display");
             startTimer(thirtyMinutes, display);
 
