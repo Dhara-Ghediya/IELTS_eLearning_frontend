@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render, redirect
 from IELTS_eLearning_frontend.localsettings import url
 from django.contrib import messages
@@ -22,10 +23,10 @@ def teacherWritingTest(request):
         }
         response = requests.post(url=urls, data=data, files=file, headers=headers)
         if response.status_code == 201:
-            messages.success(request, {'msg': 'Question added successfully!'})
+            messages.success(request, {'msg': 'Question added successfully!','status': 'success'})
             return redirect('writingTest')
         else:
-            messages.error(request, {'msg': 'Something went wrong!'})
+            messages.error(request, {'msg': 'Something went wrong!','status': 'error'})
             return redirect('writingTest')
     return render(request, 'writingTest.html')
 
@@ -79,7 +80,12 @@ def teacherReadingTest(request):
     if request.method == 'POST':
         tcher = request.session['tcher_user']
         question = request.POST.get('content')
-        subQuestions = request.POST.getlist('ques')
+        subQuestionsList = request.POST.getlist('ques')
+        subQuestions =[]
+        for key,value in enumerate(subQuestionsList, 1):
+            tempData ={"Q"+str(key):value}
+            subQuestions.append(tempData)
+            
         urls = f'{url}teacher/readingTests'
         headers = {
             "token": request.session['tcher_token']
@@ -89,12 +95,12 @@ def teacherReadingTest(request):
             "question": question,
             "subQuestion": subQuestions,
         }
-        response = requests.post(url=urls, data=data, headers=headers)
+        response = requests.post(url = urls,json=data, headers = headers)
         if response.status_code == 201:
-            messages.success(request, {'msg': 'Question added successfully!'})
+            messages.success(request, {'msg': 'Question added successfully!', 'status': 'success'})
             return redirect('readingTest')
         else:
-            messages.error(request, {'msg': 'Something went wrong!'})
+            messages.error(request, {'msg': 'Something went wrong!', 'status': 'error'})
             return redirect('readingTest')
     return render(request, 'readingTest.html')
 
@@ -118,7 +124,23 @@ def myQuestions(request):
         headers={'token': request.session.get('tcher_token'),}
         response = requests.get(url=urls,headers=headers)
         writingQuestions = response
-        if response.status_code == 200:
-            return render(request,'myQuestions.html', {'writingQuestions': response})
+        
+        urls = f'{url}teacher/ListeningQuestionListView'
+        response = requests.get(url=urls,headers=headers)
+        listeningQuestions = response
+        
+        urls = f'{url}teacher/ReadingQuestionListView'
+        headers={'token': request.session.get('tcher_token'),}
+        response = requests.get(url=urls,headers=headers)
+        readingQuestions = response
+        
+        urls = f'{url}teacher/SpeakingQuestionListView'
+        headers={'token': request.session.get('tcher_token'),}
+        response = requests.get(url=urls,headers=headers)
+        speakingQuestions = response
+        # speakingQuestions[0]['question'] = speakingQuestions[0]['question'].replace('”',"'").replace('“',"'")
+        
+        if response.status_code == 201:
+            return render(request,'myQuestions.html', {'writingQuestions': writingQuestions.json(),'listeningQuestions':listeningQuestions.json(),'readingQuestions':readingQuestions.json(),'speakingQuestions':speakingQuestions.text.replace('”',"'").replace('“',"'").replace('"',"'")})
         else:
-            return render(request,'myQuestions.html', {'response': response.json()})
+            return render(request,'myQuestions.html', {'writingQuestions': writingQuestions.json()})
