@@ -31,7 +31,7 @@
 		
 		<tr>
 			<td>
-				<form action="" method="post">
+				<form id="loginForm" action="" method="post">
 					{% csrf_token %}
                     Login as...	
 					<select name="identity"> 
@@ -39,8 +39,8 @@
 						<option value="student">Student</option>
 						<option value="teacher">Teacher</option>
 					</select><br><br>
-					Username: <input type="text" name="username"  placeholder="Please enter your Username" required><br/><br/>
-					Password : <input type="password" name="password"  placeholder="Please enter Password" required><br/><br/>
+					Username: <input type="text" name="username" id="username"  placeholder="Please enter your Username" required autocomplete="username"><br/><br/>
+					Password : <input type="password" name="password" id="password"  placeholder="Please enter Password" required autocomplete="current-password"><br/><br/>
 					<input type="submit" value="Login">
 				</form>
 			</td>
