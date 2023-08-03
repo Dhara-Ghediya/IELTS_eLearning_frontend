@@ -155,9 +155,11 @@
 <script>
     try {
         var writingRecords = "{{writingQuestions|safe}}";
+        
     }
     catch (e) {
         var writingRecords = "";
+        
     }
 
     try {
@@ -167,7 +169,8 @@
         var listeningRecords = "";
     }
     try {
-        var readingRecords = "{{readingQuestions|safe}}";
+        var readingRecords = `{{readingQuestions|safe}}`;
+        readingRecords = readingRecords.replace(/[\x00-\x1F\x7F]/g, '')
     }
     catch (e) {
         var readingRecords = "";

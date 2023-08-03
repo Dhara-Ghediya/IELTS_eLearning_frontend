@@ -346,7 +346,11 @@ def four04(request):
     return render(request, '404.html',context={'title': '404'})
 
 def myTests(request):
-    print(request.session.get('token'))
     urls = f'{url}student-myTests-writingTest'
-    response=requests.get(url=urls)
-    return render(request,'myTests.html',context={'title':'myTests'})
+
+    payload = {}
+    headers = {'token': str(request.session.get('std_token'))}
+
+    response = requests.request("GET", urls, headers=headers, data=payload)
+    data=json.loads(response.text)
+    return render(request, 'myTests.html', context={'title': 'myTests', 'records': json.dumps(data)})

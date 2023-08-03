@@ -29,20 +29,34 @@ function getCurrentFormattedDate(dateTime) {
 
     return `${day}-${month}-${year} ${hour}:${minute.toString().padStart(2, '0')} ${ampm}`;
 }
+
 function add_writing_records(records, startIndex) {
 
     let count = startIndex;
     $("#writingQuestionRecordShow").empty();
     for (var i of records) {
         //var inputTr = "<tr class=''><td>" + (Number(i) + 1) + "</td><td>" + getCurrentFormattedDate(records[i].timestamp) + "</td><td>Writing Test</td><td>" + records[i].teacher.username + "</td><td>" + records[i].teacher.email + "</td>";
-        var inputTr = "<tr><td> " + (Number(count) + 1) + "</td><td><p class='text-truncate' style='width: 400px; overflow: hidden; white - space: nowrap; text - overflow: ellipsis;'>" + i.question.content + "</td><td>"
-        if (i.question.images != null) {
-            inputTr += "<img style='height:50px' src=" + i.question.images + " class='rounded mx - auto d - block' ></td><td>" + getCurrentFormattedDate(i.timeStamp) + "</td><td><a href='#' class='btn rounded btn-primary' style='background-color: #ffc107; border-color: #ffc107;''>Edit</a></td><td><a href='#' class='btn btn-danger rounded'>Delete</a></td><td><a href='#' class='btn btn-success rounded'>Tests</a></td></tr> "
+        var inputTr = `
+                    <tr>
+                        <td> ` + (Number(count) + 1) + `</td>
+                        <td>
+                            <p class='text-truncate' style='width: 400px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;'>` + i.question.question1.content1 + `</p>
+                            <p class='text-truncate' style='width: 400px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;'>` + i.question.question2.content2 + `</p>
+                        </td>
+                    <td>`
+        if (i.question.question1.image != null) {
+            inputTr += `
+                    <img style='height:50px' src=` + i.question.question1.image + ` class='rounded mx - auto d - block' >`    
         }
         else {
-            inputTr += "<img style='height:50px' src='https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg' class='rounded mx - auto d - block' ></td><td>" + getCurrentFormattedDate(i.timeStamp) + "</td><td><a href='#' class='btn rounded btn-primary' style='background-color: #ffc107; border-color: #ffc107;''>Edit</a></td><td><a href='#' class='btn btn-danger rounded'>Delete</a></td><td><a href='#' class='btn btn-success rounded'>Tests</a></td></tr> "
+            inputTr += "<img style='height:50px' src='https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg' class='rounded mx - auto d - block' >"
         }
-
+        inputTr +=`</td>
+        <td>` + getCurrentFormattedDate(i.timeStamp) + `</td>
+        <td><a href='#' class='btn rounded btn-primary' style='background-color: #ffc107; border-color: #ffc107;''>Edit</a></td>
+        <td><a href='#' class='btn btn-danger rounded'>Delete</a></td>
+        <td><a href='#' class='btn btn-success rounded'>Tests</a></td>
+    </tr> `
         $("#writingQuestionRecordShow").append(inputTr);
 
         count++;
@@ -77,7 +91,7 @@ function showPageWriting(pageNumber) {
 showPageWriting(1);
 
 // lisning question 
-
+console.log(listeningRecords)
 listeningRecords = listeningRecords.replace(/None/g, "null");
 listeningRecords = listeningRecords.replace(/'/g, '"');
 listeningRecords = JSON.parse(listeningRecords)

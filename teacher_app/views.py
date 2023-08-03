@@ -69,7 +69,6 @@ def teacherSpeakingTest(request):
             "question": topic,
         }
         response = requests.post(url=urls, data=data, headers=headers)
-        print("response: ", response.status_code)
         if response.status_code == 201:
             messages.success(request, {'msg': 'Question added successfully!'})
             return redirect('speakingTest')
@@ -123,26 +122,36 @@ def checkWritingTest(request):
 def myQuestions(request):
     if request.method == 'GET':
         urls = f'{url}teacher/WritingQuestionsListView'
-        headers={'token': request.session.get('tcher_token'),}
+        headers={'token': request.session.get('tcher_token')}
         response = requests.get(url=urls,headers=headers)
-        writingQuestions = response
+        if response.status_code == 201:
+            writingQuestions = response.json()
+        else:
+            writingQuestions = []
         
         urls = f'{url}teacher/ListeningQuestionListView'
         response = requests.get(url=urls,headers=headers)
-        listeningQuestions = response
+        if response.status_code == 201:
+            listeningQuestions = response.json()
+        else:
+            listeningQuestions = []
         
         urls = f'{url}teacher/ReadingQuestionListView'
-        headers={'token': request.session.get('tcher_token'),}
         response = requests.get(url=urls,headers=headers)
-        readingQuestions = response
+        if response.status_code == 201:
+            readingQuestions = response.json()
+        else: 
+            readingQuestions = []
         
         urls = f'{url}teacher/SpeakingQuestionListView'
-        headers={'token': request.session.get('tcher_token'),}
         response = requests.get(url=urls,headers=headers)
-        speakingQuestions = response
+        if response.status_code == 201:
+            speakingQuestions = response.json()
+        else:
+            speakingQuestions = []
         # speakingQuestions[0]['question'] = speakingQuestions[0]['question'].replace('”',"'").replace('“',"'")
         
         if response.status_code == 201:
-            return render(request,'myQuestions.html', {'writingQuestions': writingQuestions.json(),'listeningQuestions':listeningQuestions.json(),'readingQuestions':readingQuestions.json(),'speakingQuestions':speakingQuestions.text.replace('”',"'").replace('“',"'").replace('"',"'")})
+            return render(request,'myQuestions.html', {'writingQuestions': writingQuestions,'listeningQuestions':listeningQuestions,'readingQuestions':readingQuestions,'speakingQuestions':speakingQuestions})
         else:
             return render(request,'myQuestions.html', {'writingQuestions': writingQuestions.json()})

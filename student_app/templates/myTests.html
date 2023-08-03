@@ -26,10 +26,17 @@
     </table>
     <script>
         var records = '{{records|safe}}';
-        records = JSON.parse(records);
+        records = records.replace(/[\x00-\x1F\x7F]/g, '')
+        // records = JSON.parse(records);
+        // console.log(JSON.parse(records));
+        try {
+            const parsedData = JSON.parse(records);
+        } catch (error) {
+            console.error('Error parsing JSON:', error);
+        }
         let sortingOrder = "ASC"
         let sortedBy = "time"
-        records = get_sorting_order('DESC', 'status')
+        records = get_sorting_order('DESC', 'checkedQuestion')
         add_records(records)
         
         //click listners
@@ -90,16 +97,16 @@
                         return new Date(a.timestamp) - new Date(b.timestamp);
                     });
                 }
-                if (sortedBy == 'marks') {
+                else if (sortedBy == 'marks') {
                     records.sort(function (a, b) {
                         return a.studentObtainMarks - b.studentObtainMarks;
                     });
                 }
-                if (sortedBy == 'status') {
-                    records.sort(function (a, b) {
-                        return a.status - b.status;
-                    });
-                }
+                //else if (sortedBy == 'status') {
+                //        records.sort(function (a, b) {
+                //        return a.status - b.status;
+                //    });                    
+                //}
 
             }
             else {
@@ -115,7 +122,7 @@
                 }
                 else if (sortedBy == 'status') {
                     records.sort(function (a, b) {
-                        return b.status - a.status;
+                        return b.checkedQuestion - a.checkedQuestion;
                     });
                 }
             }
@@ -149,8 +156,9 @@
         }
 
         function add_records(records) {
+            records = JSON.parse(records)
             $("#recordShow").empty();
-            for (var i in records) {
+            for (var i=0; i<records.length; i++) {
                 var inputTr = "<tr class=''><td>" + (Number(i) + 1) + "</td><td>" + getCurrentFormattedDate(records[i].timestamp) + "</td><td>Writing Test</td><td>" + records[i].teacher.username + "</td><td>" + records[i].teacher.email + "</td>";
                 if (records[i].checkedQuestion) {
                     inputTr += "<td><span class='badge rounded-pill bg-success'>Checked</span></td><td>" + records[i].studentObtainMarks + "</td></tr>"
