@@ -25,10 +25,10 @@ def teacherWritingTest(request):
         }
         response = requests.post(url=urls, data=data, files=file, headers=headers)
         if response.status_code == 201:
-            messages.success(request, {'msg': 'Question added successfully!','status': 'success'})
+            messages.success(request, {'msg': 'Question added successfully!', 'status': 'success'})
             return redirect('writingTest')
         else:
-            messages.error(request, {'msg': 'Something went wrong!','status': 'error'})
+            messages.error(request, {'msg': 'Something went wrong!', 'status': 'error'})
             return redirect('writingTest')
     return render(request, 'writingTest.html')
 
@@ -49,10 +49,10 @@ def teacherListeningTest(request):
         }
         response = requests.post(url=urls, data=data, files=file, headers=headers)
         if response.status_code == 201:
-            messages.success(request, {'msg': 'Question added successfully!'})
+            messages.success(request, {'msg': 'Question added successfully!', 'status': 'success'})
             return redirect('listeningTest')
         else:
-            messages.error(request, {'msg': 'Something went wrong!'})
+            messages.error(request, {'msg': 'Something went wrong!', 'status': 'error'})
             return redirect('listeningTest')
     return render(request, 'listeningTest.html')
 
@@ -70,10 +70,10 @@ def teacherSpeakingTest(request):
         }
         response = requests.post(url=urls, data=data, headers=headers)
         if response.status_code == 201:
-            messages.success(request, {'msg': 'Question added successfully!'})
+            messages.success(request, {'msg': 'Question added successfully!', 'status': 'success'})
             return redirect('speakingTest')
         else:
-            messages.error(request, {'msg': 'Something went wrong!'})
+            messages.error(request, {'msg': 'Something went wrong!', 'status': 'error'})
             return redirect('speakingTest')
     return render(request,'speakingTest.html')
 

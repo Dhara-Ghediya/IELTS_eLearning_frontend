@@ -173,10 +173,10 @@ def writingTest(request):
                 }
             response = requests.request("POST", urls, headers=headers, data=payload)
             if response.status_code == 201:
-                messages.success(request, {'msg': "Answer was submitted successfully!"})
+                messages.success(request, {'msg': "Answer was submitted successfully!", 'status': 'success'})
                 return redirect('examLibrary')
             else:
-                messages.error(request, {'msg': "Answer submission failed!"})
+                messages.error(request, {'msg': "Answer submission failed!", 'status': 'error'})
                 return redirect('writing_test')
        
         # to handle GET request
@@ -187,7 +187,7 @@ def writingTest(request):
         else:
             return render(request, 'std_writingTest.html') 
     else:
-        messages.info(request, {"msg": "You cannot open this page!"})
+        messages.info(request, {"msg": "You cannot open this page!", 'status': 'warning'})
         return redirect('examLibrary')
 
 def listeningTest(request):
@@ -206,10 +206,10 @@ def listeningTest(request):
                     }
             response = requests.request("POST", urls, headers=headers, data=payload)
             if response.status_code == 201:
-                messages.success(request, {'msg': "Answer was submitted successfully!"})
+                messages.success(request, {'msg': "Answer was submitted successfully!", 'status': 'success'})
                 return redirect('examLibrary')
             else:
-                messages.error(request, {'msg': "Answer submission failed!"})
+                messages.error(request, {'msg': "Answer submission failed!", 'status': 'error'})
                 return redirect('listening_test')
         
         response = requests.request("GET", urls, headers=headers)
@@ -220,7 +220,7 @@ def listeningTest(request):
         else:
             return render(request, 'std_listeningTest.html')
     else:
-        messages.info(request, {"msg": "You cannot open this page!"})
+        messages.info(request, {"msg": "You cannot open this page!", 'status': 'warning'})
         return redirect('examLibrary')
 
 def speakingTest(request): 
@@ -242,10 +242,10 @@ def speakingTest(request):
             }
             response = requests.request("POST", urls, headers=headers, data=payload, files=files)
             if response.status_code == 201:
-                messages.success(request, {'msg': "Answer was submitted successfully!"})
+                messages.success(request, {'msg': "Answer was submitted successfully!", 'status': 'success'})
                 return redirect('examLibrary')
             else:
-                messages.error(request, {'msg': "Answer submission failed!"})
+                messages.error(request, {'msg': "Answer submission failed!", 'status': 'error'})
                 return redirect('speaking_test')
         
         response = requests.request("GET", urls, headers=headers)
@@ -255,7 +255,7 @@ def speakingTest(request):
         else:
             return render(request, 'std_speakingTest.html')
     else:
-        messages.info(request, {"msg": "You cannot open this page!"})
+        messages.info(request, {"msg": "You cannot open this page!", 'status': 'warning'})
         return redirect('examLibrary')
 
 def readingTest(request):
@@ -265,56 +265,12 @@ def readingTest(request):
             'token': request.session['std_token'],
         }
         if request.method == 'POST':
-            # print(json.dumps(request.POST))
-            # ques = {key: value for key, value in request.POST.items() if key.startswith('que_id')}
-            # print("quesss", ques)
-
-            # answers = {}
-            # for key, value in request.POST.items():
-            #     if key.startswith('answer'):
-            #         # Split the key to get the question number and subquestion number
-            #         question_number, subquestion_number = key.split('_')[1:]
-            #         question_number = int(question_number)
-            #         subquestion_number = int(subquestion_number)
-            #         # Use a tuple (question_number, subquestion_number) as the key for answers
-            #         answers[(question_number, subquestion_number)] = value
-            # print("answers", answers)
-
-            # for que_id, value in ques.items():
-            #     question_number = int(que_id.replace('que_id', ''))
-            #     # Now retrieve the answers for each subquestion for the current question
-            #     for subquestion_number, subquestion in enumerate(data[question_number - 1].subQuestion, start=1):
-            #         answer_key = (question_number, subquestion_number)
-            #         answer = answers.get(answer_key, '')
-            #         print("ans...", answer)
-            # ans1 = request.POST.get('answer1')
-            # ans2 = request.POST.get('answer2')
-            # ans3 = request.POST.get('answer3')
-            # ans4 = request.POST.get('answer4')
-            # ans5 = request.POST.get('answer5')
-            # if str(ans1).strip() == "":
-            #     ans1 = "None"
-            # if str(ans2).strip() == "":
-            #     ans2 = "None"
-            # if str(ans3).strip() == "":
-            #     ans3 = "None"
-            # if str(ans4).strip() == "":
-            #     ans4 = "None"
-            # if str(ans5).strip() == "":
-            #     ans5 = "None"
-            # payload = {'question': que,
-            #             'firstQuestionAnswer': ans1,
-            #             'secondQuestionAnswer': ans2,
-            #             'thirdQuestionAnswer': ans3,
-            #             'fourthQuestionAnswer': ans4,
-            #             'fifthQuestionAnswer': ans5
-            # #         }
             response = requests.request("POST", urls, headers=headers, data=json.dumps(request.POST))
             if response.status_code == 201:
-                messages.success(request, {'msg': "Answer was submitted successfully!"})
+                messages.success(request, {'msg': "Answer was submitted successfully!", 'status': 'success'})
                 return redirect('examLibrary')
             else:
-                messages.error(request, {'msg': "Answer submission failed!"})
+                messages.error(request, {'msg': "Answer submission failed!", 'status': 'error'})
                 return redirect('reading_test')
         
         response = requests.request("GET", urls, headers=headers)
@@ -324,7 +280,7 @@ def readingTest(request):
         else:
             return render(request, 'std_readingTest.html')
     else:
-        messages.info(request, {"msg": "You cannot open this page!"})
+        messages.info(request, {"msg": "You cannot open this page!", 'status': 'warning'})
         return redirect('examLibrary')
 
 def courses(request):
