@@ -7,214 +7,182 @@
         <div class="d-flex align-items-start">
             <div class="nav flex-column nav-pills me-3" style="border-radius: 5px ;" id="v-pills-tab" role="tablist"
                 aria-orientation="vertical">
-                <button class="nav-link active" style="border-radius: 5px 0px 0px 0px ;" id="v-pills-home-tab"
-                    data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab"
-                    aria-controls="v-pills-home" aria-selected="true">Home</button>
-                <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill"
-                    data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile"
-                    aria-selected="false">Profile</button>
-                <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
-                    data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages"
-                    aria-selected="false">Messages</button>
-                <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
-                    data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings"
-                    style="border-radius: 0 0 0  5px;" aria-selected="false">Settings</button>
+                <button class="nav-link active d-flex align-items-center justify-content-center"
+                    style="border-radius: 5px 0px 0px 0px ;" id="v-pills-home-tab" data-bs-toggle="pill"
+                    data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home"
+                    aria-selected="true">
+                    writing
+                    <i class="fa fa-pen ms-2 mt-1"></i>
+                </button>
+                <button class="nav-link d-flex align-items-center justify-content-center" id="v-pills-profile-tab"
+                    data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab"
+                    aria-controls="v-pills-profile" aria-selected="false">
+                    listening
+                    <i class="fa fa-assistive-listening-systems ms-2"></i>
+                </button>
+                <button class="nav-link d-flex align-items-center justify-content-center" id="v-pills-messages-tab"
+                    data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab"
+                    aria-controls="v-pills-messages" aria-selected="false">
+                    reading
+                    <i class="fas fa-book-reader ms-2   "></i>
+                </button>
+                <button class="nav-link d-flex align-items-center justify-content-center" id="v-pills-settings-tab"
+                    data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab"
+                    aria-controls="v-pills-settings" style="border-radius: 0 0 0  5px;" aria-selected="false">
+                    speaking
+                    <i class="fas fa-spider-black-widow    "></i>
+                </button>
             </div>
             <div class="tab-content w-100" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
                     aria-labelledby="v-pills-home-tab">
                     <div class="table-responsive container mt-4 w-100 ">
-                        <table class="table 
-                        table-hover	
-                        table-responsive
-                        align-middle">
-                            <thead class="table-secondary text-center">
-                                <caption>Good luck for next test</caption>
-                                <tr class="text-center">
-                                    <th>No</th>
-                                    <th id="question">question <i class='fas fa-angle-down'></i></th>
+                        <div style="min-height: 650px;">
+                            <table class="table table-hover table-responsive align-middle">
+                                <thead class="table-secondary text-center">
+                                    <tr class="text-center">
+                                        <th>No</th>
+                                        <th id="question">question </th>
+                                        <th id="image">Image </th>
 
-                                    <th id="time">time </th>
-                                    <th id="Edit">Edit</th>
-                                    <th id="Delete">Delete</th>
-                                    <th id="Tests">Tests</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table-group-divider text-center" id="writingQuesionRecordShow">
-                                <tr>
-                                    <td>1</td>
-                                    <td>Question 1</td>
-                                    <td>20 JANUARY 2023 12:30 PM</td>
-                                    <td>
-                                        <a href="#" class="btn rounded btn-primary"
-                                            style="background-color: #ffc107; border-color: #ffc107;">Edit</a>
-                                    </td>
-                                    <td>
-                                        <a href="#" class="btn btn-danger rounded">Delete</a>
-                                    </td>
-                                    <td>
-                                        <a href="#" class="btn btn-success rounded">Tests</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            <tfoot>
+                                        <th id="time">time </th>
+                                        <th id="Edit">Edit</th>
+                                        <th id="Delete">Delete</th>
+                                        <th id="Tests">Tests</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider " id="writingQuestionRecordShow">
+                                    <tr>
 
-                            </tfoot>
-                        </table>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div id="writingpagination" class="mt-3"></div>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                    ...
+                    <div class="table-responsive container mt-4 w-100 ">
+                        <div style="min-height: 650px;">
+                            <table class="table table-hover table-responsive align-middle">
+                                <thead class="table-secondary text-center">
+                                    <tr class="text-center">
+                                        <th>No</th>
+                                        <th id="question">question </th>
+                                        <th id="time">time </th>
+                                        <th id="Edit">Edit</th>
+                                        <th id="Delete">Delete</th>
+                                        <th id="Tests">Tests</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider " id="listeningQuestionRecordShow">
+                                    <tr>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div id="listeningpagination" class="mt-3"></div>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                    <div class="table-responsive container mt-4 w-100 ">
+                        <div style="min-height: 650px;">
+                            <table class="table table-hover table-responsive align-middle">
+                                <thead class="table-secondary text-center">
+                                    <tr class="text-center">
+                                        <th>No</th>
+                                        <th id="question">question </th>
+                                        <th id="image">total sub Questions </th>
 
+                                        <th id="time">time </th>
+                                        <th id="Edit">Edit</th>
+                                        <th id="Delete">Delete</th>
+                                        <th id="Tests">Tests</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider " id="readingQuestionRecordShow">
+                                    <tr>
+
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div id="readingpagination" class="mt-3"></div>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-                    ...
+                    <div class="table-responsive container mt-4 w-100 ">
+                        <div style="min-height: 650px;">
+                            <table class="table table-hover table-responsive align-middle">
+                                <thead class="table-secondary text-center">
+                                    <tr class="text-center">
+                                        <th>No</th>
+                                        <th id="question">question </th>
+                                        <th id="time">time </th>
+                                        <th id="Edit">Edit</th>
+                                        <th id="Delete">Delete</th>
+                                        <th id="Tests">Tests</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider " id="speakingQuestionRecordShow">
+                                    <tr>
+
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div id="speakingPagination" class="mt-3"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 <script>
-    var records = "{{writingQuestions|safe}}";
-    records = records.replace(/'/g, '"');
-    let sortingOrder = "ASC"
-    let sortedBy = "time"
-    console.log(records)
-    console.log(JSON.parse(records))
-    //records = get_sorting_order('DESC', 'status')
-    //add_records(records)
-    /*
-    //click listners
-    $("#time").click(function () {
-        var $icon = $('#time').find('i');
-        if ($icon.attr('class') == 'fas fa-angle-down' || $icon.attr('class') == 'fa-angle-down fas') {
-            records = get_sorting_order('ASC', 'time')
-            add_records(records)
-            $icon.removeClass('fas fa-angle-down').addClass('fas fa-angle-up');
-            $("#status i, #marks i").removeClass('fas fa-angle-up').addClass('fas fa-angle-down');
-        }
-        else {
-            records = get_sorting_order('DESC', 'time')
-            add_records(records)
-            $icon.removeClass('fas fa-angle-up').addClass('fas fa-angle-down');
-            $("#status i, #marks i").removeClass('fas fa-angle-up').addClass('fas fa-angle-down');
-        }
-    });
-    $("#status").click(function () {
-        var $icon = $('#status').find('i');
-        if ($icon.attr('class') == 'fas fa-angle-down' || $icon.attr('class') == 'fa-angle-down fas') {
-            records = get_sorting_order('ASC', 'status')
-            add_records(records)
-            $icon.removeClass('fas fa-angle-down').addClass('fas fa-angle-up');
-            $("#time i, #marks i").removeClass('fas fa-angle-up').addClass('fas fa-angle-down');
-        }
-        else {
-            records = get_sorting_order('DESC', 'status')
-            add_records(records)
-            $icon.removeClass('fas fa-angle-up').addClass('fas fa-angle-down');
-            $("#time i, #marks i").removeClass('fas fa-angle-up').addClass('fas fa-angle-down');
-        }
-    });
-    $('#marks').click(function () {
-        var $icon = $('#marks').find('i');
-        if ($icon.attr('class') == 'fas fa-angle-down' || $icon.attr('class') == 'fa-angle-down fas') {
-            records = get_sorting_order('ASC', 'marks')
-            add_records(records)
-            $icon.removeClass('fas fa-angle-down').addClass('fas fa-angle-up');
-            $("#time i, #status i").removeClass('fas fa-angle-up').addClass('fas fa-angle-down');
-        }
-        else {
-            records = get_sorting_order('DESC', 'marks')
-            add_records(records)
-            $icon.removeClass('fas fa-angle-up').addClass('fas fa-angle-down');
-            $("#time i, #status i").removeClass('fas fa-angle-up').addClass('fas fa-angle-down');
-        }
-    });
-    */
-    //sorting function
-    /*
-    function get_sorting_order(sortingOrder = 'ASC', sortedBy = 'time') {
-        if (sortingOrder == 'ASC') {
-            if (sortedBy == 'time') {
-                records.sort(function (a, b) {
-                    return new Date(a.timestamp) - new Date(b.timestamp);
-                });
-            }
-            if (sortedBy == 'marks') {
-                records.sort(function (a, b) {
-                    return a.studentObtainMarks - b.studentObtainMarks;
-                });
-            }
-            if (sortedBy == 'status') {
-                records.sort(function (a, b) {
-                    return a.status - b.status;
-                });
-            }
-
-        }
-        else {
-            if (sortedBy == 'time') {
-                records.sort(function (a, b) {
-                    return new Date(b.timestamp) - new Date(a.timestamp);
-                });
-            }
-            else if (sortedBy == 'marks') {
-                records.sort(function (a, b) {
-                    return b.studentObtainMarks - a.studentObtainMarks;
-                });
-            }
-            else if (sortedBy == 'status') {
-                records.sort(function (a, b) {
-                    return b.status - a.status;
-                });
-            }
-        }
-        return records;
+    try {
+        var writingRecords = "{{writingQuestions|safe}}";
+    }
+    catch (e) {
+        var writingRecords = "";
     }
 
-    function getCurrentFormattedDate(dateTime) {
-        const months = [
-            "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
-            "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
-        ];
-
-        const dateObj = new Date(dateTime);
-
-        const day = dateObj.getDate();
-        const month = months[dateObj.getMonth()];
-        const year = dateObj.getFullYear();
-
-        let hour = dateObj.getHours();
-        const minute = dateObj.getMinutes();
-        const ampm = hour >= 12 ? "PM" : "AM";
-
-        // Convert to 12-hour clock format
-        if (hour > 12) {
-            hour -= 12;
-        } else if (hour === 0) {
-            hour = 12;
-        }
-
-        return `${day}-${month}-${year} ${hour}:${minute.toString().padStart(2, '0')} ${ampm}`;
+    try {
+        var listeningRecords = "{{listeningQuestions|safe}}";
     }
-    */
-    /*function add_records(records) {
-        $("#recordShow").empty();
-        for (var i in records) {
-            var inputTr = "<tr class=''><td>" + (Number(i) + 1) + "</td><td>" + getCurrentFormattedDate(records[i].timestamp) + "</td><td>Writing Test</td><td>" + records[i].teacher.username + "</td><td>" + records[i].teacher.email + "</td>";
-            if (records[i].checkedQuestion) {
-                inputTr += "<td><span class='badge rounded-pill bg-success'>Checked</span></td><td>" + records[i].studentObtainMarks + "</td></tr>"
-            }
-            else {
-                inputTr += "<td><span class='badge rounded-pill bg-secondary'>Not Checked</span></td><td>" + records[i].studentObtainMarks + "</td></tr>"
-            }
-
-            $("#recordShow").append(inputTr);
-            console.log(inputTr);
-        }
+    catch (e) {
+        var listeningRecords = "";
     }
-*/
+    try {
+        var readingRecords = "{{readingQuestions|safe}}";
+    }
+    catch (e) {
+        var readingRecords = "";
+    }
+
+    try {
+        var speakingRecords = "{{speakingQuestions|safe}}";
+
+    }
+    catch (e) {
+        var speakingRecords = "";
+
+
+    }
+
 </script>
+<script src="{% static 'js/myQuestions.js' %}" type="text/javascript"> </script>
 {% endblock content%}

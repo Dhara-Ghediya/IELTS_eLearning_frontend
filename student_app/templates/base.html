@@ -51,66 +51,7 @@
         }
         
     </style>
-    <script>
-        // Function to submit the form automatically
-        function submitForm() {
-            document.querySelector("form").submit();
-        }
-        // Function to start the timer
-        function startTimer(duration, display) {
-            var timer = duration, minutes, seconds;
-            // Update the timer every second
-            var countdown = setInterval(function () {
-            minutes = parseInt(timer / 60, 10);
-            seconds = parseInt(timer % 60, 10);
-
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-
-            display.textContent = minutes + ":" + seconds;
-
-            if (--timer < 0) {
-                // Timer has ended, submit the form
-                clearInterval(countdown);
-                submitForm();
-            }
-            }, 1000);
-        }
-        
-        // Function to validate the answer length before form submission
-        function validateAnswer() {
-            var answer = document.querySelector("textarea[name='answer1']").value;
-            var wordCount = answer.split(/\s+/).length;
-            if (wordCount < 150) {
-            alert("Your answer must be at least 200 words.");
-            return false;
-            }
-            return true;
-        }
-        function validateAnswer() {
-            var answer = document.querySelector("textarea[name='answer2']").value;
-            var wordCount = answer.split(/\s+/).length;
-            if (wordCount < 250) {
-            alert("Your answer must be at least 200 words.");
-            return false;
-            }
-            return true;
-        }
-
-        // Start the timer when the page is loaded
-        window.onload = function () {
-            var thirtyMinutes = 60 * 60, // 30 minutes in seconds
-            display = document.querySelector("#timer-display");
-            startTimer(thirtyMinutes, display);
-
-            var submitButton = document.querySelector("input[type='submit']");
-            submitButton.addEventListener("click", function (event) {
-            if (!validateAnswer()) {
-                event.preventDefault(); // Prevent form submission if validation fails
-            }
-            });
-        };
-    </script>
+   
 </head>
 
 <body>
@@ -210,23 +151,41 @@
                 var message="{{ message | safe }}";
                 msg=message.replace(/'/g, '"')
                 msg=JSON.parse(msg)
-                console.log(typeof msg.msg)
-                if (typeof msg.msg == 'object'){
+                console.log(msg.msg)
+                console.log(msg.status)
+                if (msg.status == 'success'){
+                    Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: msg.msg,
+                    })
+                    console.log(msg.status,1)
+                    
+                }
+                else if (msg.status == 'warning') {
+                    Swal.fire({
+                    icon: 'warning',
+                    title: 'plese check',
+                    text: message,
+                    })
+                    console.log(msg.status,2)
+                }
+                else if (typeof msg.msg == 'object'){
                     Swal.fire({
                     icon: 'error',
                     title: 'Oops... error',
-                    text: message,
+                    text: msg.msg,
                     })
-                    
+                    console.log(msg.status,3)
                 }
-                else{
+                else {
                     Swal.fire({
                     icon: 'error',
                     title: 'Oops... error',
                     text: msg.msg,
                     })
                 }
-                console.log(msg.msg[0]['password']);
+                //console.log(msg.msg[0]['password']);
             </script>
         {% endfor %}
     </div>
