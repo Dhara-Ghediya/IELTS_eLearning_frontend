@@ -1,4 +1,5 @@
 import json
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from IELTS_eLearning_frontend.localsettings import url
 from django.contrib import messages
@@ -161,3 +162,60 @@ def myQuestions(request):
             return render(request,'myQuestions.html', {'writingQuestions': writingQuestions,'listeningQuestions':listeningQuestions,'readingQuestions':readingQuestions,'speakingQuestions':speakingQuestions})
         else:
             return render(request,'myQuestions.html', {'writingQuestions': writingQuestions.json()})
+
+def deleteWritingQuestion(request):
+    if request.method == 'POST' :
+        print(request.POST)
+        question_id = request.POST.get('id')
+        print(question_id)
+        urls = f'{url}teacher/writingTests'
+        headers = {
+            "token": request.session['tcher_token']
+        }
+        data = {
+            "question_id": question_id,
+        }
+        response = requests.delete(url=urls, data=data, headers=headers)
+        return JsonResponse({'msg': response.json()})
+    else:
+        return JsonResponse({'msg': 'Something went wrong', 'status': 'error'  })
+    
+def deleteReadingQuestion(request):
+    if request.method == 'POST' :
+        urls = f'{url}teacher/readingTests'
+        return deleteQuestion(request,urls)
+    else:
+        return JsonResponse({'msg': 'Something went wrong', 'status': 'error'  })
+    
+def deleteListeningQuestion(request):
+    if request.method == 'POST' :
+        urls = f'{url}teacher/listeningTests'
+        return deleteQuestion(request,urls)
+    else:
+        return JsonResponse({'msg': 'Something went wrong','status': 'error'  })
+    
+def deleteSpeakingQuestion(request):
+    if request.method == 'POST' :
+        urls = f'{url}teacher/speakingTests'
+        return deleteQuestion(request,urls)
+    else:
+        return JsonResponse({'msg': 'Something went wrong','status': 'error'  })
+
+####################################################
+### send request to server for deleting questions###
+####################################################
+
+def deleteQuestion(request,urls):
+    print(request.POST)
+    question_id = request.POST.get('id')
+    print(question_id)
+    headers = {
+        "token": request.session['tcher_token']
+    }
+    data = {
+        "question_id": question_id,
+    }
+    response = requests.delete(url=urls, data=data, headers=headers)
+    return JsonResponse({'msg': response.json()})
+
+###################################################
