@@ -41,7 +41,7 @@
 		
 		<tr>
 			<td>
-				<form action="" method="post">
+				<form action="" class="needs-validation" method="post" novalidate>
 					{% csrf_token %}
                     {% if 'tcher_user' not in request.session.keys %}
 					Which best describes you? <br>
@@ -53,24 +53,67 @@
                         <option value="partner">Partner</option>
                     </select><br><br>
                     {% endif %}
-					First Name: <input type="text" name="fname" placeholder="Enter Your First Name" required> <br><br>
-					Last Name: <input type="text" name="lname" placeholder="Enter Your Last Name" required> <br><br>
-					Country: <input type="text" name="country" placeholder="Enter Your Country/Region of Residence" required> <br><br>
-                    Age: <input type="number" name="age" placeholder="Enter Your Age" required> <br><br>
-                    Mobile No.: <input type="number" name="mobile" placeholder="Enter Your Mobile No." required> <br><br>
-                    Gender: <select name="gender">
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                    </select> <br><br>
+                    <div class="row">
+                        <div class="col">
+                            <div>First Name: </div>
+                            <div><input type="text" name="fname" class="form-control"  placeholder="Enter Your First Name" required> <br><br></div>
+                        </div>
+                        <div class="col">
+                            <div>Last Name: </div>
+                            <div><input type="text" name="lname" class="form-control" placeholder="Enter Your Last Name" required> <br><br></div>
+                        </div>
+                    </div>
+					Country: <input type="text" list="countrysList" class="form-control"  name="country" placeholder="Enter Your Country/Region of Residence" required> <br><br>
+                    <datalist id="countrysList">
+                        {% for i in countries.values %}
+                            <option value="{{i}}">{{i}}</option>    
+                        {% endfor %}
+                            
+                    </datalist>
+                    <div class="row">
+                        <div class="col">
 
-					I confirm that I accept the site’s <a href="">Terms</a> and <a href=""> Privacy </a> agreements and <br> allow my data to be held for as long as I am registered with this Website. <br>
-					<label> Yes <input type="radio" name="terms"></label>
-					<label> No <input type="radio" name="terms"></label>
-					<input type="submit" value="Submit">
+                            Age: <input type="number" name="age" class="form-control" placeholder="Enter Your Age" required> <br><br>
+                        </div>
+                        <div class="col">
+                            Gender: <select class="form-control" name="gender">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                        Mobile No.: <input type="number" name="mobile" class="form-control" placeholder="Enter Your Mobile No." required>
+                    <div class="form-check m-4">
+                            <input class="form-check-input mt-3" type="checkbox" value="" name="terms" id="terms" required>
+                            <label class="form-check-label ps-4" for="invalidCheck">
+                                I confirm that I accept the site’s <a href="">Terms</a> and <a href=""> Privacy </a> agreements and <br> allow my data to be held for as long as I am registered with this Website. <br></label>
+                            </label>
+                            <div class="invalid-feedback">
+                                You must agree before submitting.
+                            </div>
+            
+                    </div>
+					<input type="submit" disabled="true" id="submitBtn"  value="Submit">
 				</form>
 			</td>
 			
 		</tr>  
 	</table>
 </div>	
+<style>
+    .form-control{
+            width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    
+
+    }
+    .form-control : :focus{
+        border: 1px solid #ccc;
+}
+ 
+</style>
+
 {% endblock content %}

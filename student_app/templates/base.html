@@ -148,6 +148,7 @@
         {% for message in messages %}
             <script type="text/javascript">
                 var message="{{ message | safe }}";
+                console.log(message);
                 msg=message.replace(/'/g, '"')
                 msg=JSON.parse(msg)
                 console.log(msg.msg)

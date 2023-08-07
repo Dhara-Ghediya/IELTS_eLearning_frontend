@@ -2,3 +2,4 @@ __pycache__
 migrations/
 db.sqlite3
 .DS_Store
+IELTS_frontend_ENV

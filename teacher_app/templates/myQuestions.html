@@ -45,7 +45,7 @@
                                         <th id="time">time</th>
                                         <th id="Edit">Edit</th>
                                         <th id="Delete">Delete</th>
-                                        <th id="Tests">Tests</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody class="table-group-divider" id="writingQuestionRecordShow">
@@ -68,7 +68,7 @@
                                         <th id="time">time</th>
                                         <th id="Edit">Edit</th>
                                         <th id="Delete">Delete</th>
-                                        <th id="Tests">Tests</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody class="table-group-divider" id="listeningQuestionRecordShow">
@@ -81,22 +81,30 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                    <div class="table-responsive container mt-4 w-100">
-                        <div style="min-height: 650px">
+                    <div class="table-responsive container mt-4 w-100 ">
+                        <div style="min-height: 650px;">
                             <table class="table table-hover table-responsive align-middle">
                                 <thead class="table-secondary text-center">
                                     <tr class="text-center">
                                         <th>No</th>
-                                        <th id="question">question</th>
-                                        <th id="image">total sub Questions</th>
+                                        <th id="question">question </th>
+                                        <th id="image">total sub Questions </th>
 
-                                        <th id="time">time</th>
+                                        <th id="time">time </th>
                                         <th id="Edit">Edit</th>
                                         <th id="Delete">Delete</th>
-                                        <th id="Tests">Tests</th>
+                                        
                                     </tr>
                                 </thead>
-                                <tbody class="table-group-divider" id="readingQuestionRecordShow">
+                                <tbody class="table-group-divider " id="readingQuestionRecordShow">
+                                    <tr>
+
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+
+                                        
+            
                                     <tr></tr>
                                 </tbody>
                                 <tfoot></tfoot>
@@ -106,23 +114,27 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-                    <div class="table-responsive container mt-4 w-100">
-                        <div style="min-height: 650px">
+                    <div class="table-responsive container mt-4 w-100 ">
+                        <div style="min-height: 650px;">
                             <table class="table table-hover table-responsive align-middle">
                                 <thead class="table-secondary text-center">
                                     <tr class="text-center">
                                         <th>No</th>
-                                        <th id="question">question</th>
-                                        <th id="time">time</th>
+                                        <th id="question">question </th>
+                                        <th id="time">time </th>
                                         <th id="Edit">Edit</th>
                                         <th id="Delete">Delete</th>
-                                        <th id="Tests">Tests</th>
+                                        
                                     </tr>
                                 </thead>
-                                <tbody class="table-group-divider" id="speakingQuestionRecordShow">
-                                    <tr></tr>
+                                <tbody class="table-group-divider " id="speakingQuestionRecordShow">
+                                    <tr>
+
+                                    </tr>
                                 </tbody>
-                                <tfoot></tfoot>
+                                <tfoot>
+
+                                </tfoot>
                             </table>
                         </div>
                         <div id="speakingPagination" class="mt-3"></div>
@@ -133,12 +145,15 @@
     </div>
 </div>
 
-<py-script src="{% static 'pyscript/scropt.py' %}"> </py-script>
+
 <script>
     try {
         var writingRecords = "{{writingQuestions|safe}}";
-    } catch (e) {
+        
+    }
+    catch (e) {
         var writingRecords = "";
+        
     }
 
     try {
@@ -147,8 +162,10 @@
         var listeningRecords = "";
     }
     try {
-        var readingRecords = "{{readingQuestions|safe}}";
-    } catch (e) {
+        var readingRecords = `{{readingQuestions|safe}}`;
+        readingRecords = readingRecords.replace(/[\x00-\x1F\x7F]/g, '')
+    }
+    catch (e) {
         var readingRecords = "";
     }
 
@@ -157,7 +174,7 @@
     } catch (e) {
         var speakingRecords = "";
     }
-    csrf = "{{csrf_token}}"
+
 </script>
-<script src="{% static 'js/myQuestions.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/myQuestions.js' %}" type="text/javascript"> </script>
 {% endblock content%}

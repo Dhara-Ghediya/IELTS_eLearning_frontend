@@ -32,7 +32,7 @@
 		
 		<tr>
 			<td>
-				<form action="" method="post">
+				<form action="" method="post" class="needs-validation" novalidate>
 					{% csrf_token %}
 					Select your Identity:	
 					<select name="identity"> 
@@ -40,21 +40,81 @@
 						<option value="student">Student</option>
 						<option value="teacher">Teacher</option>
 					</select><br><br>
-					Username: <input type="text" name="username"  placeholder="Please enter your Username" required><br/><br/>
-					Email Id : <input type="email" name="email"  placeholder="Please enter your email" required><br/><br/>
-					Password : <input type="password" name="password"  placeholder="Please enter Password" required><br/><br/>
-                    Confirm Password : <input type="password" name="conf-password"  placeholder="Please enter Confirm Password" required><br/><br/>
+					Username: <input type="text" name="username" class="form-control"  placeholder="Please enter your Username" required><br/><br/>
+					Email Id : <input type="email" name="email" class="form-control"  placeholder="Please enter your email" required><br/><br/>
+					Password : <input type="password" name="password" class="form-control"  placeholder="Please enter Password" required><br/><br/>
+                    Confirm Password : <input type="password" class="form-control" name="conf-password"  placeholder="Please enter Confirm Password" required>
+					<div class="form-check m-4">
+                            <input class="form-check-input mt-3" type="checkbox" value="" name="terms" id="terms" required>
+                            <label class="form-check-label ps-4" for="invalidCheck">
+                                I confirm that I accept the site’s <a href="">Terms</a> and <a href=""> Privacy </a> agreements and <br> allow my data to be held for as long as I am registered with this Website. <br></label>
+                            </label>
+                            <div class="invalid-feedback">
+                                You must agree before submitting.
+                            </div>
+            
+                    </div>
 					{% comment %} FirstName: <input type="text" name="firstname" required><br/><br/>
 					Last Name: <input type="text" name="lastname" required><br/><br/>
 					Address : <input type="text" name="address" required><br/><br/>
 					Phone No : <input type="text" name="phone" required><br/><br/>
 					Email Id : <input type="email" name="mailid" pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]$" required><br/><br/> {% endcomment %}
-					<input type="submit" value="SignUp">
-					Already signed up? <a href="{% url 'login' %}">go to login page</a>! 
+					<input type="submit" id="SignUp" value="SignUp" disabled>
+					<div class="row pt-5">
+						<div class="col text-center">
+							Already signed up? <a href="{% url 'login' %}">go to login page</a>! 
+						</div>
+					</div>
 				</form>
 			</td>
 			
 		</tr>  
 	</table>
 </div>	
+<style>
+    .form-control{
+            width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    
+
+    }
+    .form-control : :focus{
+        border: 1px solid #ccc;
+}
+ 
+</style>
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+	(function () {
+	'use strict'
+
+	// Fetch all the forms we want to apply custom Bootstrap validation styles to
+	var forms = document.querySelectorAll('.needs-validation')
+
+	// Loop over them and prevent submission
+	Array.prototype.slice.call(forms)
+		.forEach(function (form) {
+		form.addEventListener('submit', function (event) {
+			if (!form.checkValidity()) {
+			event.preventDefault()
+			event.stopPropagation()
+			}
+
+			form.classList.add('was-validated')
+		}, false)
+		})
+	})()
+	var checkbox = document.getElementById('terms')
+	checkbox.addEventListener('click', function() {
+		console.log('classification')
+		if (checkbox.checked) {
+			document.getElementById('SignUp').disabled = false;
+		} else {
+			document.getElementById('SignUp').disabled = true;
+		}
+	});
+</script>
 {% endblock content %}

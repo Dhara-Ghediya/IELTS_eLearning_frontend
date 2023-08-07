@@ -8,19 +8,21 @@ import requests
 def teacherWritingTest(request):
     if request.method == 'POST':
         tcher = request.session['tcher_user']
-        content = request.POST.get('content')
-        images = request.FILES.get('images')
+        content1 = request.POST.get('content1')
+        image = request.FILES.get('image')
+        content2 = request.POST.get('content2')
+
         urls = f'{url}teacher/writingTests'
         headers = {
             "token": request.session['tcher_token']
         }
         data = {
             "teacher": tcher,
-            "content": content,
-            # "images": images,
+            "content1": content1,
+            "content2": content2,
         }
         file = {
-            'images': images
+            'image': image
         }
         response = requests.post(url=urls, data=data, files=file, headers=headers)
         if response.status_code == 201:
@@ -40,7 +42,7 @@ def teacherListeningTest(request):
             "token": request.session['tcher_token']
         }
         data = {
-            "teacher": tcher,
+            "teacher": tcher
             # "question": audio,
         }
         file = {
@@ -48,10 +50,10 @@ def teacherListeningTest(request):
         }
         response = requests.post(url=urls, data=data, files=file, headers=headers)
         if response.status_code == 201:
-            messages.success(request, {'msg': 'Question added successfully!'})
+            messages.success(request, {'msg': 'Question added successfully!', 'status': 'success'})
             return redirect('listeningTest')
         else:
-            messages.error(request, {'msg': 'Something went wrong!'})
+            messages.error(request, {'msg': 'Something went wrong!', 'status': 'error'})
             return redirect('listeningTest')
     return render(request, 'listeningTest.html')
 
@@ -68,12 +70,11 @@ def teacherSpeakingTest(request):
             "question": topic,
         }
         response = requests.post(url=urls, data=data, headers=headers)
-        print("response: ", response.status_code)
         if response.status_code == 201:
-            messages.success(request, {'msg': 'Question added successfully!'})
+            messages.success(request, {'msg': 'Question added successfully!', 'status': 'success'})
             return redirect('speakingTest')
         else:
-            messages.error(request, {'msg': 'Something went wrong!'})
+            messages.error(request, {'msg': 'Something went wrong!', 'status': 'error'})
             return redirect('speakingTest')
     return render(request,'speakingTest.html')
 
@@ -81,6 +82,12 @@ def teacherReadingTest(request):
     if request.method == 'POST':
         tcher = request.session['tcher_user']
         question = request.POST.get('content')
+        subQuestionsList = request.POST.getlist('ques')
+        subQuestions =[]
+        for key,value in enumerate(subQuestionsList, 1):
+            tempData ={"Q"+str(key):value}
+            subQuestions.append(tempData)
+            
         subQuestionsList = request.POST.getlist('ques')
         subQuestions =[]
         for key,value in enumerate(subQuestionsList, 1):
@@ -97,10 +104,13 @@ def teacherReadingTest(request):
             "subQuestion": subQuestions,
         }
         response = requests.post(url = urls,json=data, headers = headers)
+        response = requests.post(url = urls,json=data, headers = headers)
         if response.status_code == 201:
+            messages.success(request, {'msg': 'Question added successfully!', 'status': 'success'})
             messages.success(request, {'msg': 'Question added successfully!', 'status': 'success'})
             return redirect('readingTest')
         else:
+            messages.error(request, {'msg': 'Something went wrong!', 'status': 'error'})
             messages.error(request, {'msg': 'Something went wrong!', 'status': 'error'})
             return redirect('readingTest')
     return render(request, 'readingTest.html')
@@ -122,29 +132,37 @@ def checkWritingTest(request):
 def myQuestions(request):
     if request.method == 'GET':
         urls = f'{url}teacher/WritingQuestionsListView'
-        headers={'token': request.session.get('tcher_token'),}
+        headers={'token': request.session.get('tcher_token')}
         response = requests.get(url=urls,headers=headers)
-        writingQuestions = response
+        if response.status_code == 201:
+            writingQuestions = response.json()
+        else:
+            writingQuestions = []
         
         urls = f'{url}teacher/ListeningQuestionListView'
         response = requests.get(url=urls,headers=headers)
-        listeningQuestions = response
+        if response.status_code == 201:
+            listeningQuestions = response.json()
+        else:
+            listeningQuestions = []
         
         urls = f'{url}teacher/ReadingQuestionListView'
-        headers={'token': request.session.get('tcher_token'),}
         response = requests.get(url=urls,headers=headers)
-        readingQuestions = response
+        if response.status_code == 201:
+            readingQuestions = response.json()
+        else: 
+            readingQuestions = []
         
         urls = f'{url}teacher/SpeakingQuestionListView'
-        headers={'token': request.session.get('tcher_token'),}
         response = requests.get(url=urls,headers=headers)
-        speakingQuestions = response
+        if response.status_code == 201:
+            speakingQuestions = response.json()
+        else:
+            speakingQuestions = []
         # speakingQuestions[0]['question'] = speakingQuestions[0]['question'].replace('”',"'").replace('“',"'")
         
-        if response.status_code == 201:
-            return render(request,'myQuestions.html', {'writingQuestions': writingQuestions.json(),'listeningQuestions':listeningQuestions.json(),'readingQuestions':readingQuestions.json(),'speakingQuestions':speakingQuestions.text.replace('”',"'").replace('“',"'").replace('"',"'")})
-        else:
-            return render(request,'myQuestions.html', {'writingQuestions': writingQuestions.json()})
+        return render(request,'myQuestions.html', {'writingQuestions': writingQuestions,'listeningQuestions':listeningQuestions,'readingQuestions':readingQuestions,'speakingQuestions':speakingQuestions})
+        
 
 def deleteWritingQuestion(request):
     if request.method == 'POST' :
