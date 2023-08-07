@@ -42,11 +42,11 @@
                                         <caption>Good luck for next test</caption>
                                         <tr>
                                             <th>No</th>
-                                            <th id="time">time <i class='fas fa-angle-down'></i></th>
-                                            <th id="professor">professor </th>
-                                            <th id="professorEmail">professor Email </i></th>
-                                            <th id="status">status <i class='fas fa-angle-down'></i></th>
-                                            <th id="marks">marks <i class='fas fa-angle-down'></i></th>
+                                            <th id="timeWriting">time <i class='fas fa-angle-down'></i></th>
+                                            <th id="professorWriting">professor </th>
+                                            <th id="professorEmailWriting">professor Email </i></th>
+                                            <th id="statusWriting">status <i class='fas fa-angle-down'></i></th>
+                                            <th id="marksWriting">marks <i class='fas fa-angle-down'></i></th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-group-divider" id="recordWritingShow">
@@ -67,14 +67,14 @@
                                         <caption>Good luck for next test</caption>
                                         <tr>
                                             <th>No</th>
-                                            <th id="time">time <i class='fas fa-angle-down'></i></th>
-                                            <th id="professor">professor </th>
-                                            <th id="professorEmail">professor Email </i></th>
-                                            <th id="status">status <i class='fas fa-angle-down'></i></th>
-                                            <th id="marks">marks <i class='fas fa-angle-down'></i></th>
+                                            <th id="timeListening">time <i class='fas fa-angle-down'></i></th>
+                                            <th id="professorListening">professor </th>
+                                            <th id="professorEmailListening">professor Email </i></th>
+                                            <th id="statusListening">status <i class='fas fa-angle-down'></i></th>
+                                            <th id="marksListening">marks <i class='fas fa-angle-down'></i></th>
                                         </tr>
                                     </thead>
-                                    <tbody class="table-group-divider" id="recordShow">
+                                    <tbody class="table-group-divider" id="recordShowListening">
                                     </tbody>
                                     <tfoot>
 
@@ -92,14 +92,14 @@
                                         <caption>Good luck for next test</caption>
                                         <tr>
                                             <th>No</th>
-                                            <th id="time">time <i class='fas fa-angle-down'></i></th>
-                                            <th id="professor">professor </th>
-                                            <th id="professorEmail">professor Email </i></th>
-                                            <th id="status">status <i class='fas fa-angle-down'></i></th>
-                                            <th id="marks">marks <i class='fas fa-angle-down'></i></th>
+                                            <th id="timeReading">time <i class='fas fa-angle-down'></i></th>
+                                            <th id="professorReading">professor </th>
+                                            <th id="professorEmailReading">professor Email </i></th>
+                                            <th id="statusReading">status <i class='fas fa-angle-down'></i></th>
+                                            <th id="marksReading">marks <i class='fas fa-angle-down'></i></th>
                                         </tr>
                                     </thead>
-                                    <tbody class="table-group-divider" id="recordShow">
+                                    <tbody class="table-group-divider" id="recordShowReading">
                                     </tbody>
                                     <tfoot>
 
@@ -117,14 +117,14 @@
                                         <caption>Good luck for next test</caption>
                                         <tr>
                                             <th>No</th>
-                                            <th id="time">time <i class='fas fa-angle-down'></i></th>
-                                            <th id="professor">professor </th>
-                                            <th id="professorEmail">professor Email </i></th>
-                                            <th id="status">status <i class='fas fa-angle-down'></i></th>
-                                            <th id="marks">marks <i class='fas fa-angle-down'></i></th>
+                                            <th id="timeSpeaking">time <i class='fas fa-angle-down'></i></th>
+                                            <th id="professorSpeaking">professor </th>
+                                            <th id="professorEmailSpeaking">professor Email </i></th>
+                                            <th id="statusSpeaking">status <i class='fas fa-angle-down'></i></th>
+                                            <th id="marksSpeaking">marks <i class='fas fa-angle-down'></i></th>
                                         </tr>
                                     </thead>
-                                    <tbody class="table-group-divider" id="recordShow">
+                                    <tbody class="table-group-divider" id="recordShowSpeaking">
                                     </tbody>
                                     <tfoot>
 
@@ -140,13 +140,39 @@
 </div>
 <div class="table-responsive container mt-4 ">
     <script>
-        var WritingRecords = '{{records|safe}}';
-        WritingRecords = WritingRecords.replace(/[\x00-\x1F\x7F]/g, '')
-        // records = JSON.parse(records);
-        // console.log(JSON.parse(records));
         try {
+            var WritingRecords = '{{writingTestData|safe}}';
+            WritingRecords = WritingRecords.replace(/[\x00-\x1F\x7F]/g, '')
             WritingRecords = JSON.parse(WritingRecords);
         } catch (error) {
+            WritingRecords = [];
+            console.error('Error parsing JSON:', error);
+        }
+
+        try {
+            var listeningTestData = '{{listeningTestData|safe}}';
+            listeningTestData = listeningTestData.replace(/[\x00-\x1F\x7F]/g, '')
+            listeningTestData = JSON.parse(listeningTestData);
+        } catch (error) {
+            listeningTestData = [];
+            console.error('Error parsing JSON:', error);
+        }
+
+        try {
+            var readingTestData = '{{readingTestData|safe}}';
+            readingTestData = readingTestData.replace(/[\x00-\x1F\x7F]/g, '')
+            readingTestData = JSON.parse(readingTestData);
+        } catch (error) {
+            readingTestData = [];
+            console.error('Error parsing JSON:', error);
+        }
+        
+        try {
+            var speakingTestData = '{{speakingTestData|safe}}';
+            speakingTestData = speakingTestData.replace(/[\x00-\x1F\x7F]/g, '')
+            speakingTestData = JSON.parse(speakingTestData);
+        } catch (error) {
+            speakingTestData = [];
             console.error('Error parsing JSON:', error);
         }
         
