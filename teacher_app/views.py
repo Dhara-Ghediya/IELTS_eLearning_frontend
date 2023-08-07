@@ -82,11 +82,16 @@ def teacherReadingTest(request):
         tcher = request.session['tcher_user']
         question = request.POST.get('content')
         subQuestionsList = request.POST.getlist('ques')
+        answerList = request.POST.getlist('ans')
         subQuestions =[]
+        rightAnswers = []
         for key,value in enumerate(subQuestionsList, 1):
-            tempData ={"Q"+str(key):value}
+            tempData ={"Q"+str(key): value}
             subQuestions.append(tempData)
-            
+
+        for key,value in enumerate(answerList, 1):
+            tempData ={"ans"+str(key): value}
+            rightAnswers.append(tempData)  
         urls = f'{url}teacher/readingTests'
         headers = {
             "token": request.session['tcher_token']
@@ -95,6 +100,7 @@ def teacherReadingTest(request):
             "teacher": tcher,
             "question": question,
             "subQuestion": subQuestions,
+            "rightAnswers": rightAnswers
         }
         response = requests.post(url = urls,json=data, headers = headers)
         if response.status_code == 201:

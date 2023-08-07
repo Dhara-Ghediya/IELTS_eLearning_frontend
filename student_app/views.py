@@ -265,7 +265,32 @@ def readingTest(request):
             'token': request.session['std_token'],
         }
         if request.method == 'POST':
-            response = requests.request("POST", urls, headers=headers, data=json.dumps(request.POST))
+            que_ids = set()
+            subQues = []
+            subQuesList = []
+            for key in request.POST:
+                if key.startswith('que_id'):
+                    que_ids.add(key)
+                if key.startswith('answer'):
+                    subQues.append(key)
+            num_questions = len(que_ids)
+            for i in range(1, num_questions+1):
+                que = []
+                for j in subQues:
+                    if j.startswith(f'answer{i}_'):
+                        que.append(j)
+                subQuesList.append(que)
+
+            payload = []
+            for Qest in range(len(subQuesList)):
+                temp = dict()
+                Q_key = 'que_id'+str(Qest+1)
+                temp.update({Q_key:request.POST[Q_key]})
+                for i in subQuesList[Qest]:
+                    temp.update({i[0:6] + i[-1] :request.POST[i]})
+                payload.append(temp)
+
+            response = requests.request("POST", urls, headers=headers, data=payload)
             if response.status_code == 201:
                 messages.success(request, {'msg': "Answer was submitted successfully!", 'status': 'success'})
                 return redirect('examLibrary')
@@ -310,3 +335,31 @@ def myTests(request):
     response = requests.request("GET", urls, headers=headers, data=payload)
     data=json.loads(response.text)
     return render(request, 'myTests.html', context={'title': 'myTests', 'records': json.dumps(data)})
+
+
+# def myTests(request):
+#     w_urls = f'{url}student-myTests-writingTest'
+#     r_urls= f'{url}student-myTests-readingTest'
+#     s_urls = f'{url}student-myTests-speakingTest'
+#     l_urls = f'{url}student-myTests-listingTest'
+
+#     payload = {}
+#     headers = {'token': str(request.session.get('std_token'))}
+
+#     w_response = requests.request("GET", w_urls, headers=headers, data=payload)
+#     r_response = requests.request("GET", r_urls, headers=headers, data=payload)
+#     s_response = requests.request("GET", s_urls, headers=headers, data=payload)
+#     l_response = requests.request("GET", l_urls, headers=headers, data=payload)
+
+#     w_data=json.loads(w_response.text)
+#     r_data = json.loads(r_response.text)
+#     s_data = json.loads(s_response.text)
+#     l_data = json.loads(l_response.text)
+
+#     return render(request, 'myTests.html', context={
+#                                                     'title': 'myTests', 
+#                                                     'w_records': json.dumps(w_data),
+#                                                     'r_records': json.dumps(r_data),
+#                                                     's_records': json.dumps(s_data),
+#                                                     'l_records': json.dumps(l_data),
+#                                                 })

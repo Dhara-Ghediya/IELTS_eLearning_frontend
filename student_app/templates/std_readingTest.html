@@ -41,7 +41,7 @@
                     <div id="questionContainer">
                         {% for item in data %}
                         <div class="question">
-                            <input type="hidden" name="que_id{{forloop.counter}}" value="{{item.id}}">
+                            <input type="hidden" name="que_id{{ forloop.counter }}" value="{{item.id}}">
 
                             <h4>Read below Passage carefully:</h4> <br>
 
@@ -50,29 +50,18 @@
                             <h4> Answer below quesions based on above Passage:</h4> <br>
 
                             {% for subQues in item.subQuestion %}
-                            {{ forloop.parentloop.counter }}.{{ forloop.counter }}. {{ subQues }}
+                            {{ forloop.parentloop.counter }}.{{ forloop.counter }}. 
+                                {% for Q in subQues.values %}
+                                {{Q}}
+                                {% endfor %}
                                 <input type="text" name="answer{{ forloop.parentloop.counter }}_{{ forloop.counter }}"  placeholder="write answer here..." required><br><br>
+                                
                             {% endfor %}
                             
                         </div>
                         {% endfor %}
-                        <!-- <div class="question">
-                            <h6>2. {{data.0.question2}}</h6> 
-                            <input type="text" name="answer2" placeholder="write answer here..." required><br><br>
-                        </div>
-                        <div class="question">
-                            <h6>3. {{data.0.question3}}</h6> 
-                            <input type="text" name="answer3" placeholder="write answer here..." required><br><br>
-                        </div>
-                        <div class="question">
-                            <h6>4. {{data.0.question4}}</h6> 
-                            <input type="text" name="answer4" placeholder="write answer here..." required><br><br>
-                        </div>
-                        <div class="question">
-                            <h6>5. {{data.0.question5}}</h6> 
-                            <input type="text" name="answer5" placeholder="write answer here..." required><br><br>
-                        </div> -->
-                    </div> 
+                        
+                    </div>
                     <div class="d-flex justify-content-end">
                         <button id="nextButton" class="btn btn-primary" style="font-size: 15px;">  Next <i class="fa fa-arrow-right"></i></button>
                     </div><br>
@@ -160,7 +149,7 @@ showCurrentQuestion();
 
         // Start the timer when the page is loaded
         window.onload = function () {
-            var thirtyMinutes = 30 * 60, // 30 minutes in seconds
+            var thirtyMinutes = 60 * 60, // 30 minutes in seconds
             display = document.querySelector("#timer-display");
             startTimer(thirtyMinutes, display);
 
