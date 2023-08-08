@@ -5,6 +5,10 @@ from IELTS_eLearning_frontend.localsettings import url
 from django.contrib import messages
 import requests
 
+######################
+### POST Questions ###
+######################
+
 def teacherWritingTest(request):
     if request.method == 'POST':
         tcher = request.session['tcher_user']
@@ -117,17 +121,97 @@ def teacherReadingTest(request):
             return redirect('readingTest')
     return render(request, 'readingTest.html')
 
-def editWritingQuestion(request):
-    return render(request, 'editWritingQuestion.html')
+######################
+### edit Questions ###
+######################
+
+def editWritingQuestion(request,id):
+    urls = 'http://127.0.0.1:8000/teacher/writingTests'
+    print(request.method)
+    if request.method == 'POST':
+        print("call")
+        tcher = request.session['tcher_user']
+        content1 = request.POST.get('content1')
+        question = request.POST.get('question')
+        image = request.FILES.get('image')
+        content2 = request.POST.get('content2')
+
+        urls = f'{url}teacher/writingTests'
+        headers = {
+            "token": request.session['tcher_token']
+        }
+        data = {
+            "teacher": tcher,
+            "content1": content1,
+            "content2": content2,
+            "id" : question,
+        }
+        file = {
+            'image': image
+        }
+        response = requests.patch(url=urls, data=data, files=file, headers=headers)
+        if response.status_code == 201:
+            messages.success(request, {'msg': 'Question added successfully!','status': 'success'})
+            return redirect('myQuestion')
+        else:
+            messages.error(request, {'msg': 'Something went wrong!','error': 'error'})
+            return redirect('myQuestion')
+    data = editQuestion(request,urls,id)
+    return render(request, 'editWritingTest.html',context={'data':data})
 
 def editReadingQuestion(request):
     return render(request, 'editReadingQuestion.html')
 
-def editListeningQuestion(request):
-    return render(request, 'editListingQuestion.html')
+def editListeningQuestion(request,id):
+    urls = 'http://127.0.0.1:8000/teacher/listeningTests'
+    if request.method == 'POST':
+        audio = request.POST.get('audio_file')
+        questionId = request.POST.get('questionId')
+        headers = {
+            "token": request.session['tcher_token']
+        }
+        data = {
+            'questionId': questionId
+        }
+        file = {
+            'question': audio
+        }
+        response = requests.patch(url=urls, data=data, files=file, headers=headers)
+        if response.status_code == 201:
+            messages.success(request, {'msg': 'Question added successfully!','status': 'success'})
+            return redirect('myQuestion')
+        else:
+            messages.error(request, {'msg': 'Something went wrong!','error': 'error'})
+            return redirect('myQuestion')
+    data = editQuestion(request,urls,id)
+    return render(request, 'editListeningTestQuestion.html',context={'data':data})
 
-def editSpeakerQuestion(request):
-    return render(request, 'editSpeakingQuestion.html')
+def editSpeakingQuestion (request,id):
+    urls = 'http://127.0.0.1:8000/teacher/listeningTests'
+    if request.method == 'POST':
+        tcher = request.session['tcher_user']
+        topic = request.POST.get('content')
+        urls = f'{url}teacher/speakingTests'
+        headers = {
+            "token": request.session['tcher_token']
+        }
+        data = {
+            "teacher": tcher,
+            "question": topic,
+        }
+        response = requests.post(url=urls, data=data, headers=headers)
+        if response.status_code == 201:
+            messages.success(request, {'msg': 'Question added successfully!', 'status': 'success'})
+            return redirect('speakingTest')
+        else:
+            messages.error(request, {'msg': 'Something went wrong!', 'status': 'error'})
+            return redirect('speakingTest')
+    data = editQuestion(request,urls,id)
+    return render(request, 'editSpeakingQuestion.html',context={'data':data})
+
+########################
+### delete Question ####
+########################
     
 def deleteWritingQuestion(request):
     if request.method == 'POST' :
@@ -221,4 +305,18 @@ def deleteQuestion(request,urls):
     response = requests.delete(url=urls, data=data, headers=headers)
     return JsonResponse({'msg': response.json()})
 
+def editQuestion(request,urls,id):
+    headers = {
+        "token": request.session['tcher_token']
+    }
+    data = {
+        "question": id,
+    }
+    response = requests.get(url=urls, data=data, headers=headers)
+    try:
+        jsonData = response.json()
+        return jsonData
+    except:
+        return None    
+    
 ###################################################

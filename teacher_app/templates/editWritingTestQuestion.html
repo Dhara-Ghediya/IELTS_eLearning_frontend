@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Header Start -->
+<div class="container-fluid bg-primary py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">Edit Writing Test's Questions</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                        <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Writing Test</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Header End -->
+<div><br><br>
+    <table class="tab brown hd" style="margin-left: auto; margin-right: auto;">
+        <tr>
+            <td>
+                <h2> Post Question </h2>
+            </td>
+        </tr>
+    </table><br>
+
+    <table class="tab" border="0px" style="margin-left: auto; margin-right: auto; width: 40%;">
+
+        <tr>
+            <td>
+                <form action="" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="question" value="{{data.id}}">
+                    {% csrf_token %}
+                    <h4>1. Enter Question with Image:- </h4>
+                    <div style="padding: 0% 0% 0% 5%;">
+                        Text Content:
+                        <textarea name="content1" class="mb-4" required>{{data.question.question1.content1}}</textarea>
+                        {% comment %} <input type="text" name="content1" placeholder="Enter Text content of Question"
+                            required><br /><br /> {% endcomment %}
+                        <img src="{{data.question.question1.image}}" id="selectedImage" class="img-fluid p-5 "
+                            alt="Responsive image">
+                        Add Image: <input type="file" name="image" id="image"
+                            placeholder="Add Image of Question"><br /><br />
+                    </div>
+                    <h4>2. Enter Question without Image:- </h4>
+                    <div style="padding: 0% 0% 0% 5%;">
+                        Text Content:
+                        <textarea name="content2" class="mb-4" required>{{data.question.question2.content2}}</textarea>
+                        {% comment %} <input type="text" name="content2" placeholder="Enter Text content of Question"
+                            required><br /><br /> {% endcomment %}
+                    </div>
+                    <input type="submit" value="Update Question">
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+        let selectImage = $('#image');
+        selectImage.change(function () {
+            if (selectImage[0].files && selectImage[0].files[0]) {
+                let reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#selectedImage').attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(selectImage[0].files[0]);
+            }
+        });
+    });
+</script>
+{% endblock content %}

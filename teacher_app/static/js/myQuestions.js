@@ -180,7 +180,7 @@ function add_writing_records(records, startIndex) {
         }
         inputTr += `</td>
         <td>` + getCurrentFormattedDate(i.timeStamp) + `</td>
-        <td><a href='#' class='btn rounded btn-primary' style='background-color: #ffc107; border-color: #ffc107;''>Edit</a></td>
+        <td><a href='/teacher/editWritingQuestion/`+ i.id + `' class='btn rounded btn-primary' style='background-color: #ffc107; border-color: #ffc107;''>Edit</a></td>
         <td><a onclick='delete_single_writing_record(` + i.id + `)' class='btn btn-danger rounded'>Delete</a></td>
        
     </tr> `
@@ -194,11 +194,8 @@ function add_listening_records(records, startIndex) {
     let count = startIndex;
     $("#listeningQuestionRecordShow").empty();
     for (var i of records) {
-        var inputTr = "<tr><td> " + (Number(count) + 1) + "</td><td><audio controls><source src = " + i.question + " ></audio></td><td>" + getCurrentFormattedDate(i.timeStamp) + "</td><td><a href='#' class='btn rounded btn-primary' style='background-color: #ffc107; border-color: #ffc107;''>Edit</a></td><td><a onclick='delete_single_listening_record(" + i.id + ")'  class='btn btn-danger rounded'>Delete</a></td></tr> "
-
-
+        var inputTr = "<tr><td> " + (Number(count) + 1) + "</td><td><audio controls><source src = " + i.question + " ></audio></td><td>" + getCurrentFormattedDate(i.timeStamp) + "</td><td><a href='/teacher/editListeningQuestion/" + i.id + "' class='btn rounded btn-primary' style='background-color: #ffc107; border-color: #ffc107;''>Edit</a></td><td><a onclick='delete_single_listening_record(" + i.id + ")'  class='btn btn-danger rounded'>Delete</a></td></tr> "
         $("#listeningQuestionRecordShow").append(inputTr);
-
         count++;
     }
 }
