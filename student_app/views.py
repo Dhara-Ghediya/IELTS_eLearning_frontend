@@ -265,7 +265,32 @@ def readingTest(request):
             'token': request.session['std_token'],
         }
         if request.method == 'POST':
-            response = requests.request("POST", urls, headers=headers, data=json.dumps(request.POST))
+            que_ids = set()
+            subQues = []
+            subQuesList = []
+            for key in request.POST:
+                if key.startswith('que_id'):
+                    que_ids.add(key)
+                if key.startswith('answer'):
+                    subQues.append(key)
+            num_questions = len(que_ids)
+            for i in range(1, num_questions+1):
+                que = []
+                for j in subQues:
+                    if j.startswith(f'answer{i}_'):
+                        que.append(j)
+                subQuesList.append(que)
+
+            payload = []
+            for Qest in range(len(subQuesList)):
+                temp = dict()
+                Q_key = 'que_id'+str(Qest+1)
+                temp.update({Q_key:request.POST[Q_key]})
+                for i in subQuesList[Qest]:
+                    temp.update({i[0:6] + i[-1] :request.POST[i]})
+                payload.append(temp)
+
+            response = requests.request("POST", urls, headers=headers, data=payload)
             if response.status_code == 201:
                 messages.success(request, {'msg': "Answer was submitted successfully!", 'status': 'success'})
                 return redirect('examLibrary')

@@ -92,10 +92,14 @@ def teacherReadingTest(request):
             
         subQuestionsList = request.POST.getlist('ques')
         subQuestions =[]
+        rightAnswers = []
         for key,value in enumerate(subQuestionsList, 1):
-            tempData ={"Q"+str(key):value}
+            tempData ={"Q"+str(key): value}
             subQuestions.append(tempData)
-            
+
+        for key,value in enumerate(answerList, 1):
+            tempData ={"ans"+str(key): value}
+            rightAnswers.append(tempData)  
         urls = f'{url}teacher/readingTests'
         headers = {
             "token": request.session['tcher_token']
@@ -104,6 +108,7 @@ def teacherReadingTest(request):
             "teacher": tcher,
             "question": question,
             "subQuestion": subQuestions,
+            "rightAnswers": rightAnswers
         }
         response = requests.post(url = urls,json=data, headers = headers)
         response = requests.post(url = urls,json=data, headers = headers)
