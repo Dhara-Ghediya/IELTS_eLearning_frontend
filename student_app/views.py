@@ -287,10 +287,10 @@ def readingTest(request):
                 Q_key = 'que_id'+str(Qest+1)
                 temp.update({Q_key:request.POST[Q_key]})
                 for i in subQuesList[Qest]:
-                    temp.update({i[0:6] + i[-1] :request.POST[i]})
+                    temp.update({i[0:6] + i[-1]: request.POST[i]})
                 payload.append(temp)
 
-            response = requests.request("POST", urls, headers=headers, data=payload)
+            response = requests.request("POST", urls, headers=headers, json=payload)
             if response.status_code == 201:
                 messages.success(request, {'msg': "Answer was submitted successfully!", 'status': 'success'})
                 return redirect('examLibrary')
@@ -335,8 +335,6 @@ def myTests(request):
     
     urls = f'{url}student-myTests-listeningTest'
     response = requests.request("GET", urls, headers=headers)
-    
-    print(response)
     listeningTestData = json.loads(response.text)
     
     urls = f'{url}student-myTests-readingTest'
