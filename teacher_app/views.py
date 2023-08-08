@@ -116,7 +116,6 @@ def teacherReadingTest(request):
             "question": question,
             "subQuestion": subQuestions,
             "rightAnswers": rightAnswers
-            "rightAnswers": rightAnswers
         }
         response = requests.post(url = urls,json=data, headers = headers)
         response = requests.post(url = urls,json=data, headers = headers)
