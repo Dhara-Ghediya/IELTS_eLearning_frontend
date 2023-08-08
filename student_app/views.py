@@ -327,39 +327,24 @@ def four04(request):
     return render(request, '404.html',context={'title': '404'})
 
 def myTests(request):
-    urls = f'{url}student-myTests-writingTest'
-
-    payload = {}
     headers = {'token': str(request.session.get('std_token'))}
-
-    response = requests.request("GET", urls, headers=headers, data=payload)
-    data=json.loads(response.text)
-    return render(request, 'myTests.html', context={'title': 'myTests', 'records': json.dumps(data)})
-
-
-# def myTests(request):
-#     w_urls = f'{url}student-myTests-writingTest'
-#     r_urls= f'{url}student-myTests-readingTest'
-#     s_urls = f'{url}student-myTests-speakingTest'
-#     l_urls = f'{url}student-myTests-listingTest'
-
-#     payload = {}
-#     headers = {'token': str(request.session.get('std_token'))}
-
-#     w_response = requests.request("GET", w_urls, headers=headers, data=payload)
-#     r_response = requests.request("GET", r_urls, headers=headers, data=payload)
-#     s_response = requests.request("GET", s_urls, headers=headers, data=payload)
-#     l_response = requests.request("GET", l_urls, headers=headers, data=payload)
-
-#     w_data=json.loads(w_response.text)
-#     r_data = json.loads(r_response.text)
-#     s_data = json.loads(s_response.text)
-#     l_data = json.loads(l_response.text)
-
-#     return render(request, 'myTests.html', context={
-#                                                     'title': 'myTests', 
-#                                                     'w_records': json.dumps(w_data),
-#                                                     'r_records': json.dumps(r_data),
-#                                                     's_records': json.dumps(s_data),
-#                                                     'l_records': json.dumps(l_data),
-#                                                 })
+    
+    urls = f'{url}student-myTests-writingTest'
+    response = requests.request("GET", urls, headers=headers)
+    writingTestData = json.loads(response.text)
+    
+    urls = f'{url}student-myTests-listeningTest'
+    response = requests.request("GET", urls, headers=headers)
+    
+    print(response)
+    listeningTestData = json.loads(response.text)
+    
+    urls = f'{url}student-myTests-readingTest'
+    response = requests.request("GET", urls, headers=headers)
+    readingTestData=json.loads(response.text)
+    
+    urls = f'{url}student-myTests-speakingTest'
+    response = requests.request("GET", urls, headers=headers)
+    speakingTestData=json.loads(response.text)
+    
+    return render(request, 'myTests.html', context={'title': 'myTests', 'writingTestData': json.dumps(writingTestData),'listeningTestData':json.dumps(listeningTestData),'readingTestData':json.dumps(readingTestData),'speakingTestData':json.dumps(speakingTestData)})

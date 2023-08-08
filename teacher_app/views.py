@@ -35,7 +35,9 @@ def teacherWritingTest(request):
 
 def teacherListeningTest(request):
     if request.method == 'POST':
+        
         tcher = request.session['tcher_user']
+        print(tcher)
         audio = request.FILES.get('audio_file')
         urls = f'{url}teacher/listeningTests'
         headers = {
@@ -112,6 +114,46 @@ def teacherReadingTest(request):
             return redirect('readingTest')
     return render(request, 'readingTest.html')
 
+def editWritingQuestion(request):
+    return render(request, 'editWritingQuestion.html')
+
+def editReadingQuestion(request):
+    return render(request, 'editReadingQuestion.html')
+
+def editListeningQuestion(request):
+    return render(request, 'editListingQuestion.html')
+
+def editSpeakerQuestion(request):
+    return render(request, 'editSpeakingQuestion.html')
+    
+def deleteWritingQuestion(request):
+    if request.method == 'POST' :
+        urls = f'{url}teacher/writingTests'
+        return deleteQuestion(request,urls)
+    else:
+        return JsonResponse({'msg': 'Something went wrong', 'status': 'error'  })
+    
+def deleteReadingQuestion(request):
+    if request.method == 'POST' :
+        urls = f'{url}teacher/readingTests'
+        return deleteQuestion(request,urls)
+    else:
+        return JsonResponse({'msg': 'Something went wrong', 'status': 'error'  })
+    
+def deleteListeningQuestion(request):
+    if request.method == 'POST' :
+        urls = f'{url}teacher/listeningTests'
+        return deleteQuestion(request,urls)
+    else:
+        return JsonResponse({'msg': 'Something went wrong','status': 'error'  })
+    
+def deleteSpeakingQuestion(request):
+    if request.method == 'POST' :
+        urls = f'{url}teacher/speakingTests'
+        return deleteQuestion(request,urls)
+    else:
+        return JsonResponse({'msg': 'Something went wrong','status': 'error'  })
+
 def checkWritingTest(request):
     if request.method == 'GET':
         tcher = request.session['tcher_user']
@@ -163,52 +205,12 @@ def myQuestions(request):
         else:
             return render(request,'myQuestions.html', {'writingQuestions': writingQuestions.json()})
 
-def deleteWritingQuestion(request):
-    if request.method == 'POST' :
-        print(request.POST)
-        question_id = request.POST.get('id')
-        print(question_id)
-        urls = f'{url}teacher/writingTests'
-        headers = {
-            "token": request.session['tcher_token']
-        }
-        data = {
-            "question_id": question_id,
-        }
-        response = requests.delete(url=urls, data=data, headers=headers)
-        return JsonResponse({'msg': response.json()})
-    else:
-        return JsonResponse({'msg': 'Something went wrong', 'status': 'error'  })
-    
-def deleteReadingQuestion(request):
-    if request.method == 'POST' :
-        urls = f'{url}teacher/readingTests'
-        return deleteQuestion(request,urls)
-    else:
-        return JsonResponse({'msg': 'Something went wrong', 'status': 'error'  })
-    
-def deleteListeningQuestion(request):
-    if request.method == 'POST' :
-        urls = f'{url}teacher/listeningTests'
-        return deleteQuestion(request,urls)
-    else:
-        return JsonResponse({'msg': 'Something went wrong','status': 'error'  })
-    
-def deleteSpeakingQuestion(request):
-    if request.method == 'POST' :
-        urls = f'{url}teacher/speakingTests'
-        return deleteQuestion(request,urls)
-    else:
-        return JsonResponse({'msg': 'Something went wrong','status': 'error'  })
-
 ####################################################
 ### send request to server for deleting questions###
 ####################################################
 
 def deleteQuestion(request,urls):
-    print(request.POST)
     question_id = request.POST.get('id')
-    print(question_id)
     headers = {
         "token": request.session['tcher_token']
     }

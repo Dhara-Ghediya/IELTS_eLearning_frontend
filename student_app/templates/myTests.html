@@ -1,37 +1,169 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div class="table-responsive container mt-4 ">
-    <table class="table 
-    table-hover	
-    table-responsive
-    align-middle">
-        <thead class="table-secondary">
-            <caption>Good luck for next test</caption>
-            <tr>
-                <th>No</th>
-                <th id="time">time <i class='fas fa-angle-down'></i></th>
-                <th id="testType">test type </th>
-                <th id="professor">professor </th>
-                <th id="professorEmail">professor Email </i></th>
-                <th id="status">status <i class='fas fa-angle-down'></i></th>
-                <th id="marks">marks <i class='fas fa-angle-down'></i></th>
-            </tr>
-        </thead>
-        <tbody class="table-group-divider" id="recordShow">
-        </tbody>
-        <tfoot>
+<div class="container mt-4">
+    <div style="background-color: rgb(249, 249, 249)">
+        <div class="d-flex align-items-start">
+            <div class="nav flex-column nav-pills me-3" style="border-radius: 5px" id="v-pills-tab" role="tablist"
+                aria-orientation="vertical">
+                <button class="nav-link active d-flex align-items-center justify-content-center"
+                    style="border-radius: 5px 0px 0px 0px" id="v-pills-home-tab" data-bs-toggle="pill"
+                    data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home"
+                    aria-selected="true">
+                    writing
+                    <i class="fa fa-pen ms-2 mt-1"></i>
+                </button>
+                <button class="nav-link d-flex align-items-center justify-content-center" id="v-pills-profile-tab"
+                    data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab"
+                    aria-controls="v-pills-profile" aria-selected="false">
+                    listening
+                    <i class="fa fa-assistive-listening-systems ms-2"></i>
+                </button>
+                <button class="nav-link d-flex align-items-center justify-content-center" id="v-pills-messages-tab"
+                    data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab"
+                    aria-controls="v-pills-messages" aria-selected="false">
+                    reading
+                    <i class="fas fa-book-reader ms-2"></i>
+                </button>
+                <button class="nav-link d-flex align-items-center justify-content-center" id="v-pills-settings-tab"
+                    data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab"
+                    aria-controls="v-pills-settings" style="border-radius: 0 0 0 5px" aria-selected="false">
+                    speaking
+                    <i class="fas fa-spider-black-widow"></i>
+                </button>
+            </div>
+            <div class="tab-content w-100" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                    aria-labelledby="v-pills-home-tab">
+                    <div class="table-responsive container mt-4 w-100">
+                        <div style="min-height: 650px">
+                            <table class="table table-hover	table-responsive align-middle">
+                                    <thead class="table-secondary">
+                                        <caption>Good luck for next test</caption>
+                                        <tr>
+                                            <th>No</th>
+                                            <th id="timeWriting">time <i class='fas fa-angle-down'></i></th>
+                                            <th id="professorWriting">professor </th>
+                                            <th id="professorEmailWriting">professor Email </i></th>
+                                            <th id="statusWriting">status <i class='fas fa-angle-down'></i></th>
+                                            <th id="marksWriting">marks <i class='fas fa-angle-down'></i></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-group-divider" id="recordWritingShow">
+                                    </tbody>
+                                    <tfoot>
+
+                                    </tfoot>
+                            </table>
+                        </div>
+                        <div id="writingpagination" class="mt-3"></div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                    <div class="table-responsive container mt-4 w-100">
+                        <div style="min-height: 650px">
+                            <table class="table table-hover	table-responsive align-middle">
+                                    <thead class="table-secondary">
+                                        <caption>Good luck for next test</caption>
+                                        <tr>
+                                            <th>No</th>
+                                            <th id="timeListening">time <i class='fas fa-angle-down'></i></th>
+                                            <th id="professorListening">professor </th>
+                                            <th id="professorEmailListening">professor Email </i></th>
+                                            <th id="statusListening">status <i class='fas fa-angle-down'></i></th>
+                                            <th id="marksListening">marks <i class='fas fa-angle-down'></i></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-group-divider" id="recordShowListening">
+                                    </tbody>
+                                    <tfoot>
+
+                                    </tfoot>
+                            </table>
+                        </div>
+                        <div id="listeningpagination" class="mt-3"></div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                    <div class="table-responsive container mt-4 w-100 ">
+                        <div style="min-height: 650px;">
+                            <table class="table table-hover	table-responsive align-middle">
+                                    <thead class="table-secondary">
+                                        <caption>Good luck for next test</caption>
+                                        <tr>
+                                            <th>No</th>
+                                            <th id="timeReading">time <i class='fas fa-angle-down'></i></th>
+                                            <th id="professorReading">professor </th>
+                                            <th id="professorEmailReading">professor Email </i></th>
+                                            <th id="statusReading">status <i class='fas fa-angle-down'></i></th>
+                                            <th id="marksReading">marks <i class='fas fa-angle-down'></i></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-group-divider" id="recordShowReading">
+                                    </tbody>
+                                    <tfoot>
+
+                                    </tfoot>
+                            </table>
+                        </div>
+                        <div id="readingpagination" class="mt-3"></div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                    <div class="table-responsive container mt-4 w-100 ">
+                        <div style="min-height: 650px;">
+                            <table class="table table-hover	table-responsive align-middle">
+                                    <thead class="table-secondary">
+                                        <caption>Good luck for next test</caption>
+                                        <tr>
+                                            <th>No</th>
+                                            <th id="timeSpeaking">time <i class='fas fa-angle-down'></i></th>
+                                            <th id="professorSpeaking">professor </th>
+                                            <th id="professorEmailSpeaking">professor Email </i></th>
+                                            <th id="statusSpeaking">status <i class='fas fa-angle-down'></i></th>
+                                            <th id="marksSpeaking">marks <i class='fas fa-angle-down'></i></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-group-divider" id="recordShowSpeaking">
+                                    </tbody>
+                                    <tfoot>
 
         </tfoot>
     </table>
     <script>
-        var records = '{{records|safe}}';
-        records = records.replace(/[\x00-\x1F\x7F]/g, '')
-        // records = JSON.parse(records);
-        // console.log(JSON.parse(records));
         try {
-            const parsedData = JSON.parse(records);
+            var WritingRecords = '{{writingTestData|safe}}';
+            WritingRecords = WritingRecords.replace(/[\x00-\x1F\x7F]/g, '')
+            WritingRecords = JSON.parse(WritingRecords);
         } catch (error) {
+            WritingRecords = [];
+            console.error('Error parsing JSON:', error);
+        }
+
+        try {
+            var listeningTestData = '{{listeningTestData|safe}}';
+            listeningTestData = listeningTestData.replace(/[\x00-\x1F\x7F]/g, '')
+            listeningTestData = JSON.parse(listeningTestData);
+        } catch (error) {
+            listeningTestData = [];
+            console.error('Error parsing JSON:', error);
+        }
+
+        try {
+            var readingTestData = '{{readingTestData|safe}}';
+            readingTestData = readingTestData.replace(/[\x00-\x1F\x7F]/g, '')
+            readingTestData = JSON.parse(readingTestData);
+        } catch (error) {
+            readingTestData = [];
+            console.error('Error parsing JSON:', error);
+        }
+        
+        try {
+            var speakingTestData = '{{speakingTestData|safe}}';
+            speakingTestData = speakingTestData.replace(/[\x00-\x1F\x7F]/g, '')
+            speakingTestData = JSON.parse(speakingTestData);
+        } catch (error) {
+            speakingTestData = [];
             console.error('Error parsing JSON:', error);
         }
         let sortingOrder = "ASC"
