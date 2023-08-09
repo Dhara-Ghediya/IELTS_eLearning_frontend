@@ -84,20 +84,9 @@ def teacherReadingTest(request):
     if request.method == 'POST':
         tcher = request.session['tcher_user']
         question = request.POST.get('content')
-        subQuestionsList = request.POST.getlist('ques')
-        subQuestions =[]
-        for key,value in enumerate(subQuestionsList, 1):
-            tempData ={"Q"+str(key):value}
-            subQuestions.append(tempData)
             
         subQuestionsList = request.POST.getlist('ques')
-        subQuestions =[]
-        rightAnswers = []
-        for key,value in enumerate(subQuestionsList, 1):
-            tempData ={"Q"+str(key): value}
-            subQuestions.append(tempData)
-            
-        subQuestionsList = request.POST.getlist('ques')
+        answerList = request.POST.getlist('ans')
         subQuestions =[]
         rightAnswers = []
         for key,value in enumerate(subQuestionsList, 1):
@@ -118,13 +107,10 @@ def teacherReadingTest(request):
             "rightAnswers": rightAnswers
         }
         response = requests.post(url = urls,json=data, headers = headers)
-        response = requests.post(url = urls,json=data, headers = headers)
         if response.status_code == 201:
-            messages.success(request, {'msg': 'Question added successfully!', 'status': 'success'})
             messages.success(request, {'msg': 'Question added successfully!', 'status': 'success'})
             return redirect('readingTest')
         else:
-            messages.error(request, {'msg': 'Something went wrong!', 'status': 'error'})
             messages.error(request, {'msg': 'Something went wrong!', 'status': 'error'})
             return redirect('readingTest')
     return render(request, 'readingTest.html')
