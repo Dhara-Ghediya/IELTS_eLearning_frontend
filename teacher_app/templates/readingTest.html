@@ -23,7 +23,7 @@
 <div><br><br>
 	<table class="tab brown hd" style="margin-left: auto; margin-right: auto;">
 		<tr>
-			<td> <h2> Post Question </h2> </td>
+			<td> <h2> <u>Post Question</u> </h2> </td>
 		</tr>
 	</table><br>
 
@@ -35,10 +35,28 @@
 					
 					{% csrf_token %}
                     <div id="questionList">
-                        <div><div>paragraph:</div><textarea name="content" placeholder="Enter paragraph for Reading" rows="3" cols="35" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; resize: vertical;" required></textarea><br/><br></div>
-                        <div>1st Question: <input type="text" name="ques" placeholder="Enter First Question" required> <br/><br/></div>
-                        <div>2nd Question: <input type="text" name="ques" placeholder="Enter Second Question" required><br/><br/></div>
-                        <div>3rd Question: <input type="text" name="ques" placeholder="Enter Third Question" required><br/><br/></div>
+                        <div>
+                            <div> <h4>Enter paragraph: </h4> </div>
+                            <textarea name="content" placeholder="Enter paragraph for Reading" rows="3" cols="35" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; resize: vertical;" required></textarea><br/><br>
+                        </div>
+                        <div> 
+                            <h4>1. Enter 1st Question: </h4> 
+                            <input type="text" name="ques" placeholder="Enter First Question" required><br><br>
+                            Enter answer of above queston:
+                            <input type="text" name="ans" placeholder="Answer..." required style=""> <br/><br/>
+                        </div>
+                        <div> 
+                            <h4>2. Enter 2nd Question: </h4> 
+                            <input type="text" name="ques" placeholder="Enter Second Question" required><br/><br/>
+                            Enter answer of above queston:
+                            <input type="text" name="ans" placeholder="Answer..." required style=""> <br/><br/>
+                        </div>
+                        <div> 
+                            <h4>3. Enter 3rd Question: </h4> 
+                            <input type="text" name="ques" placeholder="Enter Third Question" required><br/><br/>
+                            Enter answer of above queston:
+                            <input type="text" name="ans" placeholder="Answer..." required style=""> <br/><br/>
+                        </div>
                     </div>
                     <div class="d-flex flex-row-reverse">
                         <div class="btn text-primary mt-2 mb-2" id="add-ques" style="font-size: 35px;" data-toggle="tooltip" data-placement="right" title="Add one more sub-question">
@@ -61,7 +79,15 @@
      document.getElementById("add-ques").addEventListener("click", function(){
      
         var div = document.getElementById("questionList");
-        var str="<div>Extra Question: <div class=' d-flex align-items-center'><input type='text' name='ques' placeholder='Enter Third Question' required><i class='fa fa-times-circle ms-2 remove-button' style='font-size:20px'></i></div><br></div>"
+        var str=`<div>
+            <h4>  Extra Question: </h4>
+            <div class=' d-flex align-items-center'>
+                <input type='text' name='ques' placeholder='Enter Extra Question' required>
+                <i class='fa fa-times-circle ms-2 remove-button' style='font-size:20px'></i>
+            </div><br>
+            Enter answer of above queston: 
+            <input type="text" name="ans" placeholder="Answer..." required style="margin-right: 50%;"> <br/><br/>
+        </div>`
         $('#questionList').append(str)
         console.log(str)
         count = count + 1

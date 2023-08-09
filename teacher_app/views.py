@@ -95,10 +95,21 @@ def teacherReadingTest(request):
             
         subQuestionsList = request.POST.getlist('ques')
         subQuestions =[]
+        rightAnswers = []
         for key,value in enumerate(subQuestionsList, 1):
-            tempData ={"Q"+str(key):value}
+            tempData ={"Q"+str(key): value}
             subQuestions.append(tempData)
             
+        subQuestionsList = request.POST.getlist('ques')
+        subQuestions =[]
+        rightAnswers = []
+        for key,value in enumerate(subQuestionsList, 1):
+            tempData ={"Q"+str(key): value}
+            subQuestions.append(tempData)
+
+        for key,value in enumerate(answerList, 1):
+            tempData ={"ans"+str(key): value}
+            rightAnswers.append(tempData)  
         urls = f'{url}teacher/readingTests'
         headers = {
             "token": request.session['tcher_token']
@@ -107,6 +118,7 @@ def teacherReadingTest(request):
             "teacher": tcher,
             "question": question,
             "subQuestion": subQuestions,
+            "rightAnswers": rightAnswers
         }
         response = requests.post(url = urls,json=data, headers = headers)
         response = requests.post(url = urls,json=data, headers = headers)
@@ -254,34 +266,34 @@ def checkWritingTest(request):
         
 def myQuestions(request):
     if request.method == 'GET':
-        urls = f'{url}teacher/WritingQuestionsListView'
-        headers={'token': request.session.get('tcher_token')}
-        response = requests.get(url=urls,headers=headers)
-        if response.status_code == 201:
+        try:
+            urls = f'{url}teacher/WritingQuestionsListView'
+            headers={'token': request.session.get('tcher_token')}
+            response = requests.get(url=urls,headers=headers)
             writingQuestions = response.json()
-        else:
-            writingQuestions = []
+        except Exception as e:
+            writingQuestions = {}
         
-        urls = f'{url}teacher/ListeningQuestionListView'
-        response = requests.get(url=urls,headers=headers)
-        if response.status_code == 201:
+        try:
+            urls = f'{url}teacher/ListeningQuestionListView'
+            response = requests.get(url=urls,headers=headers)
             listeningQuestions = response.json()
-        else:
-            listeningQuestions = []
+        except Exception as e:
+            listeningQuestions = {}
         
-        urls = f'{url}teacher/ReadingQuestionListView'
-        response = requests.get(url=urls,headers=headers)
-        if response.status_code == 201:
+        try:
+            urls = f'{url}teacher/ReadingQuestionListView'
+            response = requests.get(url=urls,headers=headers)
             readingQuestions = response.json()
-        else: 
-            readingQuestions = []
+        except Exception as e: 
+            readingQuestions = {}
         
-        urls = f'{url}teacher/SpeakingQuestionListView'
-        response = requests.get(url=urls,headers=headers)
-        if response.status_code == 201:
+        try:
+            urls = f'{url}teacher/SpeakingQuestionListView'
+            response = requests.get(url=urls,headers=headers)
             speakingQuestions = response.json()
-        else:
-            speakingQuestions = []
+        except Exception as e:
+                speakingQuestions = {}
         # speakingQuestions[0]['question'] = speakingQuestions[0]['question'].replace('”',"'").replace('“',"'")
         
         return render(request,'myQuestions.html', {'writingQuestions': writingQuestions,'listeningQuestions':listeningQuestions,'readingQuestions':readingQuestions,'speakingQuestions':speakingQuestions})
