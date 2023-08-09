@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white animated slideInDown">Speaking Test</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">Speaking Test</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+<div>
+    <div style="margin-left: 75%;">Your exam will be submit automatically after... </div>
+    <div id="timer-display" style="font-size: 40px; font-weight: bolder; color: black; padding-left: 80%;"></div>
+    
+	<table class="tab brown hd" style="margin-left: auto; margin-right: auto;">
+		<tr>
+			<td> <h2> Answer below Questions... </h2> </td>
+		</tr>
+	</table><br>
+
+	<table class="tab" border="0px" style="margin-left: auto; margin-right: auto;">
+		
+		<tr>
+			<td>
+				<form action="" method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+                    <input type="hidden" name="que_id" value="{{data.0.id}}">
+                    <h4>You have to discuss on below topic, At least 10 min you have to talk about it.</h4> <br>
+
+					<b>Topic name: </b> {{data.0.question}} <br><br>
+                    <h4> Record audio on your local device and upload over here...</h4>
+                    <input type="file" name="audio_file" placeholder="Enter Audio File" required><br/><br/>
+					<input type="submit" value="Submit">
+				</form>
+			</td>
+		</tr> 
+	</table>
+</div>	
+ <script>
+        // Function to submit the form automatically
+        function submitForm() {
+            document.querySelector("form").submit();
+        }
+        // Function to start the timer
+        function startTimer(duration, display) {
+            var timer = duration, minutes, seconds;
+            // Update the timer every second
+            var countdown = setInterval(function () {
+            minutes = parseInt(timer / 60, 10);
+            seconds = parseInt(timer % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = minutes + ":" + seconds;
+
+            if (--timer < 0) {
+                // Timer has ended, submit the form
+                clearInterval(countdown);
+                submitForm();
+            }
+            }, 1000);
+        }
+        
+        // Function to validate the answer length before form submission
+        function validateAnswer() {
+            var answer = document.querySelector("textarea[name='answer']").value;
+            var wordCount = answer.split(/\s+/).length;
+            if (wordCount < 200) {
+            alert("Your answer must be at least 200 words.");
+            return false;
+            }
+            return true;
+        }
+
+        // Start the timer when the page is loaded
+        window.onload = function () {
+            var thirtyMinutes = 30 * 60, // 30 minutes in seconds
+            display = document.querySelector("#timer-display");
+            startTimer(thirtyMinutes, display);
+
+            var submitButton = document.querySelector("input[type='submit']");
+            submitButton.addEventListener("click", function (event) {
+            if (!validateAnswer()) {
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+            });
+        };
+    </script>
+<!-- 
+
+<div class="mic-box__btn-group -static">
+    <button id="js-reset-exam" class="iot-bt mic-box__btn-reset -test-again">
+        Test Mic Again
+        <span class="ioticon-arrow-rotate-left"></span>
+    </button>
+    <button id="js-record" class="iot-bt mic-box__btn-main -pink test-btn" data-time-record="20">
+        Test Microphone
+        <span class="ioticon-play-circle"></span>
+    </button>
+    <a id="js-next-part" class="iot-bt mic-box__btn-next-part -pink iot-bt -next-part" href="/ielts-mock-test-2023-january-speaking-practice-test-1/test/start">
+        Start Exam
+        <span class="ioticon-forward-fast"></span>
+    </a>
+    <button id="js-skip-test-mic" class="iot-bt mic-box__btn-skip" data-target="#modal-reset-record">
+        Skip
+        <span class="ioticon-arrow-right-to-line"></span>
+    </button>
+</div>
+
+{% endblock content %} -->

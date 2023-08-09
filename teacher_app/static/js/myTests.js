@@ -49,10 +49,10 @@ function add_writing_records(records, recordTable) {
     for (var i = 0; i < records.length; i++) {
         var inputTr = "<tr class=''><td>" + (Number(i) + 1) + "</td><td>" + getCurrentFormattedDate(records[i].timestamp) + "</td><td>" + records[i].teacher.username + "</td><td>" + records[i].teacher.email + "</td>";
         if (records[i].checkedQuestion) {
-            inputTr += "<td><span class='badge rounded-pill bg-success'>Checked</span></td><td>" + records[i].studentObtainMarks + "</td></tr>"
+            inputTr += "<td><span class='badge rounded-pill bg-success'>Checked</span></td><td>" + records[i].studentObtainMarks + "</td><td><a class='btn btn-success'>view</a></td></tr>"
         }
         else {
-            inputTr += "<td><span class='badge rounded-pill bg-secondary'>Not Checked</span></td><td>" + records[i].studentObtainMarks + "</td></tr>"
+            inputTr += "<td><span class='badge rounded-pill bg-secondary'>Not Checked</span></td><td>" + records[i].studentObtainMarks + "</td><td><a class='btn btn-success'>view</a></td></tr>"
         }
 
         //$("#recordWritingShow").append(inputTr);
@@ -69,7 +69,7 @@ function add_rading_records(records, recordTable) {
             inputTr += "<td><span class='badge rounded-pill bg-success'>Checked</span></td><td>" + records[i].studentObtainMarks + "</td></tr>"
         }
         else {
-            inputTr += "<td><span class='badge rounded-pill bg-secondary'>Not Checked</span></td><td>" + records[i].studentObtainMarks + "</td></tr>"
+            inputTr += "<td><span class='badge rounded-pill bg-secondary'>Not Checked</span></td><td>" + records[i].studentObtainMarks + "</td><td><a class='btn btn-success'>view</a></td></tr>"
         }
 
         //$("#recordWritingShow").append(inputTr);

@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white animated slideInDown">Reading Test</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">Reading Test</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+<div>
+    <div style="margin-left: 75%;">Your exam will be submit automatically after... </div>
+    <div id="timer-display" style="font-size: 40px; font-weight: bolder; color: black; padding-left: 80%;"></div>
+
+	<table class="tab brown hd" style="margin-left: auto; margin-right: auto;">
+		<tr>
+			<td> <h2> Answer below Questions... </h2> </td>
+		</tr>
+	</table><br>
+
+	<table class="tab" border="0px" style="margin-left: auto; margin-right: auto; margin: 0% 20%;">
+		
+		<tr>
+			<td>
+                
+				<form action="" method="post" enctype="multipart/form-data">
+					
+					{% csrf_token %}       
+                    <div id="questionContainer">
+                        {% for item in data %}
+                        <div class="question">
+                            <input type="hidden" name="que_id{{ forloop.counter }}" value="{{item.id}}">
+
+                            <h4>Read below Passage carefully:</h4> <br>
+
+                            <h6>{{forloop.counter}}. {{ item.question }}</h6> 
+
+                            <h4> Answer below quesions based on above Passage:</h4> <br>
+
+                            {% for subQues in item.subQuestion %}
+                            {{ forloop.parentloop.counter }}.{{ forloop.counter }}. 
+                                {% for Q in subQues.values %}
+                                {{Q}}
+                                {% endfor %}
+                                <input type="text" name="answer{{ forloop.parentloop.counter }}_{{ forloop.counter }}"  placeholder="write answer here..." required><br><br>
+                                
+                            {% endfor %}
+                            
+                        </div>
+                        {% endfor %}
+                        
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button id="nextButton" class="btn btn-primary" style="font-size: 15px;">  Next <i class="fa fa-arrow-right"></i></button>
+                    </div><br>
+
+					<input type="submit" value="Submit">
+				</form>
+			</td>
+		</tr> 
+	</table>
+</div>	
+ <script>
+        // Function to submit the form automatically
+        function submitForm() {
+            document.querySelector("form").submit();
+        }
+        // Function to start the timer
+        function startTimer(duration, display) {
+            var timer = duration, minutes, seconds;
+            // Update the timer every second
+            var countdown = setInterval(function () {
+            minutes = parseInt(timer / 60, 10);
+            seconds = parseInt(timer % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = minutes + ":" + seconds;
+
+            if (--timer < 0) {
+                // Timer has ended, submit the form
+                clearInterval(countdown);
+                submitForm();
+            }
+            }, 1000);
+        }
+        
+</script>
+<script>
+const questionContainer = document.getElementById('questionContainer');
+const questions = questionContainer.getElementsByClassName('question');
+const nextButton = document.getElementById('nextButton');
+
+let currentQuestionIndex = 0;
+
+// Hide all questions except the first one
+function hideAllQuestions() {
+    for (let i = 0; i < questions.length; i++) {
+        questions[i].style.display = 'none';
+    }
+}
+
+// Show the current question
+function showCurrentQuestion() {
+    hideAllQuestions();
+    questions[currentQuestionIndex].style.display = 'block';
+}
+
+// Event listener for the Next button
+nextButton.addEventListener('click', function() {
+    // If there are more questions, show the next one
+    if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        showCurrentQuestion();
+    } else {
+        // If all questions have been shown, you can handle the completion of the test here
+        alert('Test completed!');
+    }
+});
+
+// Show the first question initially
+showCurrentQuestion();
+
+</script>
+<script>
+        // Function to validate the answer length before form submission
+        function validateAnswer() {
+            var answer = document.querySelector("textarea[name='answer']").value;
+            var wordCount = answer.split(/\s+/).length;
+            if (wordCount < 200) {
+            alert("Your answer must be at least 200 words.");
+            return false;
+            }
+            return true;
+        }
+
+        // Start the timer when the page is loaded
+        window.onload = function () {
+            var thirtyMinutes = 60 * 60, // 30 minutes in seconds
+            display = document.querySelector("#timer-display");
+            startTimer(thirtyMinutes, display);
+
+            var submitButton = document.querySelector("input[type='submit']");
+            submitButton.addEventListener("click", function (event) {
+            if (!validateAnswer()) {
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+            });
+        };
+    </script>
+{% endblock content %}
