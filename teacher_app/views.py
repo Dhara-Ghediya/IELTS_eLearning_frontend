@@ -41,7 +41,6 @@ def teacherListeningTest(request):
     if request.method == 'POST':
         
         tcher = request.session['tcher_user']
-        print(tcher)
         audio = request.FILES.get('audio_file')
         urls = f'{url}teacher/listeningTests'
         headers = {
@@ -126,10 +125,8 @@ def teacherReadingTest(request):
 ######################
 
 def editWritingQuestion(request,id):
-    urls = 'http://127.0.0.1:8000/teacher/writingTests'
-    print(request.method)
+    urls = f'{url}teacher/writingTests'
     if request.method == 'POST':
-        print("call")
         tcher = request.session['tcher_user']
         content1 = request.POST.get('content1')
         question = request.POST.get('question')
@@ -157,13 +154,13 @@ def editWritingQuestion(request,id):
             messages.error(request, {'msg': 'Something went wrong!','error': 'error'})
             return redirect('myQuestion')
     data = editQuestion(request,urls,id)
-    return render(request, 'editWritingTest.html',context={'data':data})
+    return render(request, 'editWritingTestQuestion.html',context={'data':data})
 
 def editReadingQuestion(request):
     return render(request, 'editReadingQuestion.html')
 
 def editListeningQuestion(request,id):
-    urls = 'http://127.0.0.1:8000/teacher/listeningTests'
+    urls = f'{url}/teacher/listeningTests'
     if request.method == 'POST':
         audio = request.POST.get('audio_file')
         questionId = request.POST.get('questionId')
@@ -187,27 +184,27 @@ def editListeningQuestion(request,id):
     return render(request, 'editListeningTestQuestion.html',context={'data':data})
 
 def editSpeakingQuestion (request,id):
-    urls = 'http://127.0.0.1:8000/teacher/listeningTests'
+    urls = f'{url}teacher/speakingTests'
     if request.method == 'POST':
-        tcher = request.session['tcher_user']
         topic = request.POST.get('content')
+        questionId = request.POST.get('question')
         urls = f'{url}teacher/speakingTests'
         headers = {
             "token": request.session['tcher_token']
         }
         data = {
-            "teacher": tcher,
             "question": topic,
+            "questionId": questionId
         }
-        response = requests.post(url=urls, data=data, headers=headers)
+        response = requests.patch(url=urls, data=data, headers=headers)
         if response.status_code == 201:
             messages.success(request, {'msg': 'Question added successfully!', 'status': 'success'})
-            return redirect('speakingTest')
+            return redirect('myQuestion')
         else:
             messages.error(request, {'msg': 'Something went wrong!', 'status': 'error'})
-            return redirect('speakingTest')
+            return redirect('myQuestion')
     data = editQuestion(request,urls,id)
-    return render(request, 'editSpeakingQuestion.html',context={'data':data})
+    return render(request, 'editSpeakingTestQuestion.html',context={'data':data})
 
 ########################
 ### delete Question ####
@@ -288,7 +285,6 @@ def myQuestions(request):
         # speakingQuestions[0]['question'] = speakingQuestions[0]['question'].replace('”',"'").replace('“',"'")
         
         return render(request,'myQuestions.html', {'writingQuestions': writingQuestions,'listeningQuestions':listeningQuestions,'readingQuestions':readingQuestions,'speakingQuestions':speakingQuestions})
-
 
 ####################################################
 ### send request to server for deleting questions###

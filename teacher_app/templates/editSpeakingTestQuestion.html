@@ -23,19 +23,18 @@
 <div><br><br>
 	<table class="tab brown hd" style="margin-left: auto; margin-right: auto;">
 		<tr>
-			<td> <h2> Post Question </h2> </td>
+			<td> <h2> Update Question </h2> </td>
 		</tr>
 	</table><br>
 
 	<table class="tab" border="0px" style="margin-left: auto; margin-right: auto;">
-		
 		<tr>
 			<td>
-				<form action="" method="post" enctype="multipart/form-data">
-					
+                <form action="" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="question" value="{{data.id}}">
 					{% csrf_token %}
-					Topic: <input type="text" name="content" placeholder="Enter Topic for Speaking" required><br/><br/>
-					<input type="submit" value="Add Question">
+					Topic: <input type="text" name="content" placeholder="Enter Topic for Speaking" value="{{data.question}}" required><br/><br/>
+					<input type="submit" value="update Question">
 				</form>
 			</td>
 		</tr> 

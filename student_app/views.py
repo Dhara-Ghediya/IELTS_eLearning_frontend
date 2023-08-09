@@ -311,7 +311,6 @@ def myTests(request):
     urls = f'{url}student-myTests-listeningTest'
     response = requests.request("GET", urls, headers=headers)
     
-    print(response)
     listeningTestData = json.loads(response.text)
     
     urls = f'{url}student-myTests-readingTest'
